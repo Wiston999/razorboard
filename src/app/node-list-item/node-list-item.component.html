@@ -1,0 +1,55 @@
+<th scope="row">
+  <a [routerLink]="[node.name]">{{ node.name }}</a>
+</th>
+<td>
+  <a [routerLink]="[node.name]">{{ node.dhcp_mac | macAddr }}</a>
+</td>
+<td>{{ node.facts.hostname || '--' }}</td>
+<td>
+  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of node.tags">
+    {{ tag.name }}
+    </span>
+  </td>
+<td>{{ (node.facts | keyvalue).length || 0 }}</td>
+<td>{{ (node.metadata | keyvalue)?.length || 0 }}</td>
+<td>
+  <code *ngIf="node.state.installed; else noPolicy">{{ node.state.installed }}</code>
+  <ng-template #noPolicy><p class="text-monospace">no-policy</p></ng-template>
+  </td>
+<td>{{ node.last_checkin | date: 'y-MM-dd hh:mm:ss' }}</td>
+<td>
+  <div class="col-md-12 btn-group">
+    <button class="btn btn-sm btn-outline-info" [routerLink]="[node.name]" ngbTooltip="Node Information">
+      <fa-icon [icon]="faInfo"></fa-icon>
+    </button>
+    <button class="btn btn-sm btn-outline-light" [routerLink]="[node.name, 'log']" ngbTooltip="Node logs">
+      <fa-icon [icon]="faFileAlt"></fa-icon>
+    </button>
+    <button class="btn btn-sm btn-outline-danger" (click)="open(content)" ngbTooltip="Reinstall Node">
+      <fa-icon [icon]="faRedoAlt"></fa-icon>
+    </button>
+  </div>
+</td>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="reinstall-modal">Reinstall {{ node.name }}?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="reinstallForm" (ngSubmit)="connect()">
+      <div class="form-group">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" formControlName="keepPolicy"/>
+          <label class="form-check-label">Keep installed policy?</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('cancel')">Cancel</button>
+    <button type="button" class="btn btn-outline-info btn-sm" (click)="modal.close('ok')">OK</button>
+  </div>
+</ng-template>

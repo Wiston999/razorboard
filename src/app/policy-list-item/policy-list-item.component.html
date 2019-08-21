@@ -1,0 +1,15 @@
+<th scope="row">{{ policy.name }}</th>
+<td class="text-monospace">{{ policy.repo.name || '--' }}</td>
+<td class="text-monospace">{{ policy.broker.name || '--' }}</td>
+<td class="text-monospace">{{ policy.task.name || '--' }}</td>
+<td>
+  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of policy.tags">
+    {{ tag.name }}
+    </span>
+  </td>
+<td><code>{{ policy.enabled }}</code></td>
+<td>
+  <ngb-progressbar [type]="barColor()" [value]="policy.nodes.count" [max]="policy.max_count">
+    {{ policy.nodes.count }} of {{ policy.max_count }} ({{ policy.nodes.count / policy.max_count * 100.0 | number }} %)
+  </ngb-progressbar>
+</td>

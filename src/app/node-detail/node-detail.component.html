@@ -1,0 +1,111 @@
+<div class="text-monospace" class="row">
+  <div class="col-md-12">
+    <h2>{{ node.name }} (<code>{{ (node.facts && node.facts.hostname) ? node.facts.hostname : 'no-hostname' }}</code>)</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5 shadow">
+    <h3>Basic Information</h3>
+    <div class="row">
+      <div class="col-md-3">
+        <strong>Interfaces MAC</strong>
+      </div>
+      <div class="col-md-9">
+        <p class="text-monospace my-1" *ngFor="let mac of node.hw_info?.mac">
+        {{ mac | macAddr }} <fa-icon *ngIf="mac == node.dhcp_mac" [icon]="faServer" ngbTooltip="DHCP Interface"></fa-icon>
+        </p>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div *ngIf="node.hw_info?.serial" class="row">
+      <div class="col-md-3">
+        <strong>Serial</strong>
+      </div>
+      <div class="col-md-9">
+        <p class="text-monospace">
+        {{ node.hw_info.serial }}
+        </p>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div *ngIf="node.hw_info?.uuid" class="row">
+      <div class="col-md-3">
+        <strong>UUID</strong>
+      </div>
+      <div class="col-md-9">
+        <p class="text-monospace">
+        {{ node.hw_info.uuid }}
+        </p>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <strong>State</strong>
+      </div>
+      <div class="col-md-9">
+        <p class="my-1">
+          <em>Installed:</em> {{ node.state?.installed }}
+        </p>
+        <p class="my-1" *ngIf="node.state?.installed_at">
+          <em>Installed at:</em> {{ node.state.installed_at }}
+        </p>
+        <p class="my-1" *ngIf="node.state?.stage">
+          <em>Stage:</em> {{ node.state.stage }}
+        </p>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <strong>Tags</strong>
+      </div>
+      <div class="col-md-9">
+        <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of node.tags">
+          {{ tag.name }}
+        </span>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <strong>Metadata</strong>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12 text-monospace" *ngFor="let item of node.metadata | keyvalue">
+            <strong>{{ item.key }}</strong> <pre>{{ item.value | json }}</pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div class="row">
+      <div node-log-viewer class="col-md-12">
+        <button class="btn btn-block btn-outline-warning" [routerLink]="['log']" ngbTooltip="View node logs">
+          View node logs
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 shadow h-25 d-inline-block">
+    <div class="row">
+      <div class="col-md-3">
+        <h3>Facts ({{ (node.facts | keyvalue)?.length }})</h3>
+      </div>
+      <div class="offset-md-6 col-md-3 btn-group btn-group-toggle">
+        <label class="btn btn-outline-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="showEmpty">
+          <span *ngIf="showEmpty">Hide empty facts</span>
+          <span *ngIf="!showEmpty">Show all facts</span>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div [hidden]="!fact.value && !showEmpty" class="col-md-6 text-monospace" *ngFor="let fact of node.facts | keyvalue">
+        <strong>{{ fact.key }}</strong> <pre>{{ fact.value | json }}</pre>
+      </div>
+    </div>
+  </div>
+</div>
+<pre *ngIf="devMode">{{ node|json }}</pre>

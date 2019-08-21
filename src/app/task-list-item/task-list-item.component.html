@@ -1,0 +1,11 @@
+<th scope="row">{{ task.name }}</th>
+<td>{{ task.os.version }}</td>
+<td>{{ task.base ? task.base.name : '--' }}</td>
+<td>
+  <ul>
+    <li *ngFor="let item of task.boot_seq | keyvalue">
+      {{ item.key }}: {{ item.value }}
+      </li>
+    </ul>
+  </td>
+<td>{{ task.description }}</td>
