@@ -6,21 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+
+## [0.1.0] - 2020-10-08
+### Added
 - Node log viewer
 - Sort by node 'Last Seen' column
 - Node reinstall option
+- Node detail view
+- Action buttons on node list items
+- Node model class
+- List views for basic razor objects (nodes, hooks, tags, tasks, repos, policies, configuration)
 
 ### Changed
 - Switch from cookie storage to local storage for settings
 - Sortable columns show pointer cursor
-
-## [0.2.0] - 2019-09-39
-### Added
-- Node detail view
-- Action buttons on node list items
-- Node model class
-
-## [0.1.0] - 2019-09-23
-### Added
-- List views for basic razor objects (nodes, hooks, tags, tasks, repos, policies, configuration)
-
