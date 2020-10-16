@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { StorageServiceModule } from 'ngx-webstorage-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpLoadingService } from './http-loading.service';
 import { HttpLoadingInterceptor } from './http-loading.interceptor';
@@ -68,7 +67,6 @@ import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.compon
     NgbModule,
     FontAwesomeModule,
     OrderModule,
-    StorageServiceModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),

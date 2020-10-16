@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
-import { timer } from 'rxjs';
+import { BehaviorSubject, timer, interval, merge } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 import { ApiResponse } from './models/apiresponse.model';
@@ -8,6 +9,17 @@ import { RazorapiService } from './razorapi.service';
 export abstract class PolledView implements OnInit {
   private itemsSubscription;
   private timerSubscription;
+  private readonly autoRefresh$ = interval(5000).pipe(
+    startWith(0)
+  );
+
+  private readonly refreshToken$ = new BehaviorSubject(undefined);
+  private readonly item$ = merge(
+    this.autoRefresh$,
+    this.refreshToken$,
+  ).pipe(
+    switchMap(() => this.getData()),
+  );
 
   constructor(
     protected razorApi: RazorapiService,
@@ -18,43 +30,17 @@ export abstract class PolledView implements OnInit {
   abstract processData(response);
 
   ngOnInit() {
-    this.refreshData();
+    this.itemsSubscription = this.item$.subscribe(response => this.processData(response));
+    this.refreshToken$.next(undefined);
   }
 
   asyncRefresh() {
-    this.refreshData(false);
-  }
-
-  refreshData(subscribe: boolean = true) {
-    this.itemsSubscription = this.getData().subscribe(
-      response => {
-        this.processData(response);
-        if (subscribe) {
-          this.subscribeToData();
-        }
-      },
-      err => {
-        this.toastr.error(err.message, 'Request failed', {
-          timeOut: this.razorApi.getRefresh() * 500,
-          progressBar: true
-        });
-        if (subscribe) {
-          this.subscribeToData();
-        }
-      }
-    );
+    this.refreshToken$.next(undefined);
   }
 
   ngOnDestroy() {
     if (this.itemsSubscription) {
       this.itemsSubscription.unsubscribe();
     }
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-    }
-  }
-
-  private subscribeToData(): void {
-    this.timerSubscription = timer(this.razorApi.getRefresh() * 1000).subscribe(() => this.refreshData());
   }
 }
