@@ -5,3 +5,5 @@
 .sortable:hover {
   cursor: pointer;
 }
+
+body { padding-top: 60px; }
