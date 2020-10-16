@@ -19,13 +19,13 @@ export class NodeListItemComponent implements OnInit {
   @Input() node;
   @Input() columns:string[];
 
-  private faFileAlt = faFileAlt;
-  private faRedoAlt = faRedoAlt;
-  private faInfo = faInfoCircle;
-  private reinstallForm: FormGroup;
+  faFileAlt = faFileAlt;
+  faRedoAlt = faRedoAlt;
+  faInfo = faInfoCircle;
+  reinstallForm: FormGroup;
 
   constructor(
-    private colorTag: ColorTagService,
+    public colorTag: ColorTagService,
     private modalService: NgbModal,
     private razorapiService: RazorapiService,
     private toastr: ToastrService,

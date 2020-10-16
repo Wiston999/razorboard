@@ -15,7 +15,7 @@ import { HttpLoadingService } from '../http-loading.service';
 export class TopBarComponent implements OnInit {
   @Input() title: string;
   activeItem: string;
-  private connForm: FormGroup;
+  connForm: FormGroup;
 
   httpLoading: Subject<boolean> = this.loaderService.loading;
 

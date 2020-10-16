@@ -1,27 +1,91 @@
 # Razorboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
+> Visualize and manage resources in a [Razor server](https://github.com/puppetlabs/razor-server)
 
-## Development server
+## Why this project?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+While razor CLI is enough to manage a razor server, it requires some knowledge about what razor is and
+how it works. Using razor CLI you'll sooner or later find some of the following problems when you want
+to query or reprovision a node:
+- Find a node ID when you only know its MAC address. This is "easiest" as `razor nodes` reports the node MAC in the same row of its ID
+ so `razor nodes | grep 00:00:00:00:00` is OK.
+- Find a node ID when you only know its current hostname. This is hardest, as you'll need a very well crafted `curl` to your razor
+ API `api/collections/nodes?depth=1` endpoint and some `jq` black magic.
+- Following razor logs when a node is being provisioned. For those that don't fully trust `preseed`, `kickstart` or any other provisioning
+ method, `watch razor nodes nodeID logs` has been used to track provisioning process.
 
-## Code scaffolding
+So **Razorboard** was created, to simplify previous (and probably other) tasks making Razor API available under a Web UI
+that lets you visualize, query and manage razor server without having to know all `razor` CLI subcommands.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Screenshots
 
-## Build
+**Nodes list**
+![nodes-list](./screenshots/nodes.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+**Policies list**
+![policies-list](./screenshots/policies.png)
 
-## Running unit tests
+**Tasks list**
+![tasks-list](./screenshots/tasks.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Developing 🔧
 
-## Running end-to-end tests
+A full working developing environment is included using `docker-compose`. To start it, you can just execute
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+docker-compose up
+```
 
-## Further help
+This will start the following containers:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- **razorserver**: A working Razor server listening at port 8150.
+- **postgres**: Internal Razor database listening at port 5432.
+  - If you have a Razor database dump, you can place it under `dev-environment/postgres` folder with `.sql` extension,
+   postgres container will load the dump at boot time.
+- **razorboard**: Razorboard started using `ng serve`, with live-reload support and rest of AngularJS develepment niceties,
+ listening at port 4200.
+
+## Testing ⚙️
+
+
+## Deployment 📦
+
+A Dockerfile is provided for building the project. It builds angular application and serves
+static files with nginx. Additionally a *reverse proxy* is configured in nginx to redirect Razor
+API requests sent to the same Razorboard host.
+
+For building docker image just run `docker build .`
+
+For running Razorboard using docker you can:
+
+```
+docker run -it --rm -e RAZOR_API=http://my-razor-host:8150 -p8080:80 razorboard:v0.1.0
+```
+
+This will serve Razorboard at port **8080** and also proxy Razor API requests to `http://my-razor-host:8150`.
+
+### NOTE
+
+Securing both Razor API is of scope of this project, for additional information about how to
+secure Razor API read [here](https://github.com/puppetlabs/razor-server/wiki/Securing-the-server).
+
+## TODO LIST
+
+* [X] Visualize all Razor API resources
+* [X] reinstall-node command
+* [ ] HTTPS nginx configuration at Dockerfile
+* [ ] Support Razor API basic authentication
+* [ ] Node metadata modification
+
+## Built with 🛠️
+
+* [AngularJS](https://angularjs.org/) - Version 8.2.1
+
+## Versioning 📌
+
+[SemVer](http://semver.org/) is followed to create versions.
+For a list of versions and what changed you can check [changelog](./CHANGELOG.md)
+
+## License 📄
+
+TBD

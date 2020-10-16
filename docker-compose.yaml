@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  razor-server:
+    build: ./dev-environment/razor
+    ports:
+      - "8150:8150"
+    depends_on:
+      - postgresql
+  postgresql:
+    image: postgres:9
+    environment:
+      - 'POSTGRES_PASSWORD=razor'
+      - 'POSTGRES_USER=razor'
+      - 'POSTGRES_DB=razor'
+    volumes:
+      - './dev-environment/postgres:/docker-entrypoint-initdb.d'
+    ports:
+      - 5432:5432
+  razorboard-dev:
+    image: node:12.19
+    working_dir: /app
+    volumes:
+      - './razorboard:/app'
+    command: [npm, start]
+    ports:
+      - 4200:4200

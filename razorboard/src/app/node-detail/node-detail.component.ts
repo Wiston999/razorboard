@@ -18,16 +18,16 @@ import { Node } from '../models/node.model';
 })
 export class NodeDetailComponent extends PolledView {
   private nodeId: string;
-  private node: Node;
-  private devMode: boolean = false;
-  private showEmpty: boolean = false;
+  devMode = false;
+  showEmpty = false;
+  node: Node;
   faServer = faServer;
 
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
     private route: ActivatedRoute,
-    private colorTag: ColorTagService,
+    public colorTag: ColorTagService,
   ) {
     super(razorApi, toastr);
     this.devMode = isDevMode();

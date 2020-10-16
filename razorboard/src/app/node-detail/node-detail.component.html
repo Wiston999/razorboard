@@ -1,6 +1,6 @@
 <div class="text-monospace" class="row">
   <div class="col-md-12">
-    <h2>{{ node.name }} (<code>{{ (node.facts && node.facts.hostname) ? node.facts.hostname : 'no-hostname' }}</code>)</h2>
+    <h2>{{ node.name }} (<code>{{ (node.facts && node.facts['hostname']) ? node.facts['hostname'] : 'no-hostname' }}</code>)</h2>
   </div>
 </div>
 <div class="row">
@@ -45,13 +45,13 @@
       </div>
       <div class="col-md-9">
         <p class="my-1">
-          <em>Installed:</em> {{ node.state?.installed }}
+          <em>Installed:</em> {{ node.state['installed'] }}
         </p>
-        <p class="my-1" *ngIf="node.state?.installed_at">
-          <em>Installed at:</em> {{ node.state.installed_at }}
+        <p class="my-1" *ngIf="node.state && node.state['installed_at']">
+          <em>Installed at:</em> {{ node.state['installed_at'] }}
         </p>
-        <p class="my-1" *ngIf="node.state?.stage">
-          <em>Stage:</em> {{ node.state.stage }}
+        <p class="my-1" *ngIf="node.state && node.state['stage']">
+          <em>Stage:</em> {{ node.state['stage'] }}
         </p>
       </div>
       <div class="col-md-12"><hr class="bg-light"/></div>

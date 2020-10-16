@@ -34,20 +34,20 @@ import { PolledView } from '../polled-view';
   ],
 })
 export class ListViewComponent extends PolledView {
-  private element: string;
-  private filter: string;
-  private sortField: string = 'name';
-  private sortReverse: boolean = false;
-  private showTotal = true;
-  private devMode = false;
-  private total: number = 0;
-  private filterTotal: number = 0;
+  element: string;
+  filter: string;
+  sortField = 'name';
+  sortReverse = false;
+  showTotal = true;
+  devMode = false;
+  total = 0;
+  filterTotal = 0;
+  items: any[];
   private responseItems: any[];
-  private items: any[];
 
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
-  private headersMapping = {
+  headersMapping = {
     'nodes': [
       { 'label': 'Name', 'name': 'name', 'sort': true },
       { 'label': 'MAC', 'name': 'dhcp_mac', 'sort': true },
@@ -97,7 +97,7 @@ export class ListViewComponent extends PolledView {
     ],
   };
 
-  private pluralMapping = {
+  pluralMapping = {
     'nodes': {
       '=1': '1 node',
       'other': '# nodes',

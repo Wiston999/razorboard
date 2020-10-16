@@ -17,6 +17,7 @@ export class Node {
   policy: ExternalRef;
   tags: ExternalRef[];
   hw_info: HWInfo;
+  state: { string: string };
   metadata: { string: string };
   facts: { string: any };
 }

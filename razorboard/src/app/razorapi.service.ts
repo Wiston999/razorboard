@@ -18,7 +18,7 @@ export class RazorapiService {
     private http: HttpClient,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
   ) {
-    this.endpoint = this.getSetting('endpoint', 'http://localhost:8150');
+    this.endpoint = this.getSetting('endpoint', `${window.location.protocol}//${window.location.host}`);
     this.username = this.getSetting('username', '');
     this.password = this.getSetting('password', '');
     this.refresh = +this.getSetting('refresh', '15');
@@ -37,13 +37,13 @@ export class RazorapiService {
   }
 
   connect(
-    endpoint : string,
-    username : string,
-    password : string,
-    refresh : number,
-  ) : void {
+    endpoint: string,
+    username: string,
+    password: string,
+    refresh: number,
+  ): void {
     console.log('RazorApiService connect');
-    let headers = new HttpHeaders();
+    const headers = new HttpHeaders();
     if ( username && password ) {
       console.log('Authentication still not implemented');
     }
@@ -132,8 +132,8 @@ export class RazorapiService {
 
   reinstallNode(id: string, keepPolicy: boolean) {
     return this.command('reinstall-node', {
-      'name': id,
-      'same_policy': keepPolicy,
+      name: id,
+      same_policy: keepPolicy,
     });
   }
 }

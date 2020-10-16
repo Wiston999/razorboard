@@ -11,14 +11,14 @@ export class PolicyListItemComponent implements OnInit {
   @Input() columns: string[];
 
   constructor(
-    private colorTag: ColorTagService,
+    public colorTag: ColorTagService,
   ) { }
 
   ngOnInit() {
   }
 
   barColor(): string {
-    let percentage = this.policy.nodes.count / this.policy.max_count;
+    const percentage = this.policy.nodes.count / this.policy.max_count;
     if (percentage >= 1) {
       return 'danger';
     } else if (percentage >= 0.85) {

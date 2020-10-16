@@ -17,20 +17,20 @@ import { NodeLog } from '../models/node-log.model';
   styleUrls: ['./node-log-viewer.component.css']
 })
 export class NodeLogViewerComponent extends PolledView {
-  private nodeId: string;
-  private entries: NodeLog[];
-  private devMode: boolean = false;
-  private sortReverse: boolean = true;
-  private sortField: string = 'timestamp';
-  private filter: string = '';
-  private total: number = 0;
-  private filterTotal: number = 0;
   private responseItems: any[];
+  nodeId: string;
+  entries: NodeLog[];
+  devMode = false;
+  sortReverse = true;
+  sortField = 'timestamp';
+  filter = '';
+  total = 0;
+  filterTotal = 0;
 
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
-  private headers = [ 'Time', 'Severity', 'Event', 'Message' ];
-  private pluralMapping = {
+  headers = [ 'Time', 'Severity', 'Event', 'Message' ];
+  pluralMapping = {
     '=1': '1 entry',
     'other': '# entries',
   };
