@@ -8,18 +8,8 @@ import { RazorapiService } from './razorapi.service';
 
 export abstract class PolledView implements OnInit, OnDestroy {
   private itemsSubscription;
-  private timerSubscription;
-  private readonly autoRefresh$ = interval(5000).pipe(
-    startWith(0)
-  );
 
-  private readonly refreshToken$ = new BehaviorSubject(undefined);
-  private readonly item$ = merge(
-    this.autoRefresh$,
-    this.refreshToken$,
-  ).pipe(
-    switchMap(() => this.getData()),
-  );
+  private readonly refresh$ = new BehaviorSubject(undefined);
 
   constructor(
     protected razorApi: RazorapiService,
@@ -30,12 +20,18 @@ export abstract class PolledView implements OnInit, OnDestroy {
   abstract processData(response);
 
   ngOnInit() {
-    this.itemsSubscription = this.item$.subscribe(response => this.processData(response));
-    this.refreshToken$.next(undefined);
+    this.itemsSubscription = merge(
+      this.razorApi.reload$,
+      this.refresh$,
+    ).pipe(
+      switchMap(() => this.getData()),
+    ).subscribe(
+      response => this.processData(response)
+    );
   }
 
   asyncRefresh() {
-    this.refreshToken$.next(undefined);
+    this.refresh$.next(undefined);
   }
 
   ngOnDestroy() {

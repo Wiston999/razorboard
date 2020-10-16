@@ -2,7 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { Subject, BehaviorSubject, timer, interval, merge } from 'rxjs';
+import { takeWhile, takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { ApiResponse } from './models/apiresponse.model';
 
 @Injectable({
@@ -13,6 +14,10 @@ export class RazorapiService {
   private username: string;
   private password: string;
   private refresh: number;
+  private refreshEnabled: boolean;
+  private refreshTimer$;
+  private readonly refreshAsync$ = new BehaviorSubject(undefined);
+  reload$: Observable<any>;
 
   constructor(
     private http: HttpClient,
@@ -22,6 +27,20 @@ export class RazorapiService {
     this.username = this.getSetting('username', '');
     this.password = this.getSetting('password', '');
     this.refresh = +this.getSetting('refresh', '15');
+    this.refreshEnabled = this.getSetting('refreshEnabled', 'true') === 'true';
+    this.refreshTimer$ = interval(this.refresh * 1000).pipe(
+      startWith(0)
+    );
+    this.reload$ = merge(
+      this.refreshAsync$
+    ).pipe(
+      switchMap(() => {
+        return interval(this.refresh * 1000).pipe(
+          startWith(0),
+          takeWhile(() => this.refreshEnabled)
+        );
+      })
+    );
   }
 
   getSetting(key: string, def: string) {
@@ -41,21 +60,31 @@ export class RazorapiService {
     username: string,
     password: string,
     refresh: number,
+    refreshEnabled: boolean,
   ): void {
     console.log('RazorApiService connect');
     const headers = new HttpHeaders();
+    let reload = false;
     if ( username && password ) {
       console.log('Authentication still not implemented');
+    }
+    if (this.endpoint !== endpoint || this.refresh !== refresh || !this.refreshEnabled && refreshEnabled) {
+      reload = true;
     }
     this.endpoint = endpoint;
     this.username = username;
     this.password = password;
     this.refresh = refresh;
+    this.refreshEnabled = refreshEnabled;
     this.setSetting('endpoint', endpoint);
     this.setSetting('username', username);
     this.setSetting('password', password);
     this.setSetting('refresh', refresh.toString());
-    // return this.http.get(`{endpoint}/api`);
+    this.setSetting('refreshEnabled', refreshEnabled.toString());
+
+    if (reload) {
+      this.refreshAsync$.next(undefined);
+    }
   }
 
   getUsername(): string {
@@ -72,6 +101,10 @@ export class RazorapiService {
 
   getRefresh(): number {
     return this.refresh;
+  }
+
+  getRefreshEnabled(): boolean {
+    return this.refreshEnabled;
   }
 
   private request(collection: string): Observable<ApiResponse> {

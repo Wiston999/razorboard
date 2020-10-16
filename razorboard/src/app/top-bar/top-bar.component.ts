@@ -66,7 +66,15 @@ export class TopBarComponent implements OnInit {
       ]),
       username: new FormControl(this.razorapiService.getUsername()),
       password: new FormControl(this.razorapiService.getPassword()),
-      refresh: new FormControl(this.razorapiService.getRefresh()),
+      refresh: new FormControl({value: this.razorapiService.getRefresh(), disabled: !this.razorapiService.getRefreshEnabled()}),
+      refreshEnabled: new FormControl(this.razorapiService.getRefreshEnabled()),
+    });
+    this.connForm.get('refreshEnabled').valueChanges.subscribe(v => {
+      if (v) {
+        this.connForm.get('refresh').enable();
+      } else {
+        this.connForm.get('refresh').disable();
+      }
     });
   }
 
@@ -78,6 +86,7 @@ export class TopBarComponent implements OnInit {
           this.connForm.value.username,
           this.connForm.value.password,
           this.connForm.value.refresh,
+          this.connForm.value.refreshEnabled,
         );
       } else {
         console.log('Dismissed modal');
