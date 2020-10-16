@@ -17,7 +17,7 @@ import { faFileAlt, faRedoAlt, faInfoCircle } from '@fortawesome/free-solid-svg-
 })
 export class NodeListItemComponent implements OnInit {
   @Input() node;
-  @Input() columns:string[];
+  @Input() columns: string[];
 
   faFileAlt = faFileAlt;
   faRedoAlt = faRedoAlt;

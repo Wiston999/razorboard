@@ -15,5 +15,5 @@ export class NodeLog extends LogEntry {
   template: string;
   url: string;
   vars: { string: any };
-  policy_name: string;
+  policyName: string;
 }

@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, timer, interval, merge } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiResponse } from './models/apiresponse.model';
 import { RazorapiService } from './razorapi.service';
 
-export abstract class PolledView implements OnInit {
+export abstract class PolledView implements OnInit, OnDestroy {
   private itemsSubscription;
   private timerSubscription;
   private readonly autoRefresh$ = interval(5000).pipe(

@@ -16,7 +16,7 @@ import { Node } from '../models/node.model';
   templateUrl: './node-detail.component.html',
   styleUrls: ['./node-detail.component.css']
 })
-export class NodeDetailComponent extends PolledView {
+export class NodeDetailComponent extends PolledView implements OnInit {
   private nodeId: string;
   devMode = false;
   showEmpty = false;

@@ -9,17 +9,17 @@ export class HooksFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterHook(item, filter));
+      const outputItems = items.filter(item => this.filterHook(item, filter));
       return outputItems;
     }
   }
 
   filterHook(hook, filter: string): boolean {
-    if (hook.name.includes(filter)){
+    if (hook.name.includes(filter)) {
       return true;
     }
     if (hook.hook_type && hook.hook_type.includes(filter)) {
-      return true
+      return true;
     }
     return false;
   }

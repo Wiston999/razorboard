@@ -33,7 +33,7 @@ import { PolledView } from '../polled-view';
     ConfigFilterPipe,
   ],
 })
-export class ListViewComponent extends PolledView {
+export class ListViewComponent extends PolledView implements OnInit {
   element: string;
   filter: string;
   sortField = 'name';

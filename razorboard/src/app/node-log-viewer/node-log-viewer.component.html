@@ -60,8 +60,8 @@
               <div *ngIf="entry.url" class="col-md-12">
                 URL: {{ entry.url }}
               </div>
-              <div *ngIf="entry.policy || entry.policy_name" class="col-md-12">
-                Policy: {{ entry.policy || entry.policy_name }}
+              <div *ngIf="entry.policy || entry.policyName" class="col-md-12">
+                Policy: {{ entry.policy || entry.policyName }}
               </div>
               <div *ngIf="entry.vars" class="col-md-12">
                 Vars: <pre>{{ entry.vars | json }}</pre>

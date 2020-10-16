@@ -9,17 +9,16 @@ export class TagsFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterTag(item, filter));
-      return outputItems;
+      return items.filter(item => this.filterTag(item, filter));
     }
   }
 
   filterTag(tag, filter: string): boolean {
-    if (tag.name.includes(filter)){
+    if (tag.name.includes(filter)) {
       return true;
     }
     if (JSON.stringify(tag.rule).includes(filter)) {
-      return true
+      return true;
     }
     return false;
   }

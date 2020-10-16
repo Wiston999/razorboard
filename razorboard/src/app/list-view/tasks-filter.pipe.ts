@@ -9,17 +9,16 @@ export class TasksFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterTask(item, filter));
-      return outputItems;
+      return items.filter(item => this.filterTask(item, filter));
     }
   }
 
   filterTask(task, filter: string): boolean {
-    if (task.name.includes(filter)){
+    if (task.name.includes(filter)) {
       return true;
     }
     if (task.base && task.base.name.includes(filter)) {
-      return true
+      return true;
     }
     if (task.description.includes(filter)) {
       return true;

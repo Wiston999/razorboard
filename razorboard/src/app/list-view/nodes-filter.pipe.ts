@@ -9,25 +9,25 @@ export class NodesFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterNode(item, filter));
+      const outputItems = items.filter(item => this.filterNode(item, filter));
       return outputItems;
     }
   }
 
   filterNode(node, filter: string): boolean {
-    if (node.name.includes(filter)){
+    if (node.name.includes(filter)) {
       return true;
     }
     if (node.dhcp_mac.includes(filter) || node.dhcp_mac.replace(/-/g, ':').includes(filter)) {
-      return true
+      return true;
     }
     if (node.facts.hostname && node.facts.hostname.includes(filter)) {
-      return true
+      return true;
     }
     if (node.policy && node.policy.name.includes(filter)) {
-      return true
+      return true;
     }
-    for (let tag of node.tags) {
+    for (const tag of node.tags) {
       if (tag.name.includes(filter)) {
         return true;
       }

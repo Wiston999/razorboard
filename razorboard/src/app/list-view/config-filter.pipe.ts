@@ -9,13 +9,13 @@ export class ConfigFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterConfig(item, filter));
+      const outputItems = items.filter(item => this.filterConfig(item, filter));
       return outputItems;
     }
   }
 
   filterConfig(config, filter: string): boolean {
-    if (config.name.includes(filter)){
+    if (config.name.includes(filter)) {
       return true;
     }
     return false;

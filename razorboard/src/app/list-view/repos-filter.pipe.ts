@@ -9,23 +9,22 @@ export class ReposFilterPipe implements PipeTransform {
     if (!filter) {
       return items;
     } else {
-      let outputItems = items.filter(item => this.filterRepo(item, filter));
-      return outputItems;
+      return items.filter(item => this.filterRepo(item, filter));
     }
   }
 
   filterRepo(repo, filter: string): boolean {
-    if (repo.name.includes(filter)){
+    if (repo.name.includes(filter)) {
       return true;
     }
     if (repo.url && repo.url.includes(filter)) {
-      return true
+      return true;
     }
     if (repo.iso_url && repo.iso_url.includes(filter)) {
       return true;
     }
     if (repo.task && repo.task.name.includes(filter)) {
-      return true
+      return true;
     }
     return false;
   }

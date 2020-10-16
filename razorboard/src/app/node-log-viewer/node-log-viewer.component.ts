@@ -16,7 +16,7 @@ import { NodeLog } from '../models/node-log.model';
   templateUrl: './node-log-viewer.component.html',
   styleUrls: ['./node-log-viewer.component.css']
 })
-export class NodeLogViewerComponent extends PolledView {
+export class NodeLogViewerComponent extends PolledView implements OnInit {
   private responseItems: any[];
   nodeId: string;
   entries: NodeLog[];
@@ -32,7 +32,7 @@ export class NodeLogViewerComponent extends PolledView {
   headers = [ 'Time', 'Severity', 'Event', 'Message' ];
   pluralMapping = {
     '=1': '1 entry',
-    'other': '# entries',
+    other: '# entries',
   };
 
   constructor(
