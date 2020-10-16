@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Dev environment using `docker-compose`
+- Footer with version
 
 ### Changed
 - Needed changes to make `ng build --prod` work
 - Changed repository structure
+- Make navbar position fixed
 
 ## [0.1.0] - 2020-10-08
 ### Added
