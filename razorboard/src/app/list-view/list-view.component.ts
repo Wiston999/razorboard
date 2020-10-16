@@ -152,18 +152,18 @@ export class ListViewComponent extends PolledView {
   }
 
   nodeCmp(node1: string, node2: string): number {
-    let expr = /node(\d+)/
+    const expr = /node(\d+)/;
     if (expr.test(node1) && expr.test(node2)) {
-      let node1Number = node1.match(/node(\d+)/);
-      let node2Number = node2.match(/node(\d+)/);
+      const node1Number = node1.match(/node(\d+)/);
+      const node2Number = node2.match(/node(\d+)/);
       return +node1Number[1] > +node2Number[1] ? 1 : -1;
     } else {
       return node1 > node2 ? 1 : -1;
     }
   }
 
-  setSort(field: string){
-    if (field == this.sortField) {
+  setSort(field: string) {
+    if (field === this.sortField) {
       this.sortReverse = !this.sortReverse;
     } else {
       this.sortField = field;

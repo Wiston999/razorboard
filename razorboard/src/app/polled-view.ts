@@ -55,6 +55,6 @@ export abstract class PolledView implements OnInit {
   }
 
   private subscribeToData(): void {
-    this.timerSubscription = timer(this.razorApi.getRefresh()*1000).subscribe(() => this.refreshData());
+    this.timerSubscription = timer(this.razorApi.getRefresh() * 1000).subscribe(() => this.refreshData());
   }
 }
