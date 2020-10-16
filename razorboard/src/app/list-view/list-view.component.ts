@@ -48,82 +48,82 @@ export class ListViewComponent extends PolledView {
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
   headersMapping = {
-    'nodes': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'MAC', 'name': 'dhcp_mac', 'sort': true },
-      { 'label': 'Hostname', 'name': 'facts.hostname', 'sort': true },
-      { 'label': 'Tags', 'name': 'tags', 'sort': false },
-      { 'label': 'Facts', 'name': 'facts', 'sort': false },
-      { 'label': 'Metadata', 'name': 'metadata', 'sort': false },
-      { 'label': 'State', 'name': 'policy', 'sort': false },
-      { 'label': 'Last seen', 'name': 'last_checkin', 'sort': true },
-      { 'label': 'Actions', 'name': 'actions', 'sort': false },
+    nodes: [
+      { label: 'Name', name: 'name', sort: true },
+      { label: 'MAC', name: 'dhcp_mac', sort: true },
+      { label: 'Hostname', name: 'facts.hostname', sort: true },
+      { label: 'Tags', name: 'tags', sort: false },
+      { label: 'Facts', name: 'facts', sort: false },
+      { label: 'Metadata', name: 'metadata', sort: false },
+      { label: 'State', name: 'policy', sort: false },
+      { label: 'Last seen', name: 'last_checkin', sort: true },
+      { label: 'Actions', name: 'actions', sort: false },
     ],
-    'repos': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'URL', 'name': 'url', 'sort': false },
-      { 'label': 'Default Task', 'name': 'task', 'sort': false },
+    repos: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'URL', name: 'url', sort: false },
+      { label: 'Default Task', name: 'task', sort: false },
     ],
-    'tags': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'Nodes', 'name': 'nodes.count', 'sort': true },
-      { 'label': 'Policies', 'name': 'policies.count', 'sort': true },
-      { 'label': 'Rule', 'name': 'rule', 'sort': false },
+    tags: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'Nodes', name: 'nodes.count', sort: true },
+      { label: 'Policies', name: 'policies.count', sort: true },
+      { label: 'Rule', name: 'rule', sort: false },
     ],
-    'tasks': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'Version', 'name': 'version', 'sort': false },
-      { 'label': 'Base Task', 'name': 'task.name', 'sort': true },
-      { 'label': 'Boot Sequence', 'name': 'boot_sequence', 'sort': false },
-      { 'label': 'Description', 'name': 'description', 'sort': false },
+    tasks: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'Version', name: 'version', sort: false },
+      { label: 'Base Task', name: 'task.name', sort: true },
+      { label: 'Boot Sequence', name: 'boot_sequence', sort: false },
+      { label: 'Description', name: 'description', sort: false },
     ],
-    'policies': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'Repository', 'name': 'repo.name', 'sort': true },
-      { 'label': 'Broker', 'name': 'broker.name', 'sort': true },
-      { 'label': 'Task', 'name': 'task.name', 'sort': true },
-      { 'label': 'Tags', 'name': 'tags', 'sort': false },
-      { 'label': 'Enabled?', 'name': 'enabled', 'sort': true },
-      { 'label': '% Nodes', 'name': 'nodes', 'sort': false },
+    policies: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'Repository', name: 'repo.name', sort: true },
+      { label: 'Broker', name: 'broker.name', sort: true },
+      { label: 'Task', name: 'task.name', sort: true },
+      { label: 'Tags', name: 'tags', sort: false },
+      { label: 'Enabled?', name: 'enabled', sort: true },
+      { label: '% Nodes', name: 'nodes', sort: false },
     ],
-    'hooks': [
-      { 'label': 'Name', 'name': 'name', 'sort': true },
-      { 'label': 'Type', 'name': 'hook_type', 'sort': true },
-      { 'label': 'Actions', 'name': 'actions', 'sort': false },
+    hooks: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'Type', name: 'hook_type', sort: true },
+      { label: 'Actions', name: 'actions', sort: false },
     ],
-    'configuration': [
-      { 'label': 'Item', 'name': 'name', 'sort': true },
-      { 'label': 'Value', 'name': 'value', 'sort': false },
+    configuration: [
+      { label: 'Item', name: 'name', sort: true },
+      { label: 'Value', name: 'value', sort: false },
     ],
   };
 
   pluralMapping = {
-    'nodes': {
+    nodes: {
       '=1': '1 node',
-      'other': '# nodes',
+      other: '# nodes',
     },
-    'repos': {
+    repos: {
       '=1': '1 repository',
-      'other': '# repositories',
+      other: '# repositories',
     },
-    'tags': {
+    tags: {
       '=1': '1 tag',
-      'other': '# tags',
+      other: '# tags',
     },
-    'policies': {
+    policies: {
       '=1': '1 policy',
-      'other': '# policies',
+      other: '# policies',
     },
-    'tasks': {
+    tasks: {
       '=1': '1 task',
-      'other': '# tasks',
+      other: '# tasks',
     },
-    'hooks': {
+    hooks: {
       '=1': '1 hook',
-      'other': '# hooks',
+      other: '# hooks',
     },
-    'configuration': {
-      'other': 'Configuration',
+    configuration: {
+      other: 'Configuration',
     },
   };
 
