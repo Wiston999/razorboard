@@ -15,7 +15,6 @@ export class RazorapiService {
   private password: string;
   private refresh: number;
   private refreshEnabled: boolean;
-  private refreshTimer$;
   private readonly refreshAsync$ = new BehaviorSubject(undefined);
   reload$: Observable<any>;
 
@@ -28,9 +27,6 @@ export class RazorapiService {
     this.password = this.getSetting('password', '');
     this.refresh = +this.getSetting('refresh', '15');
     this.refreshEnabled = this.getSetting('refreshEnabled', 'true') === 'true';
-    this.refreshTimer$ = interval(this.refresh * 1000).pipe(
-      startWith(0)
-    );
     this.reload$ = merge(
       this.refreshAsync$
     ).pipe(
