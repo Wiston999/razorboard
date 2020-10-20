@@ -66,7 +66,7 @@ This will serve Razorboard at port **8080** and also proxy Razor API requests to
 
 ### NOTE
 
-Securing both Razor API is of scope of this project, for additional information about how to
+Securing both Razor API is outside of the scope of this project, for additional information about how to
 secure Razor API read [here](https://github.com/puppetlabs/razor-server/wiki/Securing-the-server).
 
 ## TODO LIST
