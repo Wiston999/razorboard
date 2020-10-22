@@ -3,7 +3,7 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject, BehaviorSubject, timer, interval, merge } from 'rxjs';
-import { takeWhile, takeUntil, startWith, switchMap } from 'rxjs/operators';
+import { tap, takeWhile, takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { ApiResponse } from './models/apiresponse.model';
 
 @Injectable({
@@ -163,6 +163,20 @@ export class RazorapiService {
     return this.command('reinstall-node', {
       name: id,
       same_policy: keepPolicy,
-    });
+    }).pipe(
+      // Refresh view on success
+      tap(() => this.refreshAsync$.next(undefined)),
+    );
+  }
+
+  modifyNodeMetadata(id: string, update: {string: any}, remove: string[]) {
+    return this.command('modify-node-metadata', {
+      node: id,
+      update,
+      remove,
+    }).pipe(
+      // Refresh view on success
+      tap(() => this.refreshAsync$.next(undefined)),
+    );
   }
 }

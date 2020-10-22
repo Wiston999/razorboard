@@ -45,7 +45,7 @@
       </div>
       <div class="col-md-9">
         <p class="my-1">
-          <em>Installed:</em> {{ node.state['installed'] }}
+          <em>Installed:</em> {{ node.state ? node.state['installed'] : "" }}
         </p>
         <p class="my-1" *ngIf="node.state && node.state['installed_at']">
           <em>Installed at:</em> {{ node.state['installed_at'] }}
@@ -70,11 +70,34 @@
     <div class="row">
       <div class="col-md-3">
         <strong>Metadata</strong>
+        <button class="btn btn-sm btn-block btn-outline-secondary" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
+          Edit
+        </button>
+        <button class="btn btn-sm btn-block btn-outline-info" *ngIf="editMode" (click)="metadataSave('save')" ngbTooltip="Edit node metadata">
+          Save
+        </button>
+        <button class="btn btn-sm btn-block btn-outline-warning" *ngIf="editMode" (click)="metadataSave('cancel')" ngbTooltip="Edit node metadata">
+          Cancel
+        </button>
       </div>
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-12 text-monospace" *ngFor="let item of node.metadata | keyvalue">
-            <strong>{{ item.key }}</strong> <pre>{{ item.value | json }}</pre>
+      <div class="col-md-9" *ngIf="!editMode">
+        <div class="row text-monospace" *ngFor="let item of node.metadata | keyvalue">
+          <div class="col-md-12 text-monospace">
+            <strong>{{ item.key }}</strong>
+          </div>
+          <div class="col-md-12">
+            <pre>{{ item.value | json }}</pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9" *ngIf="editMode">
+        <div class="row text-monospace" *ngFor="let item of editNode.metadata | keyvalue">
+          <div class="col-md-12 text-monospace">
+            <strong>{{ item.key }}</strong>
+            <button (click)="metadataDelete(item.key)" class="btn btn-sm btn-danger float-right">&times;</button>
+          </div>
+          <div class="col-md-12">
+            <input class="form-control-sm" (change)="metadataChange(item.key, item.value)" [(ngModel)]="item.value">
           </div>
         </div>
       </div>

@@ -19,8 +19,10 @@ import { Node } from '../models/node.model';
 export class NodeDetailComponent extends PolledView implements OnInit {
   private nodeId: string;
   devMode = false;
+  editMode = false;
   showEmpty = false;
   node: Node;
+  editNode: Node;
   faServer = faServer;
 
   constructor(
@@ -32,6 +34,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
     super(razorApi, toastr);
     this.devMode = isDevMode();
     this.node = new Node();
+    this.editNode = new Node();
   }
 
   ngOnInit() {
@@ -49,5 +52,44 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   processData(response: Node) {
     this.node = response;
+  }
+
+  metadataSave(action: string) {
+    if (action === 'save') {
+      const update = {};
+      const remove = Object.keys(this.node.metadata).filter(
+        key => !(key in this.editNode.metadata)
+      );
+
+      for (const key in this.editNode.metadata) {
+        if (this.editNode.metadata[key] !== this.node.metadata[key]) {
+          update[key] = this.editNode.metadata[key];
+        }
+      }
+
+      this.razorApi.modifyNodeMetadata(this.nodeId, update, remove).subscribe(
+        response => {
+          this.toastr.success('Node metadata updated!', 'Success');
+        },
+        err => {
+          this.toastr.error(err.message, 'Unable to update node metadata');
+        }
+      );
+    }
+    this.editMode = false;
+  }
+
+  editStart() {
+    this.editNode.metadata = Object.assign({}, this.node.metadata);
+    this.editMode = true;
+  }
+
+  metadataChange(key, value) {
+    console.log('On metadataChange', key, value);
+    this.editNode.metadata[key] = value;
+  }
+
+  metadataDelete(key) {
+    delete this.editNode.metadata[key];
   }
 }
