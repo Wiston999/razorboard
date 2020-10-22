@@ -75,7 +75,7 @@ secure Razor API read [here](https://github.com/puppetlabs/razor-server/wiki/Sec
 * [X] reinstall-node command
 * [ ] HTTPS nginx configuration at Dockerfile
 * [ ] Support Razor API basic authentication
-* [ ] Node metadata modification
+* [X] Node metadata modification
 
 ## Built with 🛠️
 
