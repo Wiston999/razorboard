@@ -90,14 +90,27 @@
           </div>
         </div>
       </div>
-      <div class="col-md-9" *ngIf="editMode">
-        <div class="row text-monospace" *ngFor="let item of editNode.metadata | keyvalue">
-          <div class="col-md-12 text-monospace">
+      <div class="col-md-9 text-monospace" *ngIf="editMode">
+        <div class="row my-1" *ngFor="let item of editNode.metadata | keyvalue">
+          <div class="col-md-11">
             <strong>{{ item.key }}</strong>
-            <button (click)="metadataDelete(item.key)" class="btn btn-sm btn-danger float-right">&times;</button>
           </div>
-          <div class="col-md-12">
-            <input class="form-control-sm" (change)="metadataChange(item.key, item.value)" [(ngModel)]="item.value">
+          <div class="col-md-1">
+            <button (click)="metadataDelete(item.key)" class="btn btn-sm btn-danger">&times;</button>
+          </div>
+          <div class="col-md-10">
+            <input class="form-control form-control-sm" (change)="metadataChange(item.key, item.value)" [(ngModel)]="item.value">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-5">
+            <input class="form-control form-control-sm" [(ngModel)]="newMetadataKey" placeholder="New metadata key">
+          </div>
+          <div class="col-md-5">
+            <input class="form-control form-control-sm" [(ngModel)]="newMetadataValue" placeholder="New metadata value">
+          </div>
+          <div class="offset-md-1 col-md-1">
+            <button (click)="metadataAdd()" class="btn btn-sm btn-primary">+</button>
           </div>
         </div>
       </div>

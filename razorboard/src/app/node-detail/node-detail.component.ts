@@ -24,6 +24,8 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   node: Node;
   editNode: Node;
   faServer = faServer;
+  newMetadataKey = "";
+  newMetadataValue = "";
 
   constructor(
     protected razorApi: RazorapiService,
@@ -62,7 +64,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
       );
 
       for (const key in this.editNode.metadata) {
-        if (this.editNode.metadata[key] !== this.node.metadata[key]) {
+        if (!(key in this.node.metadata) || (this.editNode.metadata[key] !== this.node.metadata[key])) {
           update[key] = this.editNode.metadata[key];
         }
       }
@@ -82,6 +84,11 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   editStart() {
     this.editNode.metadata = Object.assign({}, this.node.metadata);
     this.editMode = true;
+  }
+
+  metadataAdd() {
+    this.editNode.metadata[this.newMetadataKey] = this.newMetadataValue;
+    this.newMetadataKey = this.newMetadataValue = "";
   }
 
   metadataChange(key, value) {
