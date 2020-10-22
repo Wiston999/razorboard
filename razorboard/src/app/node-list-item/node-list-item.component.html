@@ -25,31 +25,8 @@
     <button class="btn btn-sm btn-outline-light" [routerLink]="[node.name, 'log']" ngbTooltip="Node logs">
       <fa-icon [icon]="faFileAlt"></fa-icon>
     </button>
-    <button class="btn btn-sm btn-outline-danger" (click)="open(content)" ngbTooltip="Reinstall Node">
+    <button class="btn btn-sm btn-outline-danger" (click)="openReinstallModal()" [disabled]="!node.state.installed" ngbTooltip="Reinstall Node">
       <fa-icon [icon]="faRedoAlt"></fa-icon>
     </button>
   </div>
 </td>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="reinstall-modal">Reinstall {{ node.name }}?</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="reinstallForm">
-      <div class="form-group">
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" formControlName="keepPolicy"/>
-          <label class="form-check-label">Keep installed policy?</label>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('cancel')">Cancel</button>
-    <button type="button" class="btn btn-outline-info btn-sm" (click)="modal.close('ok')">OK</button>
-  </div>
-</ng-template>

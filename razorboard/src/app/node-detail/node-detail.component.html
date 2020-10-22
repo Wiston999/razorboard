@@ -42,7 +42,7 @@
     <div class="row">
       <div class="col-md-3">
         <strong>State</strong>
-        <button class="btn btn-sm btn-block btn-outline-danger mt-3" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-danger mt-3" [disabled]="!node.state['installed']" (click)="openReinstallModal()" ngbTooltip="Edit node metadata">
           Reinstall node
         </button>
       </div>

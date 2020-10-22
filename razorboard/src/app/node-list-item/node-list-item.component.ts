@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ColorTagService } from '../color-tag.service';
 import { RazorapiService } from '../razorapi.service';
 import { ToastrService } from 'ngx-toastr';
+import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiResponse } from '../models/apiresponse.model';
 
@@ -22,7 +22,6 @@ export class NodeListItemComponent implements OnInit {
   faFileAlt = faFileAlt;
   faRedoAlt = faRedoAlt;
   faInfo = faInfoCircle;
-  reinstallForm: FormGroup;
 
   constructor(
     public colorTag: ColorTagService,
@@ -32,30 +31,21 @@ export class NodeListItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.reinstallForm = new FormGroup({
-      keepPolicy: new FormControl(true),
-    });
   }
 
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'reinstall-modal'}).result.then((result) => {
-      if (result === 'ok') {
-        this.razorapiService.reinstallNode(
-          this.node.name,
-          this.reinstallForm.value.keepPolicy,
-        ).subscribe(
-          response => {
-            this.toastr.success('Node will be reinstalled!', 'Success');
-          },
-          err => {
-            this.toastr.error(err.message, 'Unable to mark node to reinstall');
-          }
-        );
-      } else {
-        console.log('Dismissed modal');
-      }
-    }, (reason) => {
-      console.log('Modal Closed');
+  openReinstallModal() {
+    const modalRef = this.modalService.open(NodeReinstallModalComponent);
+    modalRef.componentInstance.nodeId = this.node.name;
+    modalRef.result.then((result) => {
+      console.log('Modal result', result);
+      this.razorapiService.reinstallNode(this.node.name, result === 'on').subscribe(
+        response => {
+          this.toastr.success('Node will be reinstalled!', 'Success');
+        },
+        err => {
+          this.toastr.error(err.message, 'Unable to mark node to reinstall');
+        }
+      );
     });
   }
 }

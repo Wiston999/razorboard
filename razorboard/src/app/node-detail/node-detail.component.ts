@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { faServer } from '@fortawesome/free-solid-svg-icons';
 
+import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
 import { PolledView } from '../polled-view';
 import { RazorapiService } from '../razorapi.service';
 import { ColorTagService } from '../color-tag.service';
@@ -24,13 +26,14 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   node: Node;
   editNode: Node;
   faServer = faServer;
-  newMetadataKey = "";
-  newMetadataValue = "";
+  newMetadataKey = '';
+  newMetadataValue = '';
 
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
     private route: ActivatedRoute,
+    private modalService: NgbModal,
     public colorTag: ColorTagService,
   ) {
     super(razorApi, toastr);
@@ -88,7 +91,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   metadataAdd() {
     this.editNode.metadata[this.newMetadataKey] = this.newMetadataValue;
-    this.newMetadataKey = this.newMetadataValue = "";
+    this.newMetadataKey = this.newMetadataValue = '';
   }
 
   metadataChange(key, value) {
@@ -98,5 +101,20 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   metadataDelete(key) {
     delete this.editNode.metadata[key];
+  }
+
+  openReinstallModal() {
+    const modalRef = this.modalService.open(NodeReinstallModalComponent);
+    modalRef.componentInstance.nodeId = this.node.name;
+    modalRef.result.then((result) => {
+      this.razorApi.reinstallNode(this.node.name, result === 'on').subscribe(
+        response => {
+          this.toastr.success('Node will be reinstalled!', 'Success');
+        },
+        err => {
+          this.toastr.error(err.message, 'Unable to mark node to reinstall');
+        }
+      );
+    });
   }
 }

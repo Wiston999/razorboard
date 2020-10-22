@@ -33,6 +33,7 @@ import { PoliciesFilterPipe } from './list-view/policies-filter.pipe';
 import { HooksFilterPipe } from './list-view/hooks-filter.pipe';
 import { ConfigFilterPipe } from './list-view/config-filter.pipe';
 import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.component';
+import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.compon
     HooksFilterPipe,
     ConfigFilterPipe,
     NodeLogViewerComponent,
+    NodeReinstallModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,7 @@ import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.compon
     HttpLoadingService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NodeReinstallModalComponent],
 })
 export class AppModule { }
