@@ -42,6 +42,9 @@
     <div class="row">
       <div class="col-md-3">
         <strong>State</strong>
+        <button class="btn btn-sm btn-block btn-outline-danger mt-3" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
+          Reinstall node
+        </button>
       </div>
       <div class="col-md-9">
         <p class="my-1">
@@ -70,10 +73,10 @@
     <div class="row">
       <div class="col-md-3">
         <strong>Metadata</strong>
-        <button class="btn btn-sm btn-block btn-outline-secondary mt-3" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-light mt-3" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
           Edit
         </button>
-        <button class="btn btn-sm btn-block btn-outline-info mt-3" *ngIf="editMode" (click)="metadataSave('save')" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-success mt-3" *ngIf="editMode" (click)="metadataSave('save')" ngbTooltip="Edit node metadata">
           Save
         </button>
         <button class="btn btn-sm btn-block btn-outline-warning mt-1" *ngIf="editMode" (click)="metadataSave('cancel')" ngbTooltip="Edit node metadata">
@@ -99,7 +102,7 @@
             <button (click)="metadataDelete(item.key)" class="btn btn-sm btn-danger">&times;</button>
           </div>
           <div class="col-md-10">
-            <input class="form-control form-control-sm" (change)="metadataChange(item.key, item.value)" [(ngModel)]="item.value">
+            <input class="form-control form-control-sm" (change)="$event.preventDefault(); metadataChange(item.key, item.value)" [(ngModel)]="item.value">
           </div>
         </div>
         <div class="row mt-3">
