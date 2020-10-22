@@ -70,13 +70,13 @@
     <div class="row">
       <div class="col-md-3">
         <strong>Metadata</strong>
-        <button class="btn btn-sm btn-block btn-outline-secondary" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-secondary mt-3" *ngIf="!editMode" (click)="editStart()" ngbTooltip="Edit node metadata">
           Edit
         </button>
-        <button class="btn btn-sm btn-block btn-outline-info" *ngIf="editMode" (click)="metadataSave('save')" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-info mt-3" *ngIf="editMode" (click)="metadataSave('save')" ngbTooltip="Edit node metadata">
           Save
         </button>
-        <button class="btn btn-sm btn-block btn-outline-warning" *ngIf="editMode" (click)="metadataSave('cancel')" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-warning mt-1" *ngIf="editMode" (click)="metadataSave('cancel')" ngbTooltip="Edit node metadata">
           Cancel
         </button>
       </div>
