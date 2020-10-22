@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Dev environment using `docker-compose`
 - Footer with version
+- Node metadata edition
 
 ### Changed
 - Needed changes to make `ng build --prod` work
