@@ -47,3 +47,5 @@ Thumbs.db
 
 *.sql*
 *.swp
+
+razorboard/src/environments/version.ts

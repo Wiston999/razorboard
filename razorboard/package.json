@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "scripts": {
     "ng": "ng",
+    "prebuild": "./version-set.sh",
     "start": "ng serve --proxy-config proxy.conf.js --host 0.0.0.0",
+    "prebuild": "./version-set.sh",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

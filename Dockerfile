@@ -6,16 +6,12 @@
 FROM node:12.2 as build
 
 # set working directory
-WORKDIR /app
+WORKDIR /app/razorboard
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY razorboard/package.json /app/package.json
+ENV PATH /app/razorboard/node_modules/.bin:$PATH
 
 # add app
-COPY razorboard /app
+COPY . /app
 
 # generate build
 RUN npx npm-force-resolutions && \
@@ -30,7 +26,7 @@ RUN npx npm-force-resolutions && \
 FROM nginx:1.19-alpine
 
 # copy artifact build from the 'build environment'
-COPY --from=build /app/dist/* /usr/share/nginx/html/
+COPY --from=build /app/razorboard/dist/* /usr/share/nginx/html/
 
 COPY docker-utils/razorboard.conf /etc/nginx/conf.d/
 

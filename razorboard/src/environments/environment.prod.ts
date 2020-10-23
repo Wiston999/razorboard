@@ -1,4 +1,6 @@
+import versionData from './version';
+
 export const environment = {
   production: true,
-  version: 'v0.2.0',
+  version: versionData.version,
 };
