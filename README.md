@@ -92,8 +92,9 @@ secure Razor API read [here](https://github.com/puppetlabs/razor-server/wiki/Sec
 * [X] Visualize all Razor API resources
 * [X] reinstall-node command
 * [X] HTTPS nginx configuration at Dockerfile
-* [ ] Support Razor API basic authentication
+* [X] Support Razor API basic authentication
 * [X] Node metadata modification
+* [ ] Test as much as possible
 
 ## Built with 🛠️
 
