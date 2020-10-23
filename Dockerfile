@@ -28,7 +28,8 @@ FROM nginx:1.19-alpine
 # copy artifact build from the 'build environment'
 COPY --from=build /app/razorboard/dist/* /usr/share/nginx/html/
 
-COPY docker-utils/razorboard.conf /etc/nginx/conf.d/
+COPY docker-utils/razorboard-http.conf /etc/nginx/conf.d/razorboard-http.conf.available
+COPY docker-utils/razorboard-https.conf /etc/nginx/conf.d/razorboard-https.conf.available
 
 COPY docker-utils/30-disable-default.sh /docker-entrypoint.d/
 COPY docker-utils/40-tune-server.sh /docker-entrypoint.d/
