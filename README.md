@@ -28,6 +28,11 @@ that lets you visualize, query and manage razor server without having to know al
 **Tasks list**
 ![tasks-list](./screenshots/tasks.png)
 
+## Dependencies
+
+This project relies on `depth` Razor API parameter introduced in razor server version **1.9.1**. So
+Razor version **1.9.1** or higher is required.
+
 ### Developing 🔧
 
 A full working developing environment is included using `docker-compose`. To start it, you can just execute
