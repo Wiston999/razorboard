@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Footer with version
 - Node metadata edition
 - Node reinstall button from node detail view
+- HTTPS enabled for docker image
 
 ### Changed
 - Needed changes to make `ng build --prod` work

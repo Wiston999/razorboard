@@ -64,7 +64,20 @@ For building docker image just run `docker build .`
 For running Razorboard using docker you can:
 
 ```
-docker run -it --rm -e RAZOR_API=http://my-razor-host:8150 -p8080:80 razorboard:v0.1.0
+docker run -it --rm -e RAZOR_API=http://my-razor-host:8150 -p 8080:80 razorboard:v0.1.0
+```
+
+If you want the container to serve traffic using HTTPS, you can pass SSL certificate and key as follows:
+
+```
+docker run -it --rm \
+  -e RAZOR_API=http://my-razor-host:8150 \
+  -e SSL_ENABLED=true \
+  -e SSL_KEY=[path-to-key-inside-container] \
+  -e SSL_CERT=[path-to-certificate-inside-container] \
+  -v [path-to-key-in-host]:[path-to-key-inside-container] \
+  -v [path-to-certificate-in-host]:[path-to-certificate-inside-container] \
+  -p 8080:80 razorboard:v0.1.0
 ```
 
 This will serve Razorboard at port **8080** and also proxy Razor API requests to `http://my-razor-host:8150`.
@@ -78,7 +91,7 @@ secure Razor API read [here](https://github.com/puppetlabs/razor-server/wiki/Sec
 
 * [X] Visualize all Razor API resources
 * [X] reinstall-node command
-* [ ] HTTPS nginx configuration at Dockerfile
+* [X] HTTPS nginx configuration at Dockerfile
 * [ ] Support Razor API basic authentication
 * [X] Node metadata modification
 
