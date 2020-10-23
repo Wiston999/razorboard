@@ -21,7 +21,7 @@ all:
     # authentication is ignored and access to `/api` is unrestricted.
     # When enabled a valid username and password must be present in all
     # requests to `/api`.
-    enabled: false
+    enabled: true
     # The path to the authentication configuration file.  We use Apache Shiro
     # to manage authentication, since it provides a solid and effective
     # abstraction over common third party sources of authentication and role

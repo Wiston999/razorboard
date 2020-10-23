@@ -12,6 +12,7 @@ RUN curl -o puppet-repo.deb -s https://apt.puppetlabs.com/puppet-release-stretch
 RUN apt -y install vim
 
 ADD config.yaml /etc/puppetlabs/razor-server/config.yaml
+ADD shiro.ini /etc/puppetlabs/razor-server/shiro.ini
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh

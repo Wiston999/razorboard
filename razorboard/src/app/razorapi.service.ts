@@ -48,7 +48,9 @@ export class RazorapiService {
   }
 
   setSetting(key: string, value: string) {
+    const diff = this.storage.get(key) !== value;
     this.storage.set(key, value);
+    return diff;
   }
 
   connect(
@@ -59,24 +61,17 @@ export class RazorapiService {
     refreshEnabled: boolean,
   ): void {
     console.log('RazorApiService connect');
-    const headers = new HttpHeaders();
     let reload = false;
-    if ( username && password ) {
-      console.log('Authentication still not implemented');
-    }
-    if (this.endpoint !== endpoint || this.refresh !== refresh || !this.refreshEnabled && refreshEnabled) {
-      reload = true;
-    }
     this.endpoint = endpoint;
     this.username = username;
     this.password = password;
     this.refresh = refresh;
     this.refreshEnabled = refreshEnabled;
-    this.setSetting('endpoint', endpoint);
-    this.setSetting('username', username);
-    this.setSetting('password', password);
+    reload = reload || this.setSetting('endpoint', endpoint);
+    reload = reload || this.setSetting('username', username);
+    reload = reload || this.setSetting('password', password);
     this.setSetting('refresh', refresh.toString());
-    this.setSetting('refreshEnabled', refreshEnabled.toString());
+    reload = reload || this.setSetting('refreshEnabled', refreshEnabled.toString());
 
     if (reload) {
       this.refreshAsync$.next(undefined);
@@ -105,14 +100,22 @@ export class RazorapiService {
 
   private request(collection: string): Observable<ApiResponse> {
     const requestUrl = `${this.endpoint}/api/collections/${collection}?depth=1`;
-    return this.http.get<ApiResponse>(requestUrl);
+    let headers = new HttpHeaders();
+    if ( this.username && this.password ) {
+      const encodedAuth = btoa(`${this.username}:${this.password}`);
+      headers = headers.set('Authorization', `Basic ${encodedAuth}`);
+    }
+    return this.http.get<ApiResponse>(requestUrl, {headers});
   }
 
   private command(command: string, params): Observable<ApiResponse> {
     const requestUrl = `${this.endpoint}/api/commands/${command}`;
-    return this.http.post<ApiResponse>(requestUrl, params, {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    });
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    if ( this.username && this.password ) {
+      const encodedAuth = btoa(`${this.username}:${this.password}`);
+      headers = headers.set('Authorization', `Basic ${encodedAuth}`);
+    }
+    return this.http.post<ApiResponse>(requestUrl, params, {headers});
   }
 
   getNodes(): Observable<ApiResponse> {
