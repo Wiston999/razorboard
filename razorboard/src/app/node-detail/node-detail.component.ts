@@ -72,7 +72,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
         }
       }
 
-      this.razorApi.modifyNodeMetadata(this.nodeId, update, remove).subscribe(
+      this.razorApi.modifyNodeMetadata(this.nodeId, update as {string: any}, remove).subscribe(
         response => {
           this.toastr.success('Node metadata updated!', 'Success');
         },
