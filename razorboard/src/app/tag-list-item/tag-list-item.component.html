@@ -1,4 +1,8 @@
-<th scope="row">{{ tag.name }}</th>
+<th scope="row">
+  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]">
+    {{ tag.name }}
+  </span>
+</th>
 <td>{{ tag.nodes.count }}</td>
 <td>{{ tag.policies.count }}</td>
 <td>{{ tag.rule | json }}</td>
