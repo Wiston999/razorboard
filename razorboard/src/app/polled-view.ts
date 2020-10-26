@@ -1,5 +1,5 @@
 import { OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject, empty, timer, interval, merge } from 'rxjs';
+import { EMPTY, BehaviorSubject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +28,7 @@ export abstract class PolledView implements OnInit, OnDestroy {
         // This inner pipe avoids the observable to be completed when an HTTP error arises
         catchError((err, caugth) => {
           this.toastr.error(err.message, 'Unable to fetch data');
-          return empty();
+          return EMPTY;
         }),
       )),
     ).subscribe(
