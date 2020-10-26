@@ -15,6 +15,9 @@ jobs:
     # We specify the Node.js version manually below, and use versioned Chrome from Puppeteer.
     runs-on: ubuntu-18.04
 
+    env:
+      working-dir: './razorboard'
+
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js 12.8
@@ -23,11 +26,16 @@ jobs:
         node-version: 12.8
     - name: Install dependencies
       run: npm install
+      working-directory: ${{ env.working-dir }}
     - name: Lint
       run: npm run lint
+      working-directory: ${{ env.working-dir }}
     - name: Build
       run: npm run build -- --prod
+      working-directory: ${{ env.working-dir }}
     - name: Test
       run: npm test -- --configuration=ci
+      working-directory: ${{ env.working-dir }}
     - name: E2E
       run: npm run e2e -- --configuration=ci
+      working-directory: ${{ env.working-dir }}
