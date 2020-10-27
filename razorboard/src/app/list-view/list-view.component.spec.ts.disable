@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FormsModule } from '@angular/forms';
+
 import { ListViewComponent } from './list-view.component';
 
 describe('ListViewComponent', () => {
@@ -8,7 +10,10 @@ describe('ListViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListViewComponent ]
+      declarations: [ ListViewComponent ],
+      imports: [
+        FormsModule,
+      ],
     })
     .compileComponents();
   }));
