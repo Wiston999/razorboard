@@ -5,9 +5,9 @@
     "ng": "ng",
     "prebuild": "./version-set.sh",
     "start": "ng serve --proxy-config proxy.conf.js --host 0.0.0.0",
-    "prebuild": "./version-set.sh",
     "build": "ng build",
     "test": "ng test",
+    "test-cov": "nyc npm run test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -52,6 +52,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.4",
+    "nyc": "^14.1.1",
     "protractor": "^7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",

@@ -48,4 +48,5 @@ Thumbs.db
 *.sql*
 *.swp
 
+.nyc_output
 razorboard/src/environments/version.ts
