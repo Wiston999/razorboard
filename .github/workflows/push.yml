@@ -36,6 +36,6 @@ jobs:
     - name: Test
       run: npm test -- --configuration=ci
       working-directory: ${{ env.working-dir }}
-    - name: E2E
-      run: npm run e2e -- --configuration=ci
-      working-directory: ${{ env.working-dir }}
+    # - name: E2E
+    #   run: npm run e2e -- --configuration=ci
+    #   working-directory: ${{ env.working-dir }}
