@@ -54,6 +54,22 @@ This will start the following containers:
 
 ## Testing ⚙️
 
+To execute tests locally, the following requirements must be met:
+
+- **npm**
+- **Google chrome** web browser
+
+Once the requirements are met, ensure dependencies are installed with:
+
+```
+npm install
+```
+
+Once dependencies are installed, tests can be run using:
+
+```
+npm run test
+```
 
 ## Deployment 📦
 
