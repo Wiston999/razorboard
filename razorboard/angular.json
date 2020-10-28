@@ -92,14 +92,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "configurations": {
-              "ci": {
-                "watch": false,
-                "progress": false,
-                "browsers": "ChromeHeadlessCI"
-              }
-            },
             "scripts": []
+          },
+          "configurations": {
+            "ci": {
+              "watch": false,
+              "progress": false,
+              "browsers": "ChromeHeadlessCI"
+            }
           }
         },
         "lint": {
