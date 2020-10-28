@@ -7,7 +7,8 @@
     "start": "ng serve --proxy-config proxy.conf.js --host 0.0.0.0",
     "build": "ng build",
     "test": "ng test",
-    "test-cov": "nyc npm run test",
+    "test-ci": "ng test --configuration=ci",
+    "test-cov": "nyc npm run test-ci",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "webdriver-manager update --standalone false --gecko false --versions.chrome 76.0.3809.68"
