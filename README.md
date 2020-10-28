@@ -2,6 +2,8 @@
 
 > Visualize and manage resources in a [Razor server](https://github.com/puppetlabs/razor-server)
 
+![CI](https://github.com/Wiston999/razorboard/workflows/CI/badge.svg)
+
 ## Why this project?
 
 While razor CLI is enough to manage a razor server, it requires some knowledge about what razor is and

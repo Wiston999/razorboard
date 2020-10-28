@@ -12,7 +12,6 @@ import { HttpLoadingInterceptor } from './http-loading.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderModule } from 'ngx-order-pipe';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { NodeDetailComponent } from './node-detail/node-detail.component';
@@ -64,7 +63,6 @@ import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinsta
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     HttpClientModule,
     NgbModule,
     FontAwesomeModule,
