@@ -7,9 +7,7 @@
     "start": "ng serve --proxy-config proxy.conf.js --host 0.0.0.0",
     "build": "ng build",
     "test": "ng test",
-    "test-ci": "ng test --configuration=ci",
-    "test-cov": "nyc npm run test-ci",
-    "posttest-cov": "nyc report --reporter=text-lcov > ./coverage.lcov",
+    "test-ci": "ng test --configuration=ci --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "webdriver-manager update --standalone false --gecko false --versions.chrome 76.0.3809.68"
@@ -44,7 +42,7 @@
     "@angular/cli": "^8.3.29",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
-    "@istanbuljs/nyc-config-typescript": "1.0.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
@@ -57,9 +55,10 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.4",
     "nyc": "^14.1.1",
-    "puppeteer": "chrome-76",
     "protractor": "^7.0.0",
-    "ts-node": "~7.0.0",
+    "puppeteer": "chrome-76",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^7.0.1",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
   }

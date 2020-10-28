@@ -49,4 +49,5 @@ Thumbs.db
 *.swp
 
 .nyc_output
+coverage.lcov
 razorboard/src/environments/version.ts
