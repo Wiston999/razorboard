@@ -56,6 +56,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   }
 
   processData(response: Node) {
+    console.log('processData', response);
     this.node = response;
   }
 
