@@ -60,7 +60,6 @@ export class RazorapiService {
     refresh: number,
     refreshEnabled: boolean,
   ): void {
-    console.log('RazorApiService connect');
     let reload = false;
     this.endpoint = endpoint;
     this.username = username;

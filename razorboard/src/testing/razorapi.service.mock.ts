@@ -11,7 +11,6 @@ export class RazorapiServiceMock {
 	}
 
 	getNode(id: string) {
-    console.log('RazorapiServiceMock::getNode', id);
     const subject = new ReplaySubject();
     subject.next(nodeListResponse[0]);
     return subject;

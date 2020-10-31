@@ -88,11 +88,7 @@ export class TopBarComponent implements OnInit {
           this.connForm.value.refresh,
           this.connForm.value.refreshEnabled,
         );
-      } else {
-        console.log('Dismissed modal');
       }
-    }, (reason) => {
-      console.log('Modal Closed');
     });
   }
 }

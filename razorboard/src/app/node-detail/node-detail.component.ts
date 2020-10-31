@@ -56,7 +56,6 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   }
 
   processData(response: Node) {
-    console.log('processData', response);
     this.node = response;
   }
 
@@ -96,7 +95,6 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   }
 
   metadataChange(key, value) {
-    console.log('On metadataChange', key, value);
     this.editNode.metadata[key] = value;
   }
 

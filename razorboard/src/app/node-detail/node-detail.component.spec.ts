@@ -20,7 +20,7 @@ describe('NodeDetailComponent', () => {
   let fixture: ComponentFixture<NodeDetailComponent>;
   let routeStub: ActivatedRouteStub;
 
-  beforeEach(fakeAsync(() => {
+  beforeEach(async(() => {
     routeStub = new ActivatedRouteStub();
 
     TestBed.configureTestingModule({
@@ -50,8 +50,6 @@ describe('NodeDetailComponent', () => {
   });
 
   it('should create', () => {
-    tick();
-    console.log(component.node);
     expect(component).toBeTruthy();
   });
 });

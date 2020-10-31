@@ -12,6 +12,5 @@ export class NodeReinstallModalComponent implements OnInit {
   constructor(public modal: NgbActiveModal) { }
 
   ngOnInit() {
-    console.log('On modal', this.nodeId);
   }
 }
