@@ -42,7 +42,7 @@
     <div class="row">
       <div class="col-md-3">
         <strong>State</strong>
-        <button *ngIf="node.state" class="btn btn-sm btn-block btn-outline-danger mt-3" [disabled]="!node.state['installed']" (click)="openReinstallModal()" ngbTooltip="Edit node metadata">
+        <button class="btn btn-sm btn-block btn-outline-danger mt-3" [disabled]="!node.state['installed']" (click)="openReinstallModal()" ngbTooltip="Edit node metadata">
           Reinstall node
         </button>
       </div>
@@ -130,7 +130,7 @@
   <div class="col-md-7 shadow h-25 d-inline-block">
     <div class="row">
       <div class="col-md-3">
-        <h3>Facts ({{ (node.facts | keyvalue)?.length }})</h3>
+        <h3 id="facts-title">Facts ({{ (node.facts | keyvalue)?.length }})</h3>
       </div>
       <div class="offset-md-6 col-md-3 btn-group btn-group-toggle">
         <label class="btn btn-outline-primary" ngbButtonLabel>
@@ -141,7 +141,7 @@
       </div>
     </div>
     <div class="row">
-      <div [hidden]="!fact.value && !showEmpty" class="col-md-6 text-monospace" *ngFor="let fact of node.facts | keyvalue">
+      <div [hidden]="!fact.value && !showEmpty" class="col-md-6 text-monospace fact-value" *ngFor="let fact of node.facts | keyvalue">
         <strong>{{ fact.key }}</strong> <pre>{{ fact.value | json }}</pre>
       </div>
     </div>

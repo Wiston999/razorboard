@@ -20,4 +20,13 @@ export class Node {
   state: { string: string };
   metadata: { string: string };
   facts: { string: any };
+
+  constructor() {
+    this.tags = [];
+    this.state = {} as { string: string };
+    this.metadata = {} as { string: string };
+    this.facts = {} as { string: any };
+    this.hw_info = new HWInfo();
+    this.hw_info.mac = [];
+  }
 }
