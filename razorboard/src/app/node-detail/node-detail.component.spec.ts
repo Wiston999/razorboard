@@ -73,9 +73,10 @@ describe('NodeDetailComponent', () => {
   });
 
   it('should hide empty-value facts ', () => {
-    const content = fixture.nativeElement.querySelectorAll('.fact-value');
+    const content = fixture.nativeElement.querySelectorAll('.fact-value[hidden]');
     const count = Object.values(nodeObj.facts).filter(f => f).length;
-    expect(content.length).toBe(count);
+    const totalCount = Object.values(nodeObj.facts).length;
+    expect(content.length).toBe(totalCount - count);
   });
 
   it('should show all facts ', () => {

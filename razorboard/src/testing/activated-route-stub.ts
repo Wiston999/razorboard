@@ -8,7 +8,7 @@ import { ReplaySubject } from 'rxjs';
 export class ActivatedRouteStub {
   // Use a ReplaySubject to share previous values with subscribers
   // and pump new values into the `paramMap` observable
-  private _paramMap: ParamMap;
+  private $paramMap: ParamMap;
   private subject = new ReplaySubject<ParamMap>();
 
   /** The mock paramMap observable */
@@ -16,7 +16,7 @@ export class ActivatedRouteStub {
 
   get snapshot(): ActivatedRouteSnapshot {
     const snapshot: Partial<ActivatedRouteSnapshot> = {
-      paramMap: this._paramMap,
+      paramMap: this.$paramMap,
     };
 
     return snapshot as ActivatedRouteSnapshot;
@@ -29,7 +29,7 @@ export class ActivatedRouteStub {
   /** Set the paramMap observables's next value */
   setParamMap(params?: Params) {
     const paramMap = convertToParamMap(params);
-    this._paramMap = paramMap;
+    this.$paramMap = paramMap;
     this.subject.next(paramMap);
   }
 }
