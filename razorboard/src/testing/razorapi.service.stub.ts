@@ -6,16 +6,16 @@ export class RazorapiServiceStub {
 
   reload$ = new Observable();
 
-	getNodes() {
+  getNodes() {
     const subject = new ReplaySubject();
     subject.next(nodeListResponse);
     return subject;
-	}
+  }
 
-	getNode(id: string) {
+  getNode(id: string) {
     const subject = new ReplaySubject();
-    const nodeObjs = nodeListResponse.items.filter(n => n.name === id)
+    const nodeObjs = nodeListResponse.items.filter(n => n.name === id);
     subject.next(nodeObjs[0]);
     return subject;
-	}
+  }
 }
