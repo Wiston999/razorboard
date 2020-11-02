@@ -5,7 +5,7 @@
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: PR
 
-on: [pull_request]
+on: [push]
 
 jobs:
   test:
