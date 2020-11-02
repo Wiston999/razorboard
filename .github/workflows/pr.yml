@@ -3,12 +3,12 @@
 # GitHub Actions docs
 # https://help.github.com/en/articles/about-github-actions
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
-name: CI
+name: PR
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
-  build:
+  test:
 
     # Machine environment:
     # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
@@ -29,9 +29,6 @@ jobs:
       working-directory: ${{ env.working-dir }}
     - name: Lint
       run: npm run lint
-      working-directory: ${{ env.working-dir }}
-    - name: Build
-      run: npm run build -- --prod
       working-directory: ${{ env.working-dir }}
     - name: Test
       run: npm run test-ci

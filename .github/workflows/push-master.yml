@@ -1,0 +1,49 @@
+# Action taken from https://github.com/filipesilva/ng-github-actions/blob/master/.github/workflows/main.yml
+
+# GitHub Actions docs
+# https://help.github.com/en/articles/about-github-actions
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: Push latest
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    # Machine environment:
+    # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
+    # We specify the Node.js version manually below, and use versioned Chrome from Puppeteer.
+    runs-on: ubuntu-18.04
+
+    env:
+      working-dir: './razorboard'
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.8
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.8
+    - name: Install dependencies
+      run: npm install
+      working-directory: ${{ env.working-dir }}
+    - name: Lint
+      run: npm run lint
+      working-directory: ${{ env.working-dir }}
+    - name: Test
+      run: npm run test-ci
+      working-directory: ${{ env.working-dir }}
+    # - name: E2E
+    #   run: npm run e2e -- --configuration=ci
+    #   working-directory: ${{ env.working-dir }}
+    - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: Wiston999/razorboard/razorboard
+          tags: latest
