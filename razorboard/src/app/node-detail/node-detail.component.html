@@ -42,7 +42,12 @@
     <div class="row">
       <div class="col-md-3">
         <strong>State</strong>
-        <button class="btn btn-sm btn-block btn-outline-danger mt-3" [disabled]="!node.state['installed']" (click)="openReinstallModal()" ngbTooltip="Edit node metadata">
+        <button
+          id="reinstall-btn"
+          class="btn btn-sm btn-block btn-outline-danger mt-3"
+          [disabled]="!node.state['installed']"
+          (click)="openReinstallModal()"
+          ngbTooltip="Edit node metadata">
           Reinstall node
         </button>
       </div>
@@ -95,14 +100,14 @@
       </div>
       <div class="col-md-9 text-monospace" *ngIf="editMode">
         <div class="row my-1" *ngFor="let item of editNode.metadata | keyvalue">
-          <div class="col-md-11">
+          <div class="col-md-11 metadata-edit-label">
             <strong>{{ item.key }}</strong>
           </div>
           <div class="col-md-1">
             <button (click)="metadataDelete(item.key)" class="btn btn-sm btn-danger">&times;</button>
           </div>
           <div class="col-md-10">
-            <input class="form-control form-control-sm" (change)="$event.preventDefault(); metadataChange(item.key, item.value)" [(ngModel)]="item.value">
+            <input class="form-control form-control-sm metadata-edit" (change)="$event.preventDefault(); metadataChange(item.key, item.value)" [(ngModel)]="item.value">
           </div>
         </div>
         <div class="row mt-3">
