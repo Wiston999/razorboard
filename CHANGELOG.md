@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Autogenerate docker image internal version on `npm build`
 - Restore error handling of polled HTTP requests
 - Add tag list view colored tags
+- Minor changes to make tests easier
 
 ## [0.2.0] - 2020-10-23
 ### Added
