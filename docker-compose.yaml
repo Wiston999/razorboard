@@ -19,9 +19,9 @@ services:
       - 5432:5432
   razorboard-dev:
     image: node:12.19
-    working_dir: /app
+    working_dir: /app/razorboard
     volumes:
-      - './razorboard:/app'
+      - '.:/app'
     command: [npm, start]
     ports:
       - 4200:4200
