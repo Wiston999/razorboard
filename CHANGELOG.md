@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Remove www-authenticate header returned by razor server to avoid browser prompt
 
 ### Changed
 
