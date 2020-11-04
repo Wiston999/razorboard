@@ -3,7 +3,7 @@
     <h3 *ngIf="showTotal">{{ filterTotal }} out of {{ total | i18nPlural: pluralMapping[element]}}</h3>
   </div>
   <div class="offset-md-5 col-md-3">
-    <input [(ngModel)]="filter" (ngModelChange)="generateItemList()" class="form-control" placeholder="Search..." autofocus>
+    <input type="search" [(ngModel)]="filter" (ngModelChange)="generateItemList()" class="form-control" placeholder="Search..." autofocus>
   </div>
   <div class="col-md-1">
     <button ngbButton [disabled]="httpLoading | async" (click)="asyncRefresh()" class="btn btn-outline-info">
