@@ -2,8 +2,7 @@
 
 > Visualize and manage resources in a [Razor server](https://github.com/puppetlabs/razor-server)
 
-![Test](https://github.com/Wiston999/razorboard/workflows/Push/badge.svg)
-![Build](https://github.com/Wiston999/razorboard/workflows/Push%20latest/badge.svg)
+![CI](https://github.com/Wiston999/razorboard/workflows/CI/badge.svg)
 
 ## Why this project?
 
