@@ -33,6 +33,7 @@ import { HooksFilterPipe } from './list-view/hooks-filter.pipe';
 import { ConfigFilterPipe } from './list-view/config-filter.pipe';
 import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.component';
 import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
+import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinsta
     ConfigFilterPipe,
     NodeLogViewerComponent,
     NodeReinstallModalComponent,
+    RainbowBracketsPipe,
   ],
   imports: [
     BrowserModule,

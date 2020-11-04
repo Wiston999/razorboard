@@ -5,4 +5,4 @@
 </th>
 <td>{{ tag.nodes.count }}</td>
 <td>{{ tag.policies.count }}</td>
-<td>{{ tag.rule | json }}</td>
+<td [innerHTML]="tag.rule | json | rainbowBrackets"></td>

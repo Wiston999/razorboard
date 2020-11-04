@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Remove www-authenticate header returned by razor server to avoid browser prompt
 - Tooltip on policy view "% Nodes" bar.
+- "Rainbow" brackets on tag rules for better parentheses matching readibility
 
 ### Changed
 - Remove static "v" from version footer
 - Increased node log time column width
+- Generate http link to repository URL
 
 ## [0.3.0] - 2020-11-03
 ### Added
