@@ -34,6 +34,7 @@ import { ConfigFilterPipe } from './list-view/config-filter.pipe';
 import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.component';
 import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
 import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
+import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
     NodeLogViewerComponent,
     NodeReinstallModalComponent,
     RainbowBracketsPipe,
+    FactsFilterPipe,
   ],
   imports: [
     BrowserModule,

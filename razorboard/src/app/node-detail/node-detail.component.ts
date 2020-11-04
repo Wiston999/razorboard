@@ -28,6 +28,8 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   faServer = faServer;
   newMetadataKey = '';
   newMetadataValue = '';
+  factsShown: {string: any};
+  filterFacts = '';
 
   constructor(
     protected razorApi: RazorapiService,
@@ -57,6 +59,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   processData(response: Node) {
     this.node = response;
+    this.factsShown = this.node.facts;
   }
 
   metadataSave(action: string) {
@@ -115,5 +118,11 @@ export class NodeDetailComponent extends PolledView implements OnInit {
         }
       );
     });
+  }
+
+  filterFactsChanged() {
+    if (this.filterFacts) {
+      this.showEmpty = true;
+    }
   }
 }

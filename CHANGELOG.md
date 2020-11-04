@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove www-authenticate header returned by razor server to avoid browser prompt
 - Tooltip on policy view "% Nodes" bar.
 - "Rainbow" brackets on tag rules for better parentheses matching readibility
+- Search box for filtering node facts
 
 ### Changed
 - Remove static "v" from version footer

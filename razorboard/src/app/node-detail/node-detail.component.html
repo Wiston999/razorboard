@@ -133,11 +133,19 @@
     </div>
   </div>
   <div class="col-md-7 shadow h-25 d-inline-block">
-    <div class="row">
+    <div class="row my-3">
       <div class="col-md-3">
         <h3 id="facts-title">Facts ({{ (node.facts | keyvalue)?.length }})</h3>
       </div>
-      <div class="offset-md-6 col-md-3 btn-group btn-group-toggle">
+      <div class="offset-md-1 col-md-5">
+        <input
+          [(ngModel)]="filterFacts"
+          (ngModelChange)="filterFactsChanged()"
+          class="form-control"
+          placeholder="Search facts..."
+          autofocus>
+      </div>
+      <div class="col-md-3 btn-group btn-group-toggle">
         <label class="btn btn-outline-primary" ngbButtonLabel>
           <input type="checkbox" ngbButton [(ngModel)]="showEmpty">
           <span *ngIf="showEmpty">Hide empty facts</span>
@@ -146,7 +154,10 @@
       </div>
     </div>
     <div class="row">
-      <div [hidden]="!fact.value && !showEmpty" class="col-md-6 text-monospace fact-value" *ngFor="let fact of node.facts | keyvalue">
+      <div
+        [hidden]="!fact.value && !showEmpty"
+        class="col-md-6 text-monospace fact-value"
+        *ngFor="let fact of node.facts | keyvalue | factsFilter:filterFacts">
         <strong>{{ fact.key }}</strong> <pre>{{ fact.value | json }}</pre>
       </div>
     </div>

@@ -16,6 +16,7 @@ import { nodeList } from '../../testing/apiresponse.model.mock';
 
 import { RazorapiService } from '../razorapi.service';
 import { MacAddrPipe } from '../mac-addr.pipe';
+import { FactsFilterPipe } from './facts-filter.pipe';
 import { NodeDetailComponent } from './node-detail.component';
 
 describe('NodeDetailComponent', () => {
@@ -30,7 +31,7 @@ describe('NodeDetailComponent', () => {
     razorApiStub = new RazorapiServiceStub();
 
     TestBed.configureTestingModule({
-      declarations: [ NodeDetailComponent, MacAddrPipe ],
+      declarations: [ NodeDetailComponent, MacAddrPipe, FactsFilterPipe ],
       imports: [
         FormsModule,
         FontAwesomeModule,
