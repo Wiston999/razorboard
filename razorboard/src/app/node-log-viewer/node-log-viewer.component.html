@@ -17,7 +17,7 @@
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>
-        <th scope="col" *ngFor="let header of headers" [ngClass]="{'sortable time-header': header == 'Time'}" (click)="sortReverse = !sortReverse">
+        <th scope="col" *ngFor="let header of headers" [ngClass]="{'cursor-pointer time-header': header == 'Time'}" (click)="sortReverse = !sortReverse">
           {{ header }}
           <span [hidden]="'Time' != header || !sortReverse">▼</span>
           <span [hidden]="'Time' != header || sortReverse">▲</span>

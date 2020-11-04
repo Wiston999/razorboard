@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ColorTagService } from '../color-tag.service';
 import { RazorapiService } from '../razorapi.service';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,7 @@ import { faFileAlt, faRedoAlt, faInfoCircle } from '@fortawesome/free-solid-svg-
 export class NodeListItemComponent implements OnInit {
   @Input() node;
   @Input() columns: string[];
+  @Output() filter = new EventEmitter<string>();
 
   faFileAlt = faFileAlt;
   faRedoAlt = faRedoAlt;
@@ -46,5 +47,9 @@ export class NodeListItemComponent implements OnInit {
         }
       );
     });
+  }
+
+  onFilter(value: string) {
+    this.filter.emit(value);
   }
 }

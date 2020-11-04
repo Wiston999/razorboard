@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tooltip on policy view "% Nodes" bar.
 - "Rainbow" brackets on tag rules for better parentheses matching readibility
 - Search box for filtering node facts
+- Filter by tag or policy when clicked on node list
 
 ### Changed
 - Remove static "v" from version footer

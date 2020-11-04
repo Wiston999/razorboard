@@ -18,7 +18,7 @@
         <th
           scope="col"
           *ngFor="let header of headersMapping[element]"
-          [ngClass]="{'sortable': header.sort}"
+          [ngClass]="{'cursor-pointer': header.sort}"
           (click)="header.sort && setSort(header.name)">
           {{ header.label }}
           <span [hidden]="sortField != header.name || !header.sort || !sortReverse">▼</span>
@@ -28,6 +28,7 @@
       <tbody class="text-monospace" *ngSwitchCase="'nodes'">
         <tr node-list-item
           *ngFor="let item of items | orderBy: sortField:sortReverse:false:nodeCmp"
+          (filter)="filter = $event; generateItemList();"
           [columns]="headersMapping[element]"
           [node]="item">
         </tr>

@@ -6,14 +6,22 @@
 </td>
 <td>{{ node.facts.hostname || '--' }}</td>
 <td>
-  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of node.tags">
+  <span
+    (click)="onFilter(tag.name)"
+    [ngClass]="['badge badge-pill mx-1 cursor-pointer', colorTag.getClass(tag.name)]"
+    *ngFor="let tag of node.tags">
     {{ tag.name }}
     </span>
   </td>
 <td>{{ (node.facts | keyvalue)?.length || 0 }}</td>
 <td>{{ (node.metadata | keyvalue)?.length || 0 }}</td>
 <td>
-  <code *ngIf="node.state.installed; else noPolicy">{{ node.state.installed }}</code>
+  <code
+    class="cursor-pointer"
+    (click)="onFilter(node.state.installed)"
+    *ngIf="node.state.installed; else noPolicy">
+    {{ node.state.installed }}
+  </code>
   <ng-template #noPolicy><p class="text-monospace">no-policy</p></ng-template>
   </td>
 <td>{{ node.last_checkin | date: 'y-MM-dd hh:mm:ss' }}</td>
