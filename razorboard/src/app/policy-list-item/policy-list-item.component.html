@@ -9,7 +9,11 @@
   </td>
 <td><code>{{ policy.enabled }}</code></td>
 <td>
-  <ngb-progressbar [type]="barColor()" [value]="policy.nodes.count" [max]="policy.max_count">
+  <ngb-progressbar
+    [type]="barColor()"
+    ngbTooltip="{{ policy.nodes.count }} of {{ policy.max_count }} ({{ policy.nodes.count / policy.max_count * 100.0 | number }} %)"
+    [value]="policy.nodes.count"
+    [max]="policy.max_count">
     {{ policy.nodes.count }} of {{ policy.max_count }} ({{ policy.nodes.count / policy.max_count * 100.0 | number }} %)
   </ngb-progressbar>
 </td>

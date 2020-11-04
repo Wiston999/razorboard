@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Remove www-authenticate header returned by razor server to avoid browser prompt
+- Tooltip on policy view "% Nodes" bar.
 
 ### Changed
 - Remove static "v" from version footer
