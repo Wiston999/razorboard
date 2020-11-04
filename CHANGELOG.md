@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Remove static "v" from version footer
+- Increased node log time column width
 
 ## [0.3.0] - 2020-11-03
 ### Added
