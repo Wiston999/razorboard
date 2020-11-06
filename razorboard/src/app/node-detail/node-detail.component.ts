@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { faServer } from '@fortawesome/free-solid-svg-icons';
@@ -34,11 +34,12 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private modalService: NgbModal,
     public colorTag: ColorTagService,
   ) {
-    super(razorApi, toastr);
+    super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
     this.node = new Node();
     this.editNode = new Node();

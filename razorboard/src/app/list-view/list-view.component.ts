@@ -3,7 +3,7 @@ import { isDevMode } from '@angular/core';
 import { I18nPluralPipe } from '@angular/common';
 
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { NodesFilterPipe } from './nodes-filter.pipe';
@@ -42,8 +42,8 @@ export class ListViewComponent extends PolledView implements OnInit {
   devMode = false;
   total = 0;
   filterTotal = 0;
-  items: any[];
-  private responseItems: any[];
+  items = [];
+  private responseItems = [];
 
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
@@ -130,7 +130,8 @@ export class ListViewComponent extends PolledView implements OnInit {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private loaderService: HttpLoadingService,
     private nodesFilter: NodesFilterPipe,
     private tasksFilter: TasksFilterPipe,
@@ -140,7 +141,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     private hooksFilter: HooksFilterPipe,
     private configFilter: ConfigFilterPipe,
   ) {
-    super(razorApi, toastr);
+    super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
   }
 
@@ -148,6 +149,8 @@ export class ListViewComponent extends PolledView implements OnInit {
     this.route.data.subscribe(data => {
       this.element = data.kind;
     });
+
+    this.filter = this.route.snapshot.queryParams.search;
     super.ngOnInit();
   }
 
@@ -215,9 +218,15 @@ export class ListViewComponent extends PolledView implements OnInit {
     this.generateItemList();
   }
 
+  filterItems(filter: string) {
+    this.filter = filter;
+    this.generateItemList();
+    this.setUrlSearch(filter);
+  }
+
   generateItemList() {
     this.items = this.responseItems.filter(
-      item => this.filter === undefined || this.filterItem(item, this.filter)
+      item => !this.filter || this.filterItem(item, this.filter)
     );
     this.filterTotal = this.items.length;
   }

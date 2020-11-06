@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { PolledView } from '../polled-view';
@@ -38,15 +38,18 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private loaderService: HttpLoadingService,
   ) {
-    super(razorApi, toastr);
+    super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
   }
 
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
+
+    this.filter = this.route.snapshot.queryParams.search;
     super.ngOnInit();
   }
 
@@ -69,6 +72,7 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
       item => this.filter === undefined || this.filterItem(item, this.filter)
     );
     this.filterTotal = this.entries.length;
+    this.setUrlSearch(this.filter);
   }
 
   filterItem(item, filter: string): boolean {
