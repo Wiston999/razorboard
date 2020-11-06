@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { I18nPluralPipe } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -140,6 +141,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     private policiesFilter: PoliciesFilterPipe,
     private hooksFilter: HooksFilterPipe,
     private configFilter: ConfigFilterPipe,
+    private titleService: Title,
   ) {
     super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
@@ -151,7 +153,17 @@ export class ListViewComponent extends PolledView implements OnInit {
     });
 
     this.filter = this.route.snapshot.queryParams.search;
+    this.setTitle();
     super.ngOnInit();
+  }
+
+  setTitle() {
+    const element = this.element.charAt(0).toUpperCase() + this.element.substring(1);
+    const title = [element];
+    if (this.filter) {
+      title.push(`Search: ${this.filter}`);
+    }
+    this.titleService.setTitle(title.join(' - '));
   }
 
   nodeCmp(node1: string, node2: string): number {
@@ -222,6 +234,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     this.filter = filter;
     this.generateItemList();
     this.setUrlSearch(filter);
+    this.setTitle();
   }
 
   generateItemList() {

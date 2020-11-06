@@ -55,6 +55,7 @@ export abstract class PolledView implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams,
       queryParamsHandling: 'merge', // remove to replace all query params by provided
+      replaceUrl: true,
     });
   }
 }
