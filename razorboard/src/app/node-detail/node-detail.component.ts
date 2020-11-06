@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Title } from '@angular/platform-browser';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -37,6 +38,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router,
     private modalService: NgbModal,
+    private titleService: Title,
     public colorTag: ColorTagService,
   ) {
     super(razorApi, toastr, route, router);
@@ -47,6 +49,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
+    this.titleService.setTitle(`Node Details - ${this.nodeId}`);
     super.ngOnInit();
   }
 
