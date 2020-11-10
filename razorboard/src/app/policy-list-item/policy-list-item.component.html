@@ -1,19 +1,18 @@
 <th scope="row">{{ policy.name }}</th>
 <td class="text-monospace">
-  <a [routerLink]="['/repos']" [queryParams]="{search: policy.repo.name}">
+  <a *ngIf="policy.repo.name; else noNameElement" [routerLink]="['/repos']" [queryParams]="{search: policy.repo.name}">
     {{ policy.repo.name || '--' }}
   </a>
 </td>
 <td class="text-monospace">
-  <a [routerLink]="['/brokers']" [queryParams]="{search: policy.broker.name}">
+  <a *ngIf="policy.broker.name; else noNameElement" [routerLink]="['/brokers']" [queryParams]="{search: policy.broker.name}">
     {{ policy.broker.name || '--' }}
   </a>
 </td>
 <td class="text-monospace">
-  <a *ngIf="policy.task.name; else noTask" [routerLink]="['/tasks']" [queryParams]="{search: policy.task.name}">
+  <a *ngIf="policy.task.name; else noNameElement" [routerLink]="['/tasks']" [queryParams]="{search: policy.task.name}">
     {{ policy.task.name || '--' }}
   </a>
-  <ng-template #noTask>--</ng-template>
 </td>
 <td>
   <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of policy.tags">
@@ -30,3 +29,4 @@
     {{ policy.nodes.count }} of {{ policy.max_count }} ({{ policy.nodes.count / policy.max_count * 100.0 | number }} %)
   </ngb-progressbar>
 </td>
+<ng-template #noNameElement>--</ng-template>
