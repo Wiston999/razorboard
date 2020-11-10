@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: '[task-list-item]',
@@ -8,10 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TaskListItemComponent implements OnInit {
   @Input() task;
   @Input() columns: string[];
+  @Output() filter = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onFilter(value: string) {
+    this.filter.emit(value);
+  }
 }
