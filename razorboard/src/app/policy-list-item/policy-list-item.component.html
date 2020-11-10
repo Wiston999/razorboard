@@ -1,17 +1,17 @@
 <th scope="row">{{ policy.name }}</th>
 <td class="text-monospace">
   <a *ngIf="policy.repo.name; else noNameElement" [routerLink]="['/repos']" [queryParams]="{search: policy.repo.name}">
-    {{ policy.repo.name || '--' }}
+    {{ policy.repo.name }}
   </a>
 </td>
 <td class="text-monospace">
   <a *ngIf="policy.broker.name; else noNameElement" [routerLink]="['/brokers']" [queryParams]="{search: policy.broker.name}">
-    {{ policy.broker.name || '--' }}
+    {{ policy.broker.name }}
   </a>
 </td>
 <td class="text-monospace">
   <a *ngIf="policy.task.name; else noNameElement" [routerLink]="['/tasks']" [queryParams]="{search: policy.task.name}">
-    {{ policy.task.name || '--' }}
+    {{ policy.task.name }}
   </a>
 </td>
 <td>

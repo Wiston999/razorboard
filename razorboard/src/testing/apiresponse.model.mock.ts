@@ -104,7 +104,58 @@ export const nodeList = [
   }
 ];
 
+export const policyList = [
+  {
+    spec: 'http://api.puppetlabs.com/razor/v1/collections/policies/member',
+    id: 'http://localhost:4200/api/collections/policies/jessie',
+    name: 'jessie',
+    repo: {
+      spec: 'http://api.puppetlabs.com/razor/v1/collections/repos/member',
+      id: 'http://localhost:4200/api/collections/repos/Debian-Jessie-mini',
+      name: 'Debian-Jessie-mini'
+    },
+    task: {
+      spec: 'http://api.puppetlabs.com/razor/v1/collections/tasks/member',
+      id: 'http://localhost:4200/api/collections/tasks/debian',
+      name: 'debian'
+    },
+    broker: {
+      spec: 'http://api.puppetlabs.com/razor/v1/collections/brokers/member',
+      id: 'http://localhost:4200/api/collections/brokers/puppet',
+      name: 'puppet'
+    },
+    enabled: true,
+    max_count: 100,
+    configuration: {
+      hostname_pattern: 'node${i}.example.com',
+      root_password: 'foob4R'
+    },
+    tags: [
+      {
+        spec: 'http://api.puppetlabs.com/razor/v1/collections/tags/member',
+        id: 'http://localhost:4200/api/collections/tags/debian',
+        name: 'debian'
+      },
+      {
+        spec: 'http://api.puppetlabs.com/razor/v1/collections/tags/member',
+        id: 'http://localhost:4200/api/collections/tags/jessie',
+        name: 'jessie'
+      }
+    ],
+    nodes: {
+      id: 'http://localhost:4200/api/collections/policies/jessie/nodes',
+      count: 85,
+      name: 'nodes'
+    }
+  }
+];
+
 export const nodeListResponse: ApiResponse = {
   total: 1,
   items: nodeList,
+};
+
+export const policyListResponse: ApiResponse = {
+  total: policyList.length,
+  items: policyList,
 };
