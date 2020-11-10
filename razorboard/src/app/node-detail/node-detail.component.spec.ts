@@ -3,6 +3,7 @@ import { fakeAsync, async, tick, ComponentFixture, TestBed } from '@angular/core
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +25,7 @@ describe('NodeDetailComponent', () => {
   let fixture: ComponentFixture<NodeDetailComponent>;
   let routeStub: ActivatedRouteStub;
   let razorApiStub: RazorapiServiceStub;
+  let userService: Title;
   const nodeObj = nodeList[0];
 
   beforeEach(async(() => {
@@ -45,6 +47,7 @@ describe('NodeDetailComponent', () => {
         NodeDetailComponent,
         { provide: RazorapiService, useValue: razorApiStub },
         { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Title, useClass: Title },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
@@ -61,6 +64,12 @@ describe('NodeDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should change title', () => {
+    userService = TestBed.get(Title);
+    const title = userService.getTitle();
+    expect(title).toBe(`Node Details - ${nodeObj.name}`);
   });
 
   it('should show node name and hostname', () => {

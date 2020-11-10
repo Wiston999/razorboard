@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { PolledView } from '../polled-view';
@@ -18,6 +19,7 @@ import { NodeLog } from '../models/node-log.model';
 })
 export class NodeLogViewerComponent extends PolledView implements OnInit {
   private responseItems: any[];
+  private titlePrefix = 'Node Logs';
   nodeId: string;
   entries: NodeLog[];
   devMode = false;
@@ -38,16 +40,29 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private loaderService: HttpLoadingService,
+    private titleService: Title,
   ) {
-    super(razorApi, toastr);
+    super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
   }
 
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
+    this.filter = this.route.snapshot.queryParams.search;
+    this.setTitle();
+
     super.ngOnInit();
+  }
+
+  setTitle() {
+    const title = [this.titlePrefix, this.nodeId];
+    if (this.filter) {
+      title.push(`Search: ${this.filter}`);
+    }
+    this.titleService.setTitle(title.join(' - '));
   }
 
   getData() {
@@ -66,9 +81,11 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
 
   generateItemList() {
     this.entries = this.responseItems.filter(
-      item => this.filter === undefined || this.filterItem(item, this.filter)
+      item => !this.filter || this.filterItem(item, this.filter)
     );
     this.filterTotal = this.entries.length;
+    this.setUrlSearch(this.filter);
+    this.setTitle();
   }
 
   filterItem(item, filter: string): boolean {

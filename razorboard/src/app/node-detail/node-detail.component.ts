@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Title } from '@angular/platform-browser';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { faServer } from '@fortawesome/free-solid-svg-icons';
@@ -34,11 +35,13 @@ export class NodeDetailComponent extends PolledView implements OnInit {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
+    protected router: Router,
     private modalService: NgbModal,
+    private titleService: Title,
     public colorTag: ColorTagService,
   ) {
-    super(razorApi, toastr);
+    super(razorApi, toastr, route, router);
     this.devMode = isDevMode();
     this.node = new Node();
     this.editNode = new Node();
@@ -46,6 +49,7 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
+    this.titleService.setTitle(`Node Details - ${this.nodeId}`);
     super.ngOnInit();
   }
 

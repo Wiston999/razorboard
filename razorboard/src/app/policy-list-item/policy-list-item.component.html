@@ -1,12 +1,24 @@
 <th scope="row">{{ policy.name }}</th>
-<td class="text-monospace">{{ policy.repo.name || '--' }}</td>
-<td class="text-monospace">{{ policy.broker.name || '--' }}</td>
-<td class="text-monospace">{{ policy.task.name || '--' }}</td>
+<td class="text-monospace">
+  <a *ngIf="policy.repo.name; else noNameElement" [routerLink]="['/repos']" [queryParams]="{search: policy.repo.name}">
+    {{ policy.repo.name || '--' }}
+  </a>
+</td>
+<td class="text-monospace">
+  <a *ngIf="policy.broker.name; else noNameElement" [routerLink]="['/brokers']" [queryParams]="{search: policy.broker.name}">
+    {{ policy.broker.name || '--' }}
+  </a>
+</td>
+<td class="text-monospace">
+  <a *ngIf="policy.task.name; else noNameElement" [routerLink]="['/tasks']" [queryParams]="{search: policy.task.name}">
+    {{ policy.task.name || '--' }}
+  </a>
+</td>
 <td>
   <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of policy.tags">
     {{ tag.name }}
-    </span>
-  </td>
+  </span>
+</td>
 <td><code>{{ policy.enabled }}</code></td>
 <td>
   <ngb-progressbar
@@ -17,3 +29,4 @@
     {{ policy.nodes.count }} of {{ policy.max_count }} ({{ policy.nodes.count / policy.max_count * 100.0 | number }} %)
   </ngb-progressbar>
 </td>
+<ng-template #noNameElement>--</ng-template>

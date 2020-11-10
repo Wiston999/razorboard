@@ -5,7 +5,7 @@
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:

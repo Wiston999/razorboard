@@ -2,6 +2,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { EMPTY, BehaviorSubject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Params, Router, ActivatedRoute } from '@angular/router';
 
 import { ApiResponse } from './models/apiresponse.model';
 import { RazorapiService } from './razorapi.service';
@@ -14,6 +15,8 @@ export abstract class PolledView implements OnInit, OnDestroy {
   constructor(
     protected razorApi: RazorapiService,
     protected toastr: ToastrService,
+    protected route: ActivatedRoute,
+    protected router: Router,
   ) { }
 
   abstract getData();
@@ -44,5 +47,15 @@ export abstract class PolledView implements OnInit, OnDestroy {
     if (this.itemsSubscription) {
       this.itemsSubscription.unsubscribe();
     }
+  }
+
+  setUrlSearch(search: string) {
+    const queryParams: Params = { search };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge', // remove to replace all query params by provided
+      replaceUrl: true,
+    });
   }
 }
