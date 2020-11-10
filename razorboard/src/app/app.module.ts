@@ -35,6 +35,8 @@ import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.compon
 import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
 import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
+import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
+import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
     NodeReinstallModalComponent,
     RainbowBracketsPipe,
     FactsFilterPipe,
+    BrokerListItemComponent,
+    BrokersFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +87,7 @@ import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
       { path: 'tags', component: ListViewComponent, data: { kind: 'tags'}},
       { path: 'policies', component: ListViewComponent, data: { kind: 'policies'}},
       { path: 'tasks', component: ListViewComponent, data: { kind: 'tasks'}},
+      { path: 'brokers', component: ListViewComponent, data: { kind: 'brokers'}},
       { path: 'hooks', component: ListViewComponent, data: { kind: 'hooks'}},
       { path: 'configuration', component: ListViewComponent, data: { kind: 'configuration'}},
     ]),

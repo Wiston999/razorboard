@@ -68,6 +68,13 @@
           [repo]="item">
         </tr>
       </tbody>
+      <tbody class="text-monospace" *ngSwitchCase="'brokers'">
+        <tr broker-list-item
+          *ngFor="let item of items | orderBy: sortField:sortReverse"
+          [columns]="headersMapping[element]"
+          [broker]="item">
+        </tr>
+      </tbody>
       <tbody class="text-monospace" *ngSwitchCase="'configuration'">
         <tr config-list-item
           *ngFor="let item of items | orderBy: sortField:sortReverse"

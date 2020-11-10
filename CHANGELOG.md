@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Navigation links to in-app resources. I.E.: from policies to repos, tasks, etc.
 - Window title according to content
+- Brokers view
 
 ### Changed
+
+### Fixed
+- Repo list view error when task is not set
 
 ## [0.4.0] - 2020-11-04
 

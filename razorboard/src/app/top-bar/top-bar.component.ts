@@ -43,6 +43,10 @@ export class TopBarComponent implements OnInit {
       name: 'Tasks',
     },
     {
+      link: '/brokers',
+      name: 'Brokers',
+    },
+    {
       link: '/hooks',
       name: 'Hooks',
     },
