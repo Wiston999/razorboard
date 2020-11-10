@@ -150,6 +150,45 @@ export const policyList = [
   }
 ];
 
+export const hookList = [
+  {
+    spec: 'http://api.puppetlabs.com/razor/v1/collections/hooks/member',
+    id: 'http://localhost:4200/api/collections/hooks/data_disks',
+    name: 'data_disks',
+    hook_type: 'type1',
+    log: {
+      id: 'http://localhost:4200/api/collections/hooks/data_disks/log',
+      name: 'log',
+      params: {
+        limit: {
+          type: 'number'
+        },
+        start: {
+          type: 'number'
+        }
+      }
+    }
+  },
+  {
+    spec: 'http://api.puppetlabs.com/razor/v1/collections/hooks/member',
+    id: 'http://localhost:4200/api/collections/hooks/remove_ip',
+    name: 'remove_ip',
+    hook_type: 'type1',
+    log: {
+      id: 'http://localhost:4200/api/collections/hooks/remove_ip/log',
+      name: 'log',
+      params: {
+        limit: {
+          type: 'number'
+        },
+        start: {
+          type: 'number'
+        }
+      }
+    }
+  }
+];
+
 export const nodeListResponse: ApiResponse = {
   total: 1,
   items: nodeList,
@@ -158,4 +197,9 @@ export const nodeListResponse: ApiResponse = {
 export const policyListResponse: ApiResponse = {
   total: policyList.length,
   items: policyList,
+};
+
+export const hookListResponse: ApiResponse = {
+  total: hookList.length,
+  items: hookList,
 };
