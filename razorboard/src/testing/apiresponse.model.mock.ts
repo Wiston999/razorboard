@@ -104,7 +104,54 @@ export const nodeList = [
   }
 ];
 
+export const brokerList = [
+  {
+    spec: 'http://api.puppetlabs.com/razor/v1/collections/brokers/member',
+    id: 'http://localhost:8150/api/collections/brokers/puppet',
+    name: 'puppet',
+    configuration: {
+      configtimeout: '240',
+      environment: 'production',
+      logdir: '/var/log/puppet',
+      vardir: '/var/lib/puppet',
+      ssldir: '/var/lib/puppet/ssl',
+      rundir: '/var/run/puppet',
+      factpath: '$vardir/lib/facter',
+      templatepath: '$confdir/templates'
+    },
+    broker_type: 'puppet',
+    policies: {
+      id: 'http://localhost:4200/api/collections/brokers/puppet/policies',
+      count: 4,
+      name: 'policies'
+    }
+  },
+  {
+    spec: 'http://api.puppetlabs.com/razor/v1/collections/brokers/member',
+    id: 'http://localhost:8150/api/collections/brokers/ansible',
+    name: 'ansible',
+    configuration: {
+      ssh_key: '/root/.ssh/id_rsa',
+      rundir: '/var/run/puppet',
+      factpath: '$vardir/lib/facter',
+      templatepath: '$confdir/templates'
+    },
+    broker_type: 'ansible',
+    policies: {
+      id: 'http://localhost:4200/api/collections/brokers/ansible/policies',
+      count: 1,
+      name: 'policies'
+    }
+  }
+];
+
 export const nodeListResponse: ApiResponse = {
-  total: 1,
+  total: nodeList.length,
   items: nodeList,
 };
+
+export const brokerListResponse: ApiResponse = {
+  total: brokerList.length,
+  items: brokerList,
+};
+
