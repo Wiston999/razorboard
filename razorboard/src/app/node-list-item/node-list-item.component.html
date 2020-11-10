@@ -4,15 +4,20 @@
 <td>
   <a [routerLink]="[node.name]">{{ node.dhcp_mac | macAddr }}</a>
 </td>
-<td>{{ node.facts.hostname || '--' }}</td>
+<td>
+  <span *ngIf="node.facts.hostname; else noHostname">
+    {{ node.facts.hostname || '--' }}
+  </span>
+  <ng-template #noHostname>--</ng-template>
+</td>
 <td>
   <span
     (click)="onFilter(tag.name)"
     [ngClass]="['badge badge-pill mx-1 cursor-pointer', colorTag.getClass(tag.name)]"
     *ngFor="let tag of node.tags">
     {{ tag.name }}
-    </span>
-  </td>
+  </span>
+</td>
 <td>{{ (node.facts | keyvalue)?.length || 0 }}</td>
 <td>{{ (node.metadata | keyvalue)?.length || 0 }}</td>
 <td>
@@ -23,16 +28,16 @@
     {{ node.state.installed }}
   </code>
   <ng-template #noPolicy><p class="text-monospace">no-policy</p></ng-template>
-  </td>
+</td>
 <td>{{ node.last_checkin | date: 'y-MM-dd hh:mm:ss' }}</td>
 <td>
   <div class="col-md-12 btn-group">
-    <button class="btn btn-sm btn-outline-info" [routerLink]="[node.name]" ngbTooltip="Node Information">
+    <a class="btn btn-sm btn-outline-info" [routerLink]="[node.name]" ngbTooltip="Node Information">
       <fa-icon [icon]="faInfo"></fa-icon>
-    </button>
-    <button class="btn btn-sm btn-outline-light" [routerLink]="[node.name, 'log']" ngbTooltip="Node logs">
+    </a>
+    <a class="btn btn-sm btn-outline-light" [routerLink]="[node.name, 'log']" ngbTooltip="Node logs">
       <fa-icon [icon]="faFileAlt"></fa-icon>
-    </button>
+    </a>
     <button class="btn btn-sm btn-outline-danger" (click)="openReinstallModal()" [disabled]="!node.state.installed" ngbTooltip="Reinstall Node">
       <fa-icon [icon]="faRedoAlt"></fa-icon>
     </button>
