@@ -81,7 +81,7 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
 
   generateItemList() {
     this.entries = this.responseItems.filter(
-      item => this.filter === undefined || this.filterItem(item, this.filter)
+      item => !this.filter || this.filterItem(item, this.filter)
     );
     this.filterTotal = this.entries.length;
     this.setUrlSearch(this.filter);
