@@ -1,6 +1,11 @@
 <th scope="row">{{ task.name }}</th>
 <td>{{ task.os.version }}</td>
-<td>{{ task.base ? task.base.name : '--' }}</td>
+<td>
+  <span (click)="onFilter(task.base.name)" class="cursor-pointer" *ngIf="task.base; else noBase">
+    {{ task.base.name }}
+  </span>
+  <ng-template #noBase>--</ng-template>
+</td>
 <td>
   <ul>
     <li *ngFor="let item of task.boot_seq | keyvalue">

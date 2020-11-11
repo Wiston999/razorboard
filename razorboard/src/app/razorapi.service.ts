@@ -141,6 +141,10 @@ export class RazorapiService {
     return this.request('events');
   }
 
+  getBrokers(): Observable<ApiResponse> {
+    return this.request('brokers');
+  }
+
   getRepos(): Observable<ApiResponse> {
     return this.request('repos');
   }
