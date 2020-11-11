@@ -20,7 +20,7 @@ import { Node } from '../models/node.model';
   styleUrls: ['./node-detail.component.css']
 })
 export class NodeDetailComponent extends PolledView implements OnInit {
-  private nodeId: string;
+  nodeId: string;
   devMode = false;
   editMode = false;
   showEmpty = false;

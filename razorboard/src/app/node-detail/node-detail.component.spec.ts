@@ -3,6 +3,8 @@ import { fakeAsync, async, tick, ComponentFixture, TestBed } from '@angular/core
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,14 +20,36 @@ import { nodeList } from '../../testing/apiresponse.model.mock';
 import { RazorapiService } from '../razorapi.service';
 import { MacAddrPipe } from '../mac-addr.pipe';
 import { FactsFilterPipe } from './facts-filter.pipe';
+import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
 import { NodeDetailComponent } from './node-detail.component';
+
+class DummyComponent {
+
+}
+
+export class MockNgbModalONRef {
+  componentInstance = {
+    nodeId: undefined,
+  };
+  result: Promise<any> = new Promise((resolve, reject) => resolve('on'));
+}
+
+export class MockNgbModalOFFRef {
+  componentInstance = {
+    nodeId: undefined,
+  };
+  result: Promise<any> = new Promise((resolve, reject) => resolve('off'));
+}
 
 describe('NodeDetailComponent', () => {
   let component: NodeDetailComponent;
   let fixture: ComponentFixture<NodeDetailComponent>;
   let routeStub: ActivatedRouteStub;
   let razorApiStub: RazorapiServiceStub;
-  let userService: Title;
+  let titleService: Title;
+  let ngbModal: NgbModal;
+  const mockModalOnRef: MockNgbModalONRef = new MockNgbModalONRef();
+  const mockModalOffRef: MockNgbModalOFFRef = new MockNgbModalOFFRef();
   const nodeObj = nodeList[0];
 
   beforeEach(async(() => {
@@ -35,6 +59,7 @@ describe('NodeDetailComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         NodeDetailComponent,
+        NodeReinstallModalComponent,
         MacAddrPipe,
         FactsFilterPipe,
       ],
@@ -63,6 +88,7 @@ describe('NodeDetailComponent', () => {
     component = fixture.componentInstance;
     component.showEmpty = false;
     routeStub.setParamMap({id: nodeObj.name});
+    ngbModal = TestBed.get(NgbModal);
     fixture.detectChanges();
   });
 
@@ -70,9 +96,14 @@ describe('NodeDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should throw error on undefined node', () => {
+    component.nodeId = null;
+    expect(() => component.getData()).toThrow(new Error('Node ID is undefined'));
+  });
+
   it('should change title', () => {
-    userService = TestBed.get(Title);
-    const title = userService.getTitle();
+    titleService = TestBed.get(Title);
+    const title = titleService.getTitle();
     expect(title).toBe(`Node Details - ${nodeObj.name}`);
   });
 
@@ -195,4 +226,50 @@ describe('NodeDetailComponent', () => {
     fixture.detectChanges();
     expect(razorApiStub.getRequests().length).toBe(0);
   });
+
+  it('should filter facts changed', () => {
+    component.filterFactsChanged();
+    expect(component.showEmpty).toBeFalsy();
+    component.filterFacts = 'test-filter';
+    component.filterFactsChanged();
+    expect(component.showEmpty).toBeTruthy();
+  });
+
+  it('should disable reinstall button', fakeAsync(() => {
+    spyOn(component, 'openReinstallModal');
+    const otherNodeObj = JSON.parse(JSON.stringify(nodeObj));
+    otherNodeObj.state.installed = false;
+    component.node = otherNodeObj;
+    tick();
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('#reinstall-btn');
+
+    expect(button.disabled).toBeTruthy();
+  }));
+
+  it('should reinstall node keepPolicy', fakeAsync(() => {
+    spyOn(ngbModal, 'open').and.returnValue(mockModalOnRef as any);
+
+    const button = fixture.nativeElement.querySelector('#reinstall-btn');
+    button.click();
+    tick(Infinity);
+    const apiRequest = razorApiStub.getLastRequest();
+
+    expect(ngbModal.open).toHaveBeenCalledWith(NodeReinstallModalComponent);
+    expect(apiRequest.id).toEqual(nodeObj.name);
+    expect(apiRequest.keepPolicy).toBeTruthy(); // Default is false
+  }));
+
+  it('should reinstall node no-keepPolicy', fakeAsync(() => {
+    spyOn(ngbModal, 'open').and.returnValue(mockModalOffRef as any);
+
+    const button = fixture.nativeElement.querySelector('#reinstall-btn');
+    button.click();
+    tick(Infinity);
+    const apiRequest = razorApiStub.getLastRequest();
+
+    expect(ngbModal.open).toHaveBeenCalledWith(NodeReinstallModalComponent);
+    expect(apiRequest.id).toEqual(nodeObj.name);
+    expect(apiRequest.keepPolicy).toBeFalsy(); // Default is false
+  }));
 });
