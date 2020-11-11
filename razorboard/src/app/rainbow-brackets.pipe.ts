@@ -44,12 +44,10 @@ export class RainbowBracketsPipe implements PipeTransform {
       return value;
     }
 
-    console.log('Paired positions', balanced, value, bracketPositions);
     Object.entries(bracketPositions).sort(([a, ], [b, ]) => parseInt(b, 10) - parseInt(a, 10)).forEach(info => {
       const p = parseInt(info[0], 10);
       const data = info[1] as {c: string, level: string};
       value = value.substring(0, p) + `<span class="rb-${data.level}">${data.c}</span>` + value.substring(p + 1);
-      console.log('Current value', data, value);
     });
     return value;
   }
