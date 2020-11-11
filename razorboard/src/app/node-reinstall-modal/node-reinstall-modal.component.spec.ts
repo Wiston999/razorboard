@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { NodeReinstallModalComponent } from './node-reinstall-modal.component';
 
 describe('NodeReinstallModalComponent', () => {
@@ -8,7 +10,10 @@ describe('NodeReinstallModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NodeReinstallModalComponent ]
+      declarations: [ NodeReinstallModalComponent ],
+      providers: [
+        NgbActiveModal,
+      ],
     })
     .compileComponents();
   }));
