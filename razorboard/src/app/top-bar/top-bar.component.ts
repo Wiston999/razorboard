@@ -57,7 +57,7 @@ export class TopBarComponent implements OnInit {
   ];
 
   constructor(
-    private razorapiService: RazorapiService,
+    public razorapiService: RazorapiService,
     private loaderService: HttpLoadingService,
     private modalService: NgbModal,
   ) { }

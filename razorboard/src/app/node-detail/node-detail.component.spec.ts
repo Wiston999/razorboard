@@ -23,10 +23,6 @@ import { FactsFilterPipe } from './facts-filter.pipe';
 import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
 import { NodeDetailComponent } from './node-detail.component';
 
-class DummyComponent {
-
-}
-
 export class MockNgbModalONRef {
   componentInstance = {
     nodeId: undefined,

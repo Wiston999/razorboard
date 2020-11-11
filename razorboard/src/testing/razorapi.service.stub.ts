@@ -45,4 +45,13 @@ export class RazorapiServiceStub {
   getLastRequest() {
     return this.requests[this.requests.length - 1];
   }
+
+  connect(
+    endpoint: string,
+    username: string,
+    password: string,
+    refresh: number,
+    refreshEnabled: boolean,
+  ) {
+  }
 }
