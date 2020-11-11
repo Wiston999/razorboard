@@ -230,6 +230,30 @@ export const brokerList = [
   }
 ];
 
+export const nodeLogs = [
+  {
+    timestamp: '2016-06-14T10:45:20+00:00',
+    severity: 'info',
+    event: 'get_task_file',
+    template: 'preseed',
+    url: 'http://localhost:8150/svc/file/2/preseed'
+  },
+  {
+    timestamp: '2016-06-14T10:41:01+00:00',
+    severity: 'warning',
+    event: 'get_task_file',
+    template: 'preseed',
+    url: 'http://localhost:8150/svc/file/2/preseed'
+  },
+  {
+    timestamp: '2016-06-13T10:41:01+00:00',
+    severity: 'error',
+    event: 'get_task_file',
+    template: 'preseed',
+    url: 'http://localhost:8150/svc/file/2/preseed'
+  },
+];
+
 export const nodeListResponse: ApiResponse = {
   total: nodeList.length,
   items: nodeList,
@@ -248,4 +272,9 @@ export const hookListResponse: ApiResponse = {
 export const brokerListResponse: ApiResponse = {
   total: brokerList.length,
   items: brokerList,
+};
+
+export const nodeLogResponse: ApiResponse = {
+  total: nodeLogs.length,
+  items: nodeLogs,
 };

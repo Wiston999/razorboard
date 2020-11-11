@@ -25,7 +25,7 @@
       </thead>
       <tbody class="text-monospace">
         <tr *ngFor="let entry of entries | orderBy: 'timestamp':sortReverse" [ngClass]="{'text-danger': entry.severity == 'error'}">
-          <td>{{ entry.timestamp | date: 'yyyy-MM-dd HH:mm:SS' }}</td>
+          <td>{{ entry.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
           <td>{{ entry.severity | uppercase }}</td>
           <td>{{ entry.event }}</td>
           <td>

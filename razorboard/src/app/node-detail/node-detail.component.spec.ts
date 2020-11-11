@@ -33,7 +33,11 @@ describe('NodeDetailComponent', () => {
     razorApiStub = new RazorapiServiceStub();
 
     TestBed.configureTestingModule({
-      declarations: [ NodeDetailComponent, MacAddrPipe, FactsFilterPipe ],
+      declarations: [
+        NodeDetailComponent,
+        MacAddrPipe,
+        FactsFilterPipe,
+      ],
       imports: [
         FormsModule,
         FontAwesomeModule,

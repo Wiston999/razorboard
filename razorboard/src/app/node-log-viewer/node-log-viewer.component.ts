@@ -89,7 +89,7 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
   }
 
   filterItem(item, filter: string): boolean {
-    if (item.msg && item.msg.includes(filter)) {
+    if (item.msg && item.msg.toLowerCase().includes(filter.toLowerCase())) {
       return true;
     }
     if (item.severity && item.severity.includes(filter.toLowerCase())) {

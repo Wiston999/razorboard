@@ -1,4 +1,4 @@
-import { nodeListResponse } from './apiresponse.model.mock';
+import { nodeListResponse, nodeLogResponse } from './apiresponse.model.mock';
 
 import { Observable, ReplaySubject, of } from 'rxjs';
 
@@ -18,6 +18,12 @@ export class RazorapiServiceStub {
     const subject = new ReplaySubject();
     const nodeObjs = nodeListResponse.items.filter(n => n.name === id);
     subject.next(nodeObjs[0]);
+    return subject;
+  }
+
+  getNodeLogs(id: string) {
+    const subject = new ReplaySubject();
+    subject.next(nodeLogResponse);
     return subject;
   }
 
