@@ -14,6 +14,7 @@ import { PoliciesFilterPipe } from './policies-filter.pipe';
 import { ReposFilterPipe } from './repos-filter.pipe';
 import { HooksFilterPipe } from './hooks-filter.pipe';
 import { ConfigFilterPipe } from './config-filter.pipe';
+import { BrokersFilterPipe } from './brokers-filter.pipe';
 
 import { ApiResponse } from '../models/apiresponse.model';
 import { HttpLoadingService } from '../http-loading.service';
@@ -31,6 +32,7 @@ import { PolledView } from '../polled-view';
     PoliciesFilterPipe,
     ReposFilterPipe,
     HooksFilterPipe,
+    BrokersFilterPipe,
     ConfigFilterPipe,
   ],
 })
@@ -87,6 +89,12 @@ export class ListViewComponent extends PolledView implements OnInit {
       { label: 'Enabled?', name: 'enabled', sort: true },
       { label: '% Nodes', name: 'nodes', sort: false },
     ],
+    brokers: [
+      { label: 'name', name: 'name', sort: true },
+      { label: 'Type', name: 'broker_type', sort: false },
+      { label: 'Policies', name: 'policies.count', sort: true },
+      { label: 'Configuration', name: 'configuration', sort: false },
+    ],
     hooks: [
       { label: 'name', name: 'name', sort: true },
       { label: 'Type', name: 'hook_type', sort: true },
@@ -119,6 +127,10 @@ export class ListViewComponent extends PolledView implements OnInit {
       '=1': '1 task',
       other: '# tasks',
     },
+    brokers: {
+      '=1': '1 broker',
+      other: '# brokers',
+    },
     hooks: {
       '=1': '1 hook',
       other: '# hooks',
@@ -141,6 +153,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     private policiesFilter: PoliciesFilterPipe,
     private hooksFilter: HooksFilterPipe,
     private configFilter: ConfigFilterPipe,
+    private brokersFilter: BrokersFilterPipe,
     private titleService: Title,
   ) {
     super(razorApi, toastr, route, router);
@@ -212,6 +225,10 @@ export class ListViewComponent extends PolledView implements OnInit {
         return this.razorApi.getHooks();
         break;
       }
+      case 'brokers': {
+        return this.razorApi.getBrokers();
+        break;
+      }
       case 'configuration': {
         this.showTotal = false;
         return this.razorApi.getConfiguration();
@@ -264,6 +281,10 @@ export class ListViewComponent extends PolledView implements OnInit {
       }
       case 'tasks': {
         return this.tasksFilter.filterTask(item, filter);
+        break;
+      }
+      case 'brokers': {
+        return this.brokersFilter.filterBroker(item, filter);
         break;
       }
       case 'hooks': {

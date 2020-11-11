@@ -1,0 +1,11 @@
+<th scope="row">
+  {{ broker.name }}
+</th>
+<td *ngIf="broker.broker_type; else noType">{{ broker.broker_type }}</td>
+<ng-template #noType><td>--</td></ng-template>
+<td>{{ broker.policies.count }}</td>
+<td>
+  <div *ngFor="let item of broker.configuration | keyvalue">
+    <b>{{ item.key }}</b> = {{ item.value }}
+  </div>
+</td>

@@ -50,6 +50,7 @@
       <tbody class="text-monospace" *ngSwitchCase="'tasks'">
         <tr task-list-item
           *ngFor="let item of items | orderBy: sortField:sortReverse"
+          (filter)="filterItems($event)"
           [columns]="headersMapping[element]"
           [task]="item">
         </tr>
@@ -66,6 +67,13 @@
           *ngFor="let item of items | orderBy: sortField:sortReverse"
           [columns]="headersMapping[element]"
           [repo]="item">
+        </tr>
+      </tbody>
+      <tbody class="text-monospace" *ngSwitchCase="'brokers'">
+        <tr broker-list-item
+          *ngFor="let item of items | orderBy: sortField:sortReverse"
+          [columns]="headersMapping[element]"
+          [broker]="item">
         </tr>
       </tbody>
       <tbody class="text-monospace" *ngSwitchCase="'configuration'">
