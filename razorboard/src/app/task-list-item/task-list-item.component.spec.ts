@@ -55,7 +55,7 @@ describe('TaskListItemComponent', () => {
     expect(col5.textContent.trim()).toBe(baseTaskObj.description);
   });
 
-  it('should show render base task', fakeAsync(() => {
+  it('should render base task', fakeAsync(() => {
     spyOn(component, 'onFilter');
     const customTask = {...baseTaskObj};
     customTask.base = {name: 'centos'};
