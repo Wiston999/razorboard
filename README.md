@@ -125,4 +125,4 @@ For a list of versions and what changed you can check [changelog](./CHANGELOG.md
 
 ## License 📄
 
-TBD
+The project is licensed under the Apache license.
