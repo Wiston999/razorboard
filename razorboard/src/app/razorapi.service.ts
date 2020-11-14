@@ -59,22 +59,24 @@ export class RazorapiService {
     password: string,
     refresh: number,
     refreshEnabled: boolean,
-  ): void {
+  ): boolean {
     let reload = false;
     this.endpoint = endpoint;
     this.username = username;
     this.password = password;
     this.refresh = refresh;
     this.refreshEnabled = refreshEnabled;
-    reload = reload || this.setSetting('endpoint', endpoint);
-    reload = reload || this.setSetting('username', username);
-    reload = reload || this.setSetting('password', password);
+
+    reload = this.setSetting('endpoint', endpoint) || reload;
+    reload = this.setSetting('username', username) || reload;
+    reload = this.setSetting('password', password) || reload;
     this.setSetting('refresh', refresh.toString());
-    reload = reload || this.setSetting('refreshEnabled', refreshEnabled.toString());
+    reload = this.setSetting('refreshEnabled', refreshEnabled.toString()) || reload;
 
     if (reload) {
       this.refreshAsync$.next(undefined);
     }
+    return reload;
   }
 
   getUsername(): string {
