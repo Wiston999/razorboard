@@ -162,23 +162,36 @@ describe('NodeListItemComponent', () => {
     expect(content.textContent.trim()).toEqual('0');
   }));
 
-  it('should show policy column', fakeAsync(() => {
+  it('should filter by installed policy', fakeAsync(() => {
     spyOn(component, 'onFilter');
-    const content = fixture.nativeElement.querySelector('td:nth-of-type(6) > code');
+    const policyBlock = fixture.nativeElement.querySelector('td:nth-of-type(6) > div:nth-of-type(1) > code');
+    const stateBlock = fixture.nativeElement.querySelector('td:nth-of-type(6) > div:nth-of-type(2) > code');
 
-    expect(content.textContent.trim()).toEqual(nodeObj.state.installed);
-    content.click();
+    policyBlock.click();
+    tick();
+    expect(component.onFilter).toHaveBeenCalledWith(nodeObj.policy.name);
+
+    stateBlock.click();
     tick();
     expect(component.onFilter).toHaveBeenCalledWith(nodeObj.state.installed);
   }));
 
-  it('should show null policy column', fakeAsync(() => {
+  it('should show state column', () => {
+    const content = fixture.nativeElement.querySelector('td:nth-of-type(6)');
+
+    expect(content.textContent.trim()).toMatch(new RegExp(`Installed:\\s+${nodeObj.state.installed}`));
+    expect(content.textContent.trim()).toMatch(new RegExp(`Policy:\\s+${nodeObj.policy.name}`));
+  });
+
+  it('should show null state column', fakeAsync(() => {
     component.node.state.installed = false;
+    delete component.node.policy;
     fixture.detectChanges();
     tick();
     const content = fixture.nativeElement.querySelector('td:nth-of-type(6)');
 
-    expect(content.textContent.trim()).toEqual('no-policy');
+    expect(content.textContent.trim()).toMatch(new RegExp(`Installed:\\s+no-policy`));
+    expect(content.textContent.trim()).toMatch(new RegExp(`Policy:\\s+no-policy`));
   }));
 
   it('should show last checkin column', () => {
