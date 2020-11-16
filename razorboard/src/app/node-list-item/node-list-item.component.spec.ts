@@ -105,7 +105,14 @@ describe('NodeListItemComponent', () => {
     fixture.detectChanges();
     tick();
 
-    const content = fixture.nativeElement.querySelector('td:nth-of-type(2)');
+    let content = fixture.nativeElement.querySelector('td:nth-of-type(2)');
+    expect(content.textContent.trim()).toBe('--');
+
+    delete component.node.facts;
+    fixture.detectChanges();
+    tick();
+
+    content = fixture.nativeElement.querySelector('td:nth-of-type(2)');
     expect(content.textContent.trim()).toBe('--');
   }));
 

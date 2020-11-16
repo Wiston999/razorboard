@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed a bug that was preventing settings to be fully updated
+- Render node list row even when facts object is not defined [#10][i10]
 
 ## [0.4.0] - 2020-11-04
 
@@ -68,3 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Switch from cookie storage to local storage for settings
 - Sortable columns show pointer cursor
+
+
+<!-- External links -->
+[i10] https://github.com/Wiston999/razorboard/issues/10

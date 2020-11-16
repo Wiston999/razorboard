@@ -5,8 +5,8 @@
   <a [routerLink]="[node.name]">{{ node.dhcp_mac | macAddr }}</a>
 </td>
 <td>
-  <span *ngIf="node.facts.hostname; else noHostname">
-    {{ node.facts.hostname || '--' }}
+  <span *ngIf="node.facts && node.facts.hostname; else noHostname">
+    {{ node.facts.hostname }}
   </span>
   <ng-template #noHostname>--</ng-template>
 </td>
