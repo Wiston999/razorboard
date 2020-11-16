@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed a bug that was preventing settings to be fully updated
-- Render node list row even when facts object is not defined ([#10][i10])
+- Render node list row even when facts object is not defined ([#10](i10))
 - Filter by state.installed in node list view ([#9](i9))
 
 ## [0.4.0] - 2020-11-04
@@ -75,5 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- External links -->
 [i9] https://github.com/Wiston999/razorboard/issues/9
+
 [i10] https://github.com/Wiston999/razorboard/issues/10
+
 [i11] https://github.com/Wiston999/razorboard/issues/11
