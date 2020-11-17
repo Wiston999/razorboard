@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Window title according to content
 - Brokers view
 - Added click filter on tasks base column
+- Pause / Resume auto refresh button on top bar
 
 ### Changed
 

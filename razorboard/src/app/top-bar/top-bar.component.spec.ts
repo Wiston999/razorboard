@@ -85,7 +85,8 @@ describe('TopBarComponent', () => {
     expect(component.razorapiService.connect).toHaveBeenCalledTimes(0);
   }));
 
-  it('should open enable-disable refresh input', fakeAsync(() => {
+  it('should enable-disable refresh input', fakeAsync(() => {
+    component.createForm();
     component.connForm.get('refreshEnabled').setValue(false);
     tick();
     expect(component.connForm.get('refresh').disabled).toBeTruthy();
@@ -94,4 +95,31 @@ describe('TopBarComponent', () => {
     expect(component.connForm.get('refresh').disabled).toBeFalsy();
   }));
 
+  it('should switch refresh status', () => {
+    spyOn(component.razorapiService, 'setRefreshEnabled');
+    component.switchRefresh(true);
+    expect(component.razorapiService.setRefreshEnabled).toHaveBeenCalledWith(false);
+    component.switchRefresh(false);
+    expect(component.razorapiService.setRefreshEnabled).toHaveBeenCalledWith(true);
+  });
+
+  it('should show resume button', fakeAsync(() => {
+    component.razorapiService.setRefreshEnabled(false);
+    tick();
+    fixture.detectChanges();
+    const pause = fixture.nativeElement.querySelector('#pause-refresh-btn');
+    const resume = fixture.nativeElement.querySelector('#resume-refresh-btn');
+    expect(resume).toBeTruthy();
+    expect(pause).toBeFalsy();
+  }));
+
+  it('should show pause button', fakeAsync(() => {
+    component.razorapiService.setRefreshEnabled(true);
+    tick();
+    fixture.detectChanges();
+    const pause = fixture.nativeElement.querySelector('#pause-refresh-btn');
+    const resume = fixture.nativeElement.querySelector('#resume-refresh-btn');
+    expect(pause).toBeTruthy();
+    expect(resume).toBeFalsy();
+  }));
 });

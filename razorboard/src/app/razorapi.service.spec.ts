@@ -129,6 +129,18 @@ describe('RazorapiService', () => {
     expect(service.connect(service.getEndpoint(), '', '', 100000, true)).toBeFalsy();
   }));
 
+  it('should enable refresh', fakeAsync(() => {
+    service.connect(service.getEndpoint(), '', '', 100000, false);
+    expect(service.setRefreshEnabled(true)).toBeTruthy();
+    expect(service.setRefreshEnabled(true)).toBeFalsy();
+  }));
+
+  it('should disable refresh', fakeAsync(() => {
+    service.connect(service.getEndpoint(), '', '', 100000, true);
+    expect(service.setRefreshEnabled(false)).toBeTruthy();
+    expect(service.setRefreshEnabled(false)).toBeFalsy();
+  }));
+
   Object.keys(collections).forEach((key) => {
     it(`should get collection ${key} without AUTH`, fakeAsync(() => {
       service.connect('http://localhost', '', '', 100, false);

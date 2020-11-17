@@ -15,6 +15,22 @@
   <div *ngIf="httpLoading | async" class="spinner-border text-info mx-2" role="status">
     <span class="sr-only">Loading...</span>
   </div>
+  <button
+    id="pause-refresh-btn"
+    class="btn btn-outline-danger mx-2 my-2 my-sm-0"
+    ngbTooltip="Pause automatic refresh"
+    *ngIf="razorapiService.getRefreshEnabled()"
+    (click)="switchRefresh(razorapiService.getRefreshEnabled())">
+    <fa-icon [icon]="faPause"></fa-icon>
+  </button>
+  <button
+    id="resume-refresh-btn"
+    class="btn btn-outline-success mx-2 my-2 my-sm-0"
+    ngbTooltip="Resume automatic refresh"
+    *ngIf="!razorapiService.getRefreshEnabled()"
+    (click)="switchRefresh(razorapiService.getRefreshEnabled())">
+    <fa-icon [icon]="faPlay"></fa-icon>
+  </button>
   <button id="settings-btn" class="btn btn-outline-info my-2 my-sm-0" (click)="open(content)">
     <fa-icon [icon]="faCogs"></fa-icon>
   </button>

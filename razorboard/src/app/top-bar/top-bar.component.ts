@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faCogs, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 import { RazorapiService } from '../razorapi.service';
 import { HttpLoadingService } from '../http-loading.service';
@@ -20,6 +20,8 @@ export class TopBarComponent implements OnInit {
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
   faCogs = faCogs;
+  faPlay = faPlay;
+  faPause = faPause;
 
   menuItems = [
     {
@@ -63,6 +65,9 @@ export class TopBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  createForm() {
     this.connForm = new FormGroup({
       endpoint: new FormControl(this.razorapiService.getEndpoint(), [
         Validators.required,
@@ -83,6 +88,7 @@ export class TopBarComponent implements OnInit {
   }
 
   open(content) {
+    this.createForm();
     this.modalService.open(content, {ariaLabelledBy: 'settings-modal'}).result.then((result) => {
       if (result === 'save') {
         this.razorapiService.connect(
@@ -94,5 +100,9 @@ export class TopBarComponent implements OnInit {
         );
       }
     });
+  }
+
+  switchRefresh(value: boolean) {
+    this.razorapiService.setRefreshEnabled(!value);
   }
 }
