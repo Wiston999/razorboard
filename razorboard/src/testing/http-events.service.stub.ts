@@ -1,5 +1,9 @@
+import { Subject } from 'rxjs';
+
 export class HttpEventsServiceStub {
   calls = [];
+
+  status$ = new Subject<number>();
 
   constructor() { }
   show() {
