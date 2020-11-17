@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HttpEventsService } from './http-events.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { AppComponent } from './app.component';
 
 import { HttpEventsServiceStub } from '../testing/http-events.service.stub';
@@ -44,6 +45,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         TopBarComponent,
+        SettingsModalComponent,
       ],
       providers: [
         { provide: HttpEventsService, useValue: httpEventsStub },
