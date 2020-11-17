@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Brokers view
 - Added click filter on tasks base column
 - Pause / Resume auto refresh button on top bar
+- Check HTTP errors and open settings modal if so [#7](i7)
 
 ### Changed
 - Moved settings modal to its own component
@@ -76,4 +77,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 <!-- External links -->
+[i7] https://github.com/Wiston999/razorboard/issues/7
 [i10] https://github.com/Wiston999/razorboard/issues/10
