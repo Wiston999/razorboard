@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { faCogs, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
+import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
 import { RazorapiService } from '../razorapi.service';
 import { HttpLoadingService } from '../http-loading.service';
 
@@ -15,7 +15,6 @@ import { HttpLoadingService } from '../http-loading.service';
 export class TopBarComponent implements OnInit {
   @Input() title: string;
   activeItem: string;
-  connForm: FormGroup;
 
   httpLoading: Subject<boolean> = this.loaderService.loading;
 
@@ -67,39 +66,9 @@ export class TopBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  createForm() {
-    this.connForm = new FormGroup({
-      endpoint: new FormControl(this.razorapiService.getEndpoint(), [
-        Validators.required,
-        Validators.pattern('^(https?:\/\/)?(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'),
-      ]),
-      username: new FormControl(this.razorapiService.getUsername()),
-      password: new FormControl(this.razorapiService.getPassword()),
-      refresh: new FormControl({value: this.razorapiService.getRefresh(), disabled: !this.razorapiService.getRefreshEnabled()}),
-      refreshEnabled: new FormControl(this.razorapiService.getRefreshEnabled()),
-    });
-    this.connForm.get('refreshEnabled').valueChanges.subscribe(v => {
-      if (v) {
-        this.connForm.get('refresh').enable();
-      } else {
-        this.connForm.get('refresh').disable();
-      }
-    });
-  }
-
   open(content) {
-    this.createForm();
-    this.modalService.open(content, {ariaLabelledBy: 'settings-modal'}).result.then((result) => {
-      if (result === 'save') {
-        this.razorapiService.connect(
-          this.connForm.value.endpoint,
-          this.connForm.value.username,
-          this.connForm.value.password,
-          this.connForm.value.refresh,
-          this.connForm.value.refreshEnabled,
-        );
-      }
-    });
+    const modalRef = this.modalService.open(SettingsModalComponent);
+    modalRef.componentInstance.title = this.title;
   }
 
   switchRefresh(value: boolean) {

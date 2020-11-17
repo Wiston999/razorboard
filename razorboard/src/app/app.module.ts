@@ -37,6 +37,7 @@ import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
 import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
     FactsFilterPipe,
     BrokerListItemComponent,
     BrokersFilterPipe,
+    SettingsModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +99,6 @@ import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NodeReinstallModalComponent],
+  entryComponents: [NodeReinstallModalComponent, SettingsModalComponent],
 })
 export class AppModule { }

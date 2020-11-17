@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="settings-modal">{{ title }} Settings</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="connForm">
+    <div class="form-group row">
+      <label for="endpoint" class="col-sm-2 col-form-label">Endpoint</label>
+      <div class="col-sm-10">
+        <input
+          formControlName="endpoint"
+          class="form-control mr-sm-2"
+          placeholder="Razor API Endpoint"
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="Username" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-10">
+        <input
+          formControlName="username"
+          class="form-control mr-sm-2"
+          placeholder="Razor API Username"
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control mr-sm-2"
+          placeholder="Razor API Password"
+        >
+      </div>
+    </div>
+    <div class="form-check row">
+      <div class="col-sm-6">
+        <input
+          formControlName="refreshEnabled"
+          type="checkbox"
+          class="form-check-input"
+        >
+        <label for="auto-refresh" class="form-check-label">Auto refresh?</label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <input
+          min=5 max=120
+          formControlName="refresh"
+          class="form-control custom-range mr-sm-2"
+          type="range"
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <p *ngIf="connForm.value.refreshEnabled">Refresh every {{ connForm.value.refresh }} seconds</p>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button id="cancel-btn" type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('cancel')">Cancel</button>
+  <button id="save-btn" type="button" ngbAutofocus class="btn btn-outline-light btn-sm" (click)="save()">Save</button>
+</div>

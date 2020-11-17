@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pause / Resume auto refresh button on top bar
 
 ### Changed
+- Moved settings modal to its own component
 
 ### Fixed
 - Fixed a bug that was preventing settings to be fully updated
