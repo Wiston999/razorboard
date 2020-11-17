@@ -84,4 +84,11 @@ describe('SettingsModalComponent', () => {
     expect(component.modal.close).toHaveBeenCalledWith('save');
   }));
 
+  it('should show error message', fakeAsync(() => {
+    component.errMsg = 'Test error message';
+    fixture.detectChanges();
+    tick();
+    const content = fixture.nativeElement.querySelector('#error');
+    expect(content.textContent.trim()).toEqual(component.errMsg);
+  }));
 });

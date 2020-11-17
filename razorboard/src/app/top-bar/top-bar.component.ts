@@ -66,7 +66,7 @@ export class TopBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(content) {
+  open() {
     const modalRef = this.modalService.open(SettingsModalComponent);
     modalRef.componentInstance.title = this.title;
   }

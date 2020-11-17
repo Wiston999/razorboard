@@ -11,6 +11,7 @@ import { RazorapiService } from '../razorapi.service';
 })
 export class SettingsModalComponent implements OnInit {
   @Input() title: string;
+  @Input() errMsg: string;
   connForm: FormGroup;
 
   constructor(

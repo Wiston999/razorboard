@@ -5,6 +5,11 @@
   </button>
 </div>
 <div class="modal-body">
+  <div id="error" *ngIf="errMsg" class="alert alert-danger text-center" role="alert">
+    <strong>
+      {{ errMsg }}
+    </strong>
+  </div>
   <form [formGroup]="connForm">
     <div class="form-group row">
       <label for="endpoint" class="col-sm-2 col-form-label">Endpoint</label>
