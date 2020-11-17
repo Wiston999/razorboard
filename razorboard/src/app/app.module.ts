@@ -6,8 +6,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpLoadingService } from './http-loading.service';
+import { HttpEventsService } from './http-events.service';
 import { HttpLoadingInterceptor } from './http-loading.interceptor';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
 import { OrderModule } from 'ngx-order-pipe';
@@ -95,8 +96,9 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
     ]),
   ],
   providers: [
-    HttpLoadingService,
+    HttpEventsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [NodeReinstallModalComponent, SettingsModalComponent],

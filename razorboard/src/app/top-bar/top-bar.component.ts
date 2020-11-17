@@ -5,7 +5,7 @@ import { faCogs, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
 import { RazorapiService } from '../razorapi.service';
-import { HttpLoadingService } from '../http-loading.service';
+import { HttpEventsService } from '../http-events.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -16,7 +16,7 @@ export class TopBarComponent implements OnInit {
   @Input() title: string;
   activeItem: string;
 
-  httpLoading: Subject<boolean> = this.loaderService.loading;
+  httpLoading: Subject<boolean> = this.httpEventsService.loading;
 
   faCogs = faCogs;
   faPlay = faPlay;
@@ -59,7 +59,7 @@ export class TopBarComponent implements OnInit {
 
   constructor(
     public razorapiService: RazorapiService,
-    private loaderService: HttpLoadingService,
+    private httpEventsService: HttpEventsService,
     private modalService: NgbModal,
   ) { }
 

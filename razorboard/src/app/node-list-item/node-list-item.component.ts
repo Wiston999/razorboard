@@ -41,9 +41,6 @@ export class NodeListItemComponent implements OnInit {
       this.razorapiService.reinstallNode(this.node.name, result === 'on').subscribe(
         response => {
           this.toastr.success('Node will be reinstalled!', 'Success');
-        },
-        err => {
-          this.toastr.error(err.message, 'Unable to mark node to reinstall');
         }
       );
     });

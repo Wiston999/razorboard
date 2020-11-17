@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpLoadingService } from './http-loading.service';
+import { HttpEventsService } from './http-events.service';
 
-describe('HttpLoadingService', () => {
-  let service: HttpLoadingService;
+describe('HttpEventsService', () => {
+  let service: HttpEventsService;
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.get(HttpLoadingService);
+    service = TestBed.get(HttpEventsService);
     spyOn(service.loading, 'next');
+    spyOn(service.status$, 'next');
   });
 
   it('should be created', () => {
@@ -22,5 +23,12 @@ describe('HttpLoadingService', () => {
   it('should hide', () => {
     service.hide();
     expect(service.loading.next).toHaveBeenCalledWith(false);
+  });
+  it('should notify status', () => {
+    service.statusNotify(0);
+    expect(service.status$.next).toHaveBeenCalledWith(0);
+
+    service.statusNotify(401);
+    expect(service.status$.next).toHaveBeenCalledWith(401);
   });
 });

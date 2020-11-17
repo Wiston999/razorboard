@@ -8,7 +8,6 @@ import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -39,7 +38,6 @@ describe('NodeLogViewerComponent', () => {
         FormsModule,
         FontAwesomeModule,
         HttpClientModule,
-        ToastrModule.forRoot(),
         RouterTestingModule,
         HttpClientTestingModule,
         NoopAnimationsModule,

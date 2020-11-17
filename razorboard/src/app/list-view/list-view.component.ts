@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 import { NodesFilterPipe } from './nodes-filter.pipe';
 import { TasksFilterPipe } from './tasks-filter.pipe';
@@ -17,7 +16,7 @@ import { ConfigFilterPipe } from './config-filter.pipe';
 import { BrokersFilterPipe } from './brokers-filter.pipe';
 
 import { ApiResponse } from '../models/apiresponse.model';
-import { HttpLoadingService } from '../http-loading.service';
+import { HttpEventsService } from '../http-events.service';
 import { RazorapiService } from '../razorapi.service';
 import { PolledView } from '../polled-view';
 
@@ -48,7 +47,7 @@ export class ListViewComponent extends PolledView implements OnInit {
   items = [];
   private responseItems = [];
 
-  httpLoading: Subject<boolean> = this.loaderService.loading;
+  httpLoading: Subject<boolean> = this.httpEventsService.loading;
 
   headersMapping = {
     nodes: [
@@ -142,10 +141,9 @@ export class ListViewComponent extends PolledView implements OnInit {
 
   constructor(
     protected razorApi: RazorapiService,
-    protected toastr: ToastrService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private loaderService: HttpLoadingService,
+    private httpEventsService: HttpEventsService,
     private nodesFilter: NodesFilterPipe,
     private tasksFilter: TasksFilterPipe,
     private tagsFilter: TagsFilterPipe,
@@ -156,7 +154,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     private brokersFilter: BrokersFilterPipe,
     private titleService: Title,
   ) {
-    super(razorApi, toastr, route, router);
+    super(razorApi, route, router);
     this.devMode = isDevMode();
   }
 

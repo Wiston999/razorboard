@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Moved settings modal to its own component
+- Added http-error interceptor that will manage toastr and console.err messages
+- Renamed http-loading service to http-events service and added HTTP status notification mechanism to other components
 
 ### Fixed
 - Fixed a bug that was preventing settings to be fully updated

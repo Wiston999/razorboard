@@ -1,4 +1,4 @@
-export class HttpLoadingServiceStub {
+export class HttpEventsServiceStub {
   calls = [];
 
   constructor() { }
@@ -7,6 +7,9 @@ export class HttpLoadingServiceStub {
   }
   hide() {
     this.calls.push('hide');
+  }
+  statusNotify(value: number) {
+    this.calls.push(`statusNotify: ${value}`);
   }
 }
 
