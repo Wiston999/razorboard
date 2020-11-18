@@ -2,7 +2,9 @@ import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { NgModule } from '@angular/core';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -30,22 +32,24 @@ describe('AppComponent', () => {
   let app: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let ngbModal: NgbModal;
-  const httpEventsStub = new HttpEventsServiceStub();
+  let httpEventsStub: HttpEventsServiceStub;
   const mockModalRef: MockNgbModalRef = new MockNgbModalRef('save');
 
   beforeEach(async(() => {
+    httpEventsStub = new HttpEventsServiceStub();
     TestBed.configureTestingModule({
+      declarations: [
+        AppComponent,
+        SettingsModalComponent,
+        TopBarComponent,
+      ],
       imports: [
         FormsModule,
+        NgbModule,
         ReactiveFormsModule,
         RouterTestingModule,
         FontAwesomeModule,
         HttpClientModule,
-      ],
-      declarations: [
-        AppComponent,
-        TopBarComponent,
-        SettingsModalComponent,
       ],
       providers: [
         { provide: HttpEventsService, useValue: httpEventsStub },
@@ -89,6 +93,7 @@ describe('AppComponent', () => {
   }));
 
   it('should open settings modal on error 0 or 4XX', fakeAsync(() => {
+    // spyOn(app.modalService, 'open').and.returnValue(mockModalRef as any); // Needed to avoid test error
     spyOn(app, 'openSettingsModal');
 
     const statuses = [0, 400, 401, 402, 403, 404, 405];
