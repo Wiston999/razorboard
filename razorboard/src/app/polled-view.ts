@@ -2,6 +2,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { EMPTY, BehaviorSubject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { Params, Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { ApiResponse } from './models/apiresponse.model';
 import { RazorapiService } from './razorapi.service';
@@ -15,6 +16,7 @@ export abstract class PolledView implements OnInit, OnDestroy {
     protected razorApi: RazorapiService,
     protected route: ActivatedRoute,
     protected router: Router,
+    protected title: Title,
   ) { }
 
   abstract getData();

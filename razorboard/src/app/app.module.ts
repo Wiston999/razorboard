@@ -39,6 +39,7 @@ import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
 import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
+import { TablePolledComponent } from './table-polled/table-polled.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
     BrokerListItemComponent,
     BrokersFilterPipe,
     SettingsModalComponent,
+    TablePolledComponent,
   ],
   imports: [
     BrowserModule,
