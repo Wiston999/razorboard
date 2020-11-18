@@ -6,8 +6,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpLoadingService } from './http-loading.service';
+import { HttpEventsService } from './http-events.service';
 import { HttpLoadingInterceptor } from './http-loading.interceptor';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
 import { OrderModule } from 'ngx-order-pipe';
@@ -37,6 +38,7 @@ import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
 import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
     FactsFilterPipe,
     BrokerListItemComponent,
     BrokersFilterPipe,
+    SettingsModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,10 +96,11 @@ import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
     ]),
   ],
   providers: [
-    HttpLoadingService,
+    HttpEventsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NodeReinstallModalComponent],
+  entryComponents: [NodeReinstallModalComponent, SettingsModalComponent],
 })
 export class AppModule { }
