@@ -34,7 +34,7 @@ describe(`HttpLoadingInterceptor`, () => {
     service.connect('http://localhost:8150', '', '', 0, false);
   });
 
-  it('should manage loading service', fakeAsync(() => {
+  it('should manage loading status', fakeAsync(() => {
     service.getNodes().subscribe(response => { }).unsubscribe();
     tick();
     expect(httpEventsStub.calls).toEqual(['show', 'hide']);
