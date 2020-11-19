@@ -16,8 +16,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { NodeDetailComponent } from './node-detail/node-detail.component';
-import { ListViewComponent } from './list-view/list-view.component';
-import { NodeListItemComponent } from './node-list-item/node-list-item.component';
+// import { ListViewComponent } from './list-view/list-view.component';
+import { NodeListItemComponent } from './nodes-list/node-list-item.component';
 import { MacAddrPipe } from './mac-addr.pipe';
 import { HookListItemComponent } from './hook-list-item/hook-list-item.component';
 import { TagListItemComponent } from './tag-list-item/tag-list-item.component';
@@ -40,13 +40,15 @@ import { BrokerListItemComponent } from './broker-list-item/broker-list-item.com
 import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { TablePolledComponent } from './table-polled/table-polled.component';
+import { NodesListComponent } from './nodes-list/nodes-list.component';
+import { TableRowDirective } from './table-polled/table-row.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     NodeDetailComponent,
-    ListViewComponent,
+    // ListViewComponent,
     NodeListItemComponent,
     MacAddrPipe,
     HookListItemComponent,
@@ -69,7 +71,8 @@ import { TablePolledComponent } from './table-polled/table-polled.component';
     BrokerListItemComponent,
     BrokersFilterPipe,
     SettingsModalComponent,
-    TablePolledComponent,
+    NodesListComponent,
+    TableRowDirective,
   ],
   imports: [
     BrowserModule,
@@ -85,16 +88,16 @@ import { TablePolledComponent } from './table-polled/table-polled.component';
     }),
     RouterModule.forRoot([
       { path: '', redirectTo: '/nodes', pathMatch: 'full'},
-      { path: 'nodes', component: ListViewComponent, data: { kind: 'nodes'}},
+      { path: 'nodes', component: NodesListComponent},
       { path: 'nodes/:id', component: NodeDetailComponent},
       { path: 'nodes/:id/log', component: NodeLogViewerComponent},
-      { path: 'repos', component: ListViewComponent, data: { kind: 'repos'}},
-      { path: 'tags', component: ListViewComponent, data: { kind: 'tags'}},
-      { path: 'policies', component: ListViewComponent, data: { kind: 'policies'}},
-      { path: 'tasks', component: ListViewComponent, data: { kind: 'tasks'}},
-      { path: 'brokers', component: ListViewComponent, data: { kind: 'brokers'}},
-      { path: 'hooks', component: ListViewComponent, data: { kind: 'hooks'}},
-      { path: 'configuration', component: ListViewComponent, data: { kind: 'configuration'}},
+      // { path: 'repos', component: ListViewComponent, data: { kind: 'repos'}},
+      // { path: 'tags', component: ListViewComponent, data: { kind: 'tags'}},
+      // { path: 'policies', component: ListViewComponent, data: { kind: 'policies'}},
+      // { path: 'tasks', component: ListViewComponent, data: { kind: 'tasks'}},
+      // { path: 'brokers', component: ListViewComponent, data: { kind: 'brokers'}},
+      // { path: 'hooks', component: ListViewComponent, data: { kind: 'hooks'}},
+      // { path: 'configuration', component: ListViewComponent, data: { kind: 'configuration'}},
     ]),
   ],
   providers: [
@@ -103,6 +106,10 @@ import { TablePolledComponent } from './table-polled/table-polled.component';
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NodeReinstallModalComponent, SettingsModalComponent],
+  entryComponents: [
+    NodeListItemComponent,
+    NodeReinstallModalComponent,
+    SettingsModalComponent
+  ],
 })
 export class AppModule { }

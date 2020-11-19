@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { I18nPluralPipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -18,7 +18,7 @@ import { BrokersFilterPipe } from './brokers-filter.pipe';
 import { ApiResponse } from '../models/apiresponse.model';
 import { HttpEventsService } from '../http-events.service';
 import { RazorapiService } from '../razorapi.service';
-import { PolledView } from '../polled-view';
+import { PolledViewComponent } from '../polled-view';
 
 @Component({
   selector: 'app-list-view',
@@ -35,7 +35,7 @@ import { PolledView } from '../polled-view';
     ConfigFilterPipe,
   ],
 })
-export class ListViewComponent extends PolledView implements OnInit {
+export class ListViewComponent extends PolledViewComponent implements OnInit {
   element: string;
   filter: string;
   sortField = 'name';
@@ -143,7 +143,8 @@ export class ListViewComponent extends PolledView implements OnInit {
     protected razorApi: RazorapiService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private httpEventsService: HttpEventsService,
+    protected cfResolver: ComponentFactoryResolver,
+    protected httpEventsService: HttpEventsService,
     private nodesFilter: NodesFilterPipe,
     private tasksFilter: TasksFilterPipe,
     private tagsFilter: TagsFilterPipe,
@@ -154,7 +155,7 @@ export class ListViewComponent extends PolledView implements OnInit {
     private brokersFilter: BrokersFilterPipe,
     private titleService: Title,
   ) {
-    super(razorApi, route, router);
+    super(razorApi, route, router, titleService, cfResolver, httpEventsService);
     this.devMode = isDevMode();
   }
 
@@ -248,7 +249,6 @@ export class ListViewComponent extends PolledView implements OnInit {
   filterItems(filter: string) {
     this.filter = filter;
     this.generateItemList();
-    this.setUrlSearch(filter);
     this.setTitle();
   }
 

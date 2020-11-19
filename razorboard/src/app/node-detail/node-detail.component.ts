@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
@@ -8,8 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import { faServer } from '@fortawesome/free-solid-svg-icons';
 
+import { HttpEventsService } from '../http-events.service';
 import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
-import { PolledView } from '../polled-view';
+import { PolledViewComponent } from '../polled-view';
 import { RazorapiService } from '../razorapi.service';
 import { ColorTagService } from '../color-tag.service';
 import { Node } from '../models/node.model';
@@ -19,7 +20,7 @@ import { Node } from '../models/node.model';
   templateUrl: './node-detail.component.html',
   styleUrls: ['./node-detail.component.css']
 })
-export class NodeDetailComponent extends PolledView implements OnInit {
+export class NodeDetailComponent extends PolledViewComponent implements OnInit {
   nodeId: string;
   devMode = false;
   editMode = false;
@@ -36,12 +37,15 @@ export class NodeDetailComponent extends PolledView implements OnInit {
     protected razorApi: RazorapiService,
     protected route: ActivatedRoute,
     protected router: Router,
+    protected title: Title,
+    protected cfResolver: ComponentFactoryResolver,
+    protected httpEventsService: HttpEventsService,
     private modalService: NgbModal,
     private titleService: Title,
     private toastr: ToastrService,
     public colorTag: ColorTagService,
   ) {
-    super(razorApi, route, router);
+    super(razorApi, route, router, titleService, cfResolver, httpEventsService);
     this.devMode = isDevMode();
     this.node = new Node();
     this.editNode = new Node();

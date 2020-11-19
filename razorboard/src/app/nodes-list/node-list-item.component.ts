@@ -7,6 +7,7 @@ import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinst
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiResponse } from '../models/apiresponse.model';
+import { RowComponent } from '../table-polled/table-polled.component';
 
 import { faFileAlt, faRedoAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,9 +16,8 @@ import { faFileAlt, faRedoAlt, faInfoCircle } from '@fortawesome/free-solid-svg-
   templateUrl: './node-list-item.component.html',
   styleUrls: ['./node-list-item.component.css']
 })
-export class NodeListItemComponent implements OnInit {
-  @Input() node;
-  @Input() columns: string[];
+export class NodeListItemComponent implements OnInit, RowComponent {
+  @Input() data;
   @Output() filter = new EventEmitter<string>();
 
   faFileAlt = faFileAlt;
@@ -36,9 +36,9 @@ export class NodeListItemComponent implements OnInit {
 
   openReinstallModal() {
     const modalRef = this.modalService.open(NodeReinstallModalComponent);
-    modalRef.componentInstance.nodeId = this.node.name;
+    modalRef.componentInstance.nodeId = this.data.name;
     modalRef.result.then((result) => {
-      this.razorapiService.reinstallNode(this.node.name, result === 'on').subscribe(
+      this.razorapiService.reinstallNode(this.data.name, result === 'on').subscribe(
         response => {
           this.toastr.success('Node will be reinstalled!', 'Success');
         }

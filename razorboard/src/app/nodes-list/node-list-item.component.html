@@ -1,0 +1,45 @@
+<th scope="row">
+  <a [routerLink]="[data.name]">{{ data.name }}</a>
+</th>
+<td>
+  <a [routerLink]="[data.name]">{{ data.dhcp_mac | macAddr }}</a>
+</td>
+<td>
+  <span *ngIf="data.facts && data.facts.hostname; else noHostname">
+    {{ data.facts.hostname }}
+  </span>
+  <ng-template #noHostname>--</ng-template>
+</td>
+<td>
+  <span
+    (click)="onFilter(tag.name)"
+    [ngClass]="['badge badge-pill mx-1 cursor-pointer', colorTag.getClass(tag.name)]"
+    *ngFor="let tag of data.tags">
+    {{ tag.name }}
+  </span>
+</td>
+<td>{{ (data.facts | keyvalue)?.length || 0 }}</td>
+<td>{{ (data.metadata | keyvalue)?.length || 0 }}</td>
+<td>
+  <code
+    class="cursor-pointer"
+    (click)="onFilter(data.state.installed)"
+    *ngIf="data.state.installed; else noPolicy">
+    {{ data.state.installed }}
+  </code>
+  <ng-template #noPolicy><p class="text-monospace">no-policy</p></ng-template>
+</td>
+<td>{{ data.last_checkin | date: 'y-MM-dd hh:mm:ss' }}</td>
+<td>
+  <div class="col-md-12 btn-group">
+    <a class="btn btn-sm btn-outline-info" [routerLink]="[data.name]" ngbTooltip="Node Information">
+      <fa-icon [icon]="faInfo"></fa-icon>
+    </a>
+    <a class="btn btn-sm btn-outline-light" [routerLink]="[data.name, 'log']" ngbTooltip="Node logs">
+      <fa-icon [icon]="faFileAlt"></fa-icon>
+    </a>
+    <button class="btn btn-sm btn-outline-danger" (click)="openReinstallModal()" [disabled]="!data.state.installed" ngbTooltip="Reinstall Node">
+      <fa-icon [icon]="faRedoAlt"></fa-icon>
+    </button>
+  </div>
+</td>

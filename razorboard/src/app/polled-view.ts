@@ -1,22 +1,27 @@
-import { OnInit, OnDestroy } from '@angular/core';
-import { EMPTY, BehaviorSubject, timer, interval, merge } from 'rxjs';
+import { OnInit, OnDestroy, Component, ComponentFactoryResolver } from '@angular/core';
+import { EMPTY, BehaviorSubject, Subject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { ApiResponse } from './models/apiresponse.model';
 import { RazorapiService } from './razorapi.service';
+import { HttpEventsService } from './http-events.service';
 
-export abstract class PolledView implements OnInit, OnDestroy {
+@Component({})
+export abstract class PolledViewComponent implements OnInit, OnDestroy {
   private itemsSubscription;
 
   private readonly refresh$ = new BehaviorSubject(undefined);
+  httpLoading: Subject<boolean> = this.httpEventsService.loading;
 
   constructor(
     protected razorApi: RazorapiService,
     protected route: ActivatedRoute,
     protected router: Router,
     protected title: Title,
+    protected cfResolver: ComponentFactoryResolver,
+    protected httpEventsService: HttpEventsService,
   ) { }
 
   abstract getData();

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { PolledView } from '../polled-view';
+import { PolledViewComponent } from '../polled-view';
 import { RazorapiService } from '../razorapi.service';
 import { HttpEventsService } from '../http-events.service';
 
@@ -16,7 +16,7 @@ import { NodeLog } from '../models/node-log.model';
   templateUrl: './node-log-viewer.component.html',
   styleUrls: ['./node-log-viewer.component.css']
 })
-export class NodeLogViewerComponent extends PolledView implements OnInit {
+export class NodeLogViewerComponent extends PolledViewComponent implements OnInit {
   private responseItems: any[];
   private titlePrefix = 'Node Logs';
   nodeId: string;
@@ -40,10 +40,12 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
     protected razorApi: RazorapiService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private httpEventsService: HttpEventsService,
+    protected title: Title,
+    protected cfResolver: ComponentFactoryResolver,
+    protected httpEventsService: HttpEventsService,
     private titleService: Title,
   ) {
-    super(razorApi, route, router);
+    super(razorApi, route, router, titleService, cfResolver, httpEventsService);
     this.devMode = isDevMode();
   }
 

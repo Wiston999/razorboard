@@ -1,1 +1,38 @@
-<p>table-polled works!</p>
+<div class="row my-2">
+  <div class="col-md-3">
+    <h3 *ngIf="showTotal">{{ filterTotal }} out of {{ total | i18nPlural: pluralMapping }}</h3>
+  </div>
+  <div class="offset-md-5 col-md-3">
+    <input type="search" [(ngModel)]="filter" (ngModelChange)="filterItems(filter)" class="form-control" placeholder="Search..." autofocus>
+  </div>
+  <div class="col-md-1">
+    <button ngbButton [disabled]="httpLoading | async" (click)="asyncRefresh()" class="btn btn-outline-info">
+      Refresh
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="table-responsive" [ngSwitch]="element">
+    <table class="table table-striped table-hover">
+      <thead>
+        <th
+          scope="col"
+          *ngFor="let header of tableHeaders"
+          [ngClass]="{'cursor-pointer': header.sort}"
+          (click)="header.sort && setSort(header.name)">
+          {{ header.label }}
+          <span [hidden]="sortField != header.name || !header.sort || !sortReverse">▼</span>
+          <span [hidden]="sortField != header.name || !header.sort || sortReverse">▲</span>
+        </th>
+      </thead>
+      <tbody class="text-monospace">
+        <tr appTableRow
+          *ngFor="let item of items"
+          (filter)="filterItems($event)">
+          <ng-template appTableRow></ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<pre *ngIf="devMode">{{ items|json }}</pre>
