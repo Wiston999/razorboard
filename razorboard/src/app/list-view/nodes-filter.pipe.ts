@@ -21,7 +21,10 @@ export class NodesFilterPipe implements PipeTransform {
     if (node.dhcp_mac.includes(filter) || node.dhcp_mac.replace(/-/g, ':').includes(filter)) {
       return true;
     }
-    if (node.facts.hostname && node.facts.hostname.includes(filter)) {
+    if (node.facts && node.facts.hostname && node.facts.hostname.includes(filter)) {
+      return true;
+    }
+    if (node.state && node.state.installed && node.state.installed.includes(filter)) {
       return true;
     }
     if (node.policy && node.policy.name.includes(filter)) {

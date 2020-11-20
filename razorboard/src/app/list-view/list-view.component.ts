@@ -57,7 +57,7 @@ export class ListViewComponent extends PolledView implements OnInit {
       { label: 'Tags', name: 'tags', sort: false },
       { label: 'Facts', name: 'facts', sort: false },
       { label: 'Metadata', name: 'metadata', sort: false },
-      { label: 'State', name: 'policy', sort: false },
+      { label: 'State', name: 'state', sort: false },
       { label: 'Last seen', name: 'last_checkin', sort: true },
       { label: 'Actions', name: 'actions', sort: false },
     ],

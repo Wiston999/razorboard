@@ -16,6 +16,11 @@ export const nodeList = [
       uuid: 'be12cce4-82d5-4a5c-bc5b-14002970b2d8'
     },
     dhcp_mac: 'f8-f2-aa-aa-aa-aa',
+    policy: {
+      spec: 'http://api.puppetlabs.com/razor/v1/collections/policies/member',
+      id: 'http://localhost:8150/api/collections/policies/debian',
+      name: 'debian'
+    },
     tags: [
       {
         spec: 'http://api.puppetlabs.com/razor/v1/collections/tags/member',
@@ -67,6 +72,11 @@ export const nodeList = [
       uuid: 'be12cce4-82d5-4a5c-bc5b-14002970b2d8'
     },
     dhcp_mac: 'f8-f2-aa-aa-aa-aa',
+    policy: {
+      spec: 'http://api.puppetlabs.com/razor/v1/collections/policies/member',
+      id: 'http://localhost:8150/api/collections/policies/debian',
+      name: 'debian'
+    },
     tags: [
       {
         spec: 'http://api.puppetlabs.com/razor/v1/collections/tags/member',
