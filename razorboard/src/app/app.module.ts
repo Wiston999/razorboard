@@ -16,31 +16,30 @@ import { OrderModule } from 'ngx-order-pipe';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { NodeDetailComponent } from './node-detail/node-detail.component';
-import { NodeListItemComponent } from './nodes-list/node-list-item/node-list-item.component';
 import { MacAddrPipe } from './mac-addr.pipe';
-import { HookListItemComponent } from './hook-list-item/hook-list-item.component';
-import { TaskListItemComponent } from './task-list-item/task-list-item.component';
-import { PolicyListItemComponent } from './policy-list-item/policy-list-item.component';
-import { ConfigListItemComponent } from './config-list-item/config-list-item.component';
-import { TagsFilterPipe } from './list-view/tags-filter.pipe';
-import { TasksFilterPipe } from './list-view/tasks-filter.pipe';
-import { PoliciesFilterPipe } from './list-view/policies-filter.pipe';
-import { HooksFilterPipe } from './list-view/hooks-filter.pipe';
-import { ConfigFilterPipe } from './list-view/config-filter.pipe';
 import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.component';
 import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
 import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { TablePolledComponent } from './table-polled/table-polled.component';
-import { NodesListComponent } from './nodes-list/nodes-list.component';
 import { TableRowDirective } from './table-polled/table-row.directive';
+import { NodesListComponent } from './nodes-list/nodes-list.component';
+import { NodeListItemComponent } from './nodes-list/node-list-item/node-list-item.component';
 import { BrokersListComponent } from './brokers-list/brokers-list.component';
 import { BrokerListItemComponent } from './brokers-list/broker-list-item/broker-list-item.component';
 import { ReposListComponent } from './repos-list/repos-list.component';
 import { RepoListItemComponent } from './repos-list/./repo-list-item/repo-list-item.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagListItemComponent } from './tags-list//tag-list-item/tag-list-item.component';
+import { PoliciesListComponent } from './policies-list/policies-list.component';
+import { PolicyListItemComponent } from './policies-list/policy-list-item/policy-list-item.component';
+import { TasksListComponent } from './tasks-list/tasks-list.component';
+import { TaskListItemComponent } from './tasks-list/task-list-item/task-list-item.component';
+import { HooksListComponent } from './hooks-list/hooks-list.component';
+import { HookListItemComponent } from './hooks-list/hook-list-item/hook-list-item.component';
+import { ConfigurationListComponent } from './configuration-list/configuration-list.component';
+import { ConfigurationListItemComponent } from './configuration-list/configuration-list-item/configuration-list-item.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +52,6 @@ import { TagListItemComponent } from './tags-list//tag-list-item/tag-list-item.c
     TagListItemComponent,
     TaskListItemComponent,
     RepoListItemComponent,
-    PolicyListItemComponent,
-    ConfigListItemComponent,
     NodeLogViewerComponent,
     NodeReinstallModalComponent,
     RainbowBracketsPipe,
@@ -66,6 +63,12 @@ import { TagListItemComponent } from './tags-list//tag-list-item/tag-list-item.c
     BrokersListComponent,
     ReposListComponent,
     TagsListComponent,
+    PoliciesListComponent,
+    PolicyListItemComponent,
+    TasksListComponent,
+    HooksListComponent,
+    ConfigurationListComponent,
+    ConfigurationListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,11 +89,11 @@ import { TagListItemComponent } from './tags-list//tag-list-item/tag-list-item.c
       { path: 'nodes/:id/log', component: NodeLogViewerComponent},
       { path: 'repos', component: ReposListComponent},
       { path: 'tags', component: TagsListComponent},
-      // { path: 'policies', component: ListViewComponent, data: { kind: 'policies'}},
-      // { path: 'tasks', component: ListViewComponent, data: { kind: 'tasks'}},
+      { path: 'policies', component: PoliciesListComponent},
+      { path: 'tasks', component: TasksListComponent},
       { path: 'brokers', component: BrokersListComponent},
-      // { path: 'hooks', component: ListViewComponent, data: { kind: 'hooks'}},
-      // { path: 'configuration', component: ListViewComponent, data: { kind: 'configuration'}},
+      { path: 'hooks', component: HooksListComponent},
+      { path: 'configuration', component: ConfigurationListComponent},
     ]),
   ],
   providers: [
@@ -104,7 +107,11 @@ import { TagListItemComponent } from './tags-list//tag-list-item/tag-list-item.c
     BrokerListItemComponent,
     RepoListItemComponent,
     TagListItemComponent,
+    HookListItemComponent,
+    TaskListItemComponent,
+    PolicyListItemComponent,
     NodeReinstallModalComponent,
+    ConfigurationListItemComponent,
     SettingsModalComponent
   ],
 })
