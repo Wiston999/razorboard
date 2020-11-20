@@ -1,0 +1,16 @@
+<th scope="row">{{ data.name }}</th>
+<td>{{ data.os.version }}</td>
+<td>
+  <span (click)="onFilter(data.base.name)" class="cursor-pointer" *ngIf="data.base; else noBase">
+    {{ data.base.name }}
+  </span>
+  <ng-template #noBase>--</ng-template>
+</td>
+<td>
+  <ul>
+    <li *ngFor="let item of data.boot_seq | keyvalue">
+      {{ item.key }}: {{ item.value }}
+      </li>
+    </ul>
+  </td>
+<td>{{ data.description }}</td>

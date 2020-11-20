@@ -1,0 +1,33 @@
+<th scope="row">{{ data.name }}</th>
+a
+<td class="text-monospace">
+  <a *ngIf="data.repo.name; else noNameElement" [routerLink]="['/repos']" [queryParams]="{search: data.repo.name}">
+    {{ data.repo.name }}
+  </a>
+</td>
+<td class="text-monospace">
+  <a *ngIf="data.broker.name; else noNameElement" [routerLink]="['/brokers']" [queryParams]="{search: data.broker.name}">
+    {{ data.broker.name }}
+  </a>
+</td>
+<td class="text-monospace">
+  <a *ngIf="data.task.name; else noNameElement" [routerLink]="['/tasks']" [queryParams]="{search: data.task.name}">
+    {{ data.task.name }}
+  </a>
+</td>
+<td>
+  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(tag.name)]" *ngFor="let tag of data.tags">
+    {{ tag.name }}
+  </span>
+</td>
+<td><code>{{ data.enabled }}</code></td>
+<td>
+  <ngb-progressbar
+    [type]="barColor()"
+    ngbTooltip="{{ data.nodes.count }} of {{ data.max_count }} ({{ data.nodes.count / data.max_count * 100.0 | number }} %)"
+    [value]="data.nodes.count"
+    [max]="data.max_count">
+    {{ data.nodes.count }} of {{ data.max_count }} ({{ data.nodes.count / data.max_count * 100.0 | number }} %)
+  </ngb-progressbar>
+</td>
+<ng-template #noNameElement>--</ng-template>

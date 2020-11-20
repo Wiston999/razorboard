@@ -1,8 +1,0 @@
-<th scope="row">{{ repo.name }}</th>
-<td><a target="_blank" href="{{ repo.url || repo.iso_url }}">{{ repo.url || repo.iso_url }}</a></td>
-<td>
-  <a *ngIf="repo.task; else noTask" [routerLink]="['/tasks']" [queryParams]="{search: repo.task.name}">
-    {{ repo.task.name || '--' }}
-  </a>
-  <ng-template #noTask>--</ng-template>
-</td>
