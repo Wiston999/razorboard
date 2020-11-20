@@ -4,11 +4,10 @@ import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 import { PolledView } from '../polled-view';
 import { RazorapiService } from '../razorapi.service';
-import { HttpLoadingService } from '../http-loading.service';
+import { HttpEventsService } from '../http-events.service';
 
 import { NodeLog } from '../models/node-log.model';
 
@@ -29,7 +28,7 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
   total = 0;
   filterTotal = 0;
 
-  httpLoading: Subject<boolean> = this.loaderService.loading;
+  httpLoading: Subject<boolean> = this.httpEventsService.loading;
 
   headers = [ 'Time', 'Severity', 'Event', 'Message' ];
   pluralMapping = {
@@ -39,13 +38,12 @@ export class NodeLogViewerComponent extends PolledView implements OnInit {
 
   constructor(
     protected razorApi: RazorapiService,
-    protected toastr: ToastrService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private loaderService: HttpLoadingService,
+    private httpEventsService: HttpEventsService,
     private titleService: Title,
   ) {
-    super(razorApi, toastr, route, router);
+    super(razorApi, route, router);
     this.devMode = isDevMode();
   }
 

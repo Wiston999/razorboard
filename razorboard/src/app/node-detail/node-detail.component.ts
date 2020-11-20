@@ -34,14 +34,14 @@ export class NodeDetailComponent extends PolledView implements OnInit {
 
   constructor(
     protected razorApi: RazorapiService,
-    protected toastr: ToastrService,
     protected route: ActivatedRoute,
     protected router: Router,
     private modalService: NgbModal,
     private titleService: Title,
+    private toastr: ToastrService,
     public colorTag: ColorTagService,
   ) {
-    super(razorApi, toastr, route, router);
+    super(razorApi, route, router);
     this.devMode = isDevMode();
     this.node = new Node();
     this.editNode = new Node();
@@ -82,9 +82,6 @@ export class NodeDetailComponent extends PolledView implements OnInit {
       this.razorApi.modifyNodeMetadata(this.nodeId, update as {string: any}, remove).subscribe(
         response => {
           this.toastr.success('Node metadata updated!', 'Success');
-        },
-        err => {
-          this.toastr.error(err.message, 'Unable to update node metadata');
         }
       );
     }

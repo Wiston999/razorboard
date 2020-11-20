@@ -99,6 +99,14 @@ export class RazorapiService {
     return this.refreshEnabled;
   }
 
+  setRefreshEnabled(value: boolean): boolean {
+    this.refreshEnabled = value;
+    if (this.refreshEnabled) {
+      this.refreshAsync$.next(undefined);
+    }
+    return this.setSetting('refreshEnabled', value.toString());
+  }
+
   private request(collection: string): Observable<ApiResponse> {
     const requestUrl = `${this.endpoint}/api/collections/${collection}?depth=1`;
     let headers = new HttpHeaders();

@@ -11,8 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Brokers view
 - Added click filter on tasks base column
 - Added policy information to node list and node detail view ([#11](i11)).
+- Pause / Resume auto refresh button on top bar
+- Check HTTP errors and open settings modal if so [#7](i7)
 
 ### Changed
+- Moved settings modal to its own component
+- Added http-error interceptor that will manage toastr and console.err messages
+- Renamed http-loading service to http-events service and added HTTP status notification mechanism to other components
 
 ### Fixed
 - Fixed a bug that was preventing settings to be fully updated
@@ -74,6 +79,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 <!-- External links -->
+
+[i7] https://github.com/Wiston999/razorboard/issues/7
+
 [i9] https://github.com/Wiston999/razorboard/issues/9
 
 [i10] https://github.com/Wiston999/razorboard/issues/10

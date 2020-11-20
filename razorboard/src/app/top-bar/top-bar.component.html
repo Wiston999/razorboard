@@ -15,80 +15,23 @@
   <div *ngIf="httpLoading | async" class="spinner-border text-info mx-2" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-  <button id="settings-btn" class="btn btn-outline-info my-2 my-sm-0" (click)="open(content)">
+  <button
+    id="pause-refresh-btn"
+    class="btn btn-outline-danger mx-2 my-2 my-sm-0"
+    ngbTooltip="Pause automatic refresh"
+    *ngIf="razorapiService.getRefreshEnabled()"
+    (click)="switchRefresh(razorapiService.getRefreshEnabled())">
+    <fa-icon [icon]="faPause"></fa-icon>
+  </button>
+  <button
+    id="resume-refresh-btn"
+    class="btn btn-outline-success mx-2 my-2 my-sm-0"
+    ngbTooltip="Resume automatic refresh"
+    *ngIf="!razorapiService.getRefreshEnabled()"
+    (click)="switchRefresh(razorapiService.getRefreshEnabled())">
+    <fa-icon [icon]="faPlay"></fa-icon>
+  </button>
+  <button id="settings-btn" class="btn btn-outline-info my-2 my-sm-0" (click)="open()">
     <fa-icon [icon]="faCogs"></fa-icon>
   </button>
 </nav>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="settings-modal">{{ title }} Settings</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="connForm">
-      <div class="form-group row">
-        <label for="endpoint" class="col-sm-2 col-form-label">Endpoint</label>
-        <div class="col-sm-10">
-          <input
-            formControlName="endpoint"
-            class="form-control mr-sm-2"
-            placeholder="Razor API Endpoint"
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="Username" class="col-sm-2 col-form-label">Username</label>
-        <div class="col-sm-10">
-          <input
-            formControlName="username"
-            class="form-control mr-sm-2"
-            placeholder="Razor API Username"
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="password" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
-          <input
-            formControlName="password"
-            type="password"
-            class="form-control mr-sm-2"
-            placeholder="Razor API Password"
-          >
-        </div>
-      </div>
-      <div class="form-check row">
-        <div class="col-sm-6">
-          <input
-            formControlName="refreshEnabled"
-            type="checkbox"
-            class="form-check-input"
-          >
-          <label for="auto-refresh" class="form-check-label">Auto refresh?</label>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <input
-            min=5 max=120
-            formControlName="refresh"
-            class="form-control custom-range mr-sm-2"
-            type="range"
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <p *ngIf="connForm.value.refreshEnabled">Refresh every {{ connForm.value.refresh }} seconds</p>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('cancel')">Cancel</button>
-    <button type="button" ngbAutofocus class="btn btn-outline-light btn-sm" (click)="modal.close('save')">Save</button>
-  </div>
-</ng-template>
