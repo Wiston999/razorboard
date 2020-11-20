@@ -1,0 +1,8 @@
+<th scope="row">
+  <span [ngClass]="['badge badge-pill mx-1', colorTag.getClass(data.name)]">
+    {{ data.name }}
+  </span>
+</th>
+<td>{{ data.nodes.count }}</td>
+<td>{{ data.policies.count }}</td>
+<td [innerHTML]="data.rule | json | rainbowBrackets"></td>

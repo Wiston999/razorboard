@@ -1,0 +1,8 @@
+<th scope="row">{{ data.name }}</th>
+<td><a target="_blank" href="{{ data.url || data.iso_url }}">{{ data.url || data.iso_url }}</a></td>
+<td>
+  <a *ngIf="data.task; else noTask" [routerLink]="['/tasks']" [queryParams]="{search: data.task.name}">
+    {{ data.task.name || '--' }}
+  </a>
+  <ng-template #noTask>--</ng-template>
+</td>
