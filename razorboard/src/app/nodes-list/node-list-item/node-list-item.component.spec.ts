@@ -9,12 +9,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-import { RazorapiServiceStub } from '../../testing/razorapi.service.stub';
-import { nodeList } from '../../testing/apiresponse.model.mock';
+import { RazorapiServiceStub } from '../../../testing/razorapi.service.stub';
+import { nodeList } from '../../../testing/apiresponse.model.mock';
 
-import { RazorapiService } from '../razorapi.service';
-import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
-import { MacAddrPipe } from '../mac-addr.pipe';
+import { RazorapiService } from '../../razorapi.service';
+import { NodeReinstallModalComponent } from '../../node-reinstall-modal/node-reinstall-modal.component';
+import { MacAddrPipe } from '../../mac-addr.pipe';
 import { NodeListItemComponent } from './node-list-item.component';
 
 class DummyComponent {

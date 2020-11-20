@@ -1,6 +1,6 @@
 import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { brokerList } from '../../testing/apiresponse.model.mock';
+import { brokerList } from '../../../testing/apiresponse.model.mock';
 
 import { BrokerListItemComponent } from './broker-list-item.component';
 
@@ -19,7 +19,7 @@ describe('BrokerListItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BrokerListItemComponent);
     component = fixture.componentInstance;
-    component.broker = {...broker}; // Deep copy?
+    component.data = {...broker}; // Deep copy?
     fixture.detectChanges();
   });
 
@@ -38,7 +38,7 @@ describe('BrokerListItemComponent', () => {
   });
 
   it('should show broker null type', fakeAsync(() => {
-    component.broker.broker_type = null;
+    component.data.broker_type = null;
     fixture.detectChanges();
     tick();
     const content = fixture.nativeElement.querySelector('td:nth-of-type(1)');
