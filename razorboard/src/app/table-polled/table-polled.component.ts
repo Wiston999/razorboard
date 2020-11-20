@@ -13,14 +13,11 @@ export interface RowComponent {
   filter: EventEmitter<string>;
 }
 
-@Component({
-  selector: 'app-table-polled',
-  templateUrl: './table-polled.component.html',
-  styleUrls: ['./table-polled.component.css']
-})
+@Component({})
 export abstract class TablePolledComponent extends PolledViewComponent implements OnInit, AfterViewInit {
 
   private responseItems = [];
+  private rowViews = [];
   protected abstract rowComponent: Type<any>;
   @ViewChildren(TableRowDirective) rowHosts: QueryList<TableRowDirective>;
   protected abstract name: string;
@@ -46,31 +43,21 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
   }
 
   ngAfterViewInit() {
-    console.log('after view init');
-    this.rowHosts.changes.subscribe( views => {
-      console.log('Rows changed', views);
-      views.forEach((rowHost, i) => {
-        const componentFactory = this.cfResolver.resolveComponentFactory(this.rowComponent);
-        const viewContainerRef = rowHost.viewContainerRef;
-        viewContainerRef.clear();
-        const componentRef = viewContainerRef.createComponent(componentFactory);
-        componentRef.instance.data = this.items[i];
-        viewContainerRef.changeDetectorRef.detectChanges();
-        console.log('Generated', componentRef, 'from', this.items[i]);
-        // (<RowComponent> componentRef.instance).data = adItem.data;
-      });
+    this.rowHosts.changes.subscribe(views => {
+      this.rowViews = views;
+      this.loadRowViews(views);
     });
   }
 
-  compareItems(a, b): number {
-    return a[this.sortField] > b[this.sortField] ? 1 : -1;
+  compareItems(a: any, b: any, field: string, reverse: boolean): number {
+    return (a[field] > b[field] ? 1 : -1) * (reverse ? -1 : 1);
   }
 
   generateItemsList() {
     this.items = this.responseItems.filter(
       item => !this.filter || this.filterItem(item, this.filter)
     ).sort(
-      (a, b) => this.compareItems(a, b)
+      (a, b) => this.compareItems(a, b, this.sortField, this.sortReverse)
     ).slice(
       (this.page - 1) * this.pageSize, this.page * this.pageSize
     );
@@ -93,6 +80,10 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
       this.sortField = field;
       this.sortReverse = false;
     }
+    this.generateItemsList();
+    // Force rows render, as the number of them hasn't changed, and so the subscription
+    // to changes is not triggered
+    this.loadRowViews(this.rowViews);
   }
 
   processData(response: ApiResponse) {
@@ -105,17 +96,30 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
     this.filter = filter;
     this.generateItemsList();
     this.setTitle();
+    this.setUrlSearch(filter);
   }
 
-  loadRowComponents() {
-    this.rowHosts.forEach((rowHost, i) => {
+  itemIdentity(item) {
+    return item.id;
+  }
+
+  private loadRowViews(views) {
+    console.log('Rendering', this.items.length, 'on', views.length, 'containers');
+    views.forEach((rowHost, i) => {
       const componentFactory = this.cfResolver.resolveComponentFactory(this.rowComponent);
       const viewContainerRef = rowHost.viewContainerRef;
+
       viewContainerRef.clear();
+
       const componentRef = viewContainerRef.createComponent(componentFactory);
+
       componentRef.instance.data = this.items[i];
-      console.log('Generated', componentRef, 'from', this.items[i]);
-      // (<RowComponent> componentRef.instance).data = adItem.data;
+      componentRef.instance.filter.subscribe(($event) => this.filterItems($event));
+
+      // Hacky way to make rowHost directive look like a table row
+      viewContainerRef.element.nativeElement.nextSibling.style.display = 'contents';
+
+      componentRef.changeDetectorRef.detectChanges();
     });
   }
 }

@@ -1,10 +1,13 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, ViewContainerRef, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[appTableRow]'
 })
 export class TableRowDirective {
 
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  constructor(
+    public viewContainerRef: ViewContainerRef,
+  ) {
+  }
 
 }

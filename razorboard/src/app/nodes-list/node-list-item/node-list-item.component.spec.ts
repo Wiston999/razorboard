@@ -74,7 +74,7 @@ describe('NodeListItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NodeListItemComponent);
     component = fixture.componentInstance;
-    component.node = JSON.parse(JSON.stringify(nodeObj)); // Deep copy
+    component.data = JSON.parse(JSON.stringify(nodeObj)); // Deep copy
     ngbModal = TestBed.get(NgbModal);
     fixture.detectChanges();
   });
@@ -101,14 +101,14 @@ describe('NodeListItemComponent', () => {
   });
 
   it('should show null hostname column', fakeAsync(() => {
-    delete component.node.facts.hostname;
+    delete component.data.facts.hostname;
     fixture.detectChanges();
     tick();
 
     let content = fixture.nativeElement.querySelector('td:nth-of-type(2)');
     expect(content.textContent.trim()).toBe('--');
 
-    delete component.node.facts;
+    delete component.data.facts;
     fixture.detectChanges();
     tick();
 
@@ -139,7 +139,7 @@ describe('NodeListItemComponent', () => {
   });
 
   it('should show null facts column', fakeAsync(() => {
-    component.node.facts = {};
+    component.data.facts = {};
     fixture.detectChanges();
     tick();
     const content = fixture.nativeElement.querySelector('td:nth-of-type(4)');
@@ -154,7 +154,7 @@ describe('NodeListItemComponent', () => {
   });
 
   it('should show null metadata column', fakeAsync(() => {
-    component.node.metadata = {};
+    component.data.metadata = {};
     fixture.detectChanges();
     tick();
     const content = fixture.nativeElement.querySelector('td:nth-of-type(5)');
@@ -173,7 +173,7 @@ describe('NodeListItemComponent', () => {
   }));
 
   it('should show null policy column', fakeAsync(() => {
-    component.node.state.installed = false;
+    component.data.state.installed = false;
     fixture.detectChanges();
     tick();
     const content = fixture.nativeElement.querySelector('td:nth-of-type(6)');
@@ -212,7 +212,7 @@ describe('NodeListItemComponent', () => {
 
   it('should disable reinstall button', fakeAsync(() => {
     spyOn(component, 'openReinstallModal');
-    component.node.state.installed = false;
+    component.data.state.installed = false;
     tick();
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('td:nth-of-type(8) > div > button');

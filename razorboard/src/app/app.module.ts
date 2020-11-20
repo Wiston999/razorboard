@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { NodeDetailComponent } from './node-detail/node-detail.component';
 // import { ListViewComponent } from './list-view/list-view.component';
-import { NodeListItemComponent } from './nodes-list/node-list-item.component';
+import { NodeListItemComponent } from './nodes-list/node-list-item/node-list-item.component';
 import { MacAddrPipe } from './mac-addr.pipe';
 import { HookListItemComponent } from './hook-list-item/hook-list-item.component';
 import { TagListItemComponent } from './tag-list-item/tag-list-item.component';
@@ -36,12 +36,13 @@ import { NodeLogViewerComponent } from './node-log-viewer/node-log-viewer.compon
 import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinstall-modal.component';
 import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
-import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
 import { BrokersFilterPipe } from './list-view/brokers-filter.pipe';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { TablePolledComponent } from './table-polled/table-polled.component';
 import { NodesListComponent } from './nodes-list/nodes-list.component';
 import { TableRowDirective } from './table-polled/table-row.directive';
+import { BrokersListComponent } from './brokers-list/brokers-list.component';
+import { BrokerListItemComponent } from './brokers-list/broker-list-item/broker-list-item.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { TableRowDirective } from './table-polled/table-row.directive';
     SettingsModalComponent,
     NodesListComponent,
     TableRowDirective,
+    BrokersListComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,7 @@ import { TableRowDirective } from './table-polled/table-row.directive';
       // { path: 'tags', component: ListViewComponent, data: { kind: 'tags'}},
       // { path: 'policies', component: ListViewComponent, data: { kind: 'policies'}},
       // { path: 'tasks', component: ListViewComponent, data: { kind: 'tasks'}},
-      // { path: 'brokers', component: ListViewComponent, data: { kind: 'brokers'}},
+      { path: 'brokers', component: BrokersListComponent},
       // { path: 'hooks', component: ListViewComponent, data: { kind: 'hooks'}},
       // { path: 'configuration', component: ListViewComponent, data: { kind: 'configuration'}},
     ]),
@@ -108,6 +110,7 @@ import { TableRowDirective } from './table-polled/table-row.directive';
   bootstrap: [AppComponent],
   entryComponents: [
     NodeListItemComponent,
+    BrokerListItemComponent,
     NodeReinstallModalComponent,
     SettingsModalComponent
   ],

@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ColorTagService } from '../color-tag.service';
-import { RazorapiService } from '../razorapi.service';
 import { ToastrService } from 'ngx-toastr';
-import { NodeReinstallModalComponent } from '../node-reinstall-modal/node-reinstall-modal.component';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ApiResponse } from '../models/apiresponse.model';
-import { RowComponent } from '../table-polled/table-polled.component';
+import { ColorTagService } from '../../color-tag.service';
+import { RazorapiService } from '../../razorapi.service';
+import { NodeReinstallModalComponent } from '../../node-reinstall-modal/node-reinstall-modal.component';
+import { ApiResponse } from '../../models/apiresponse.model';
+import { RowComponent } from '../../table-polled/table-polled.component';
 
 import { faFileAlt, faRedoAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 

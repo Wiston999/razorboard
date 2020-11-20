@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Component, ComponentFactoryResolver } from '@angular/core';
+import { OnInit, OnDestroy, Component, ComponentFactoryResolver, isDevMode } from '@angular/core';
 import { EMPTY, BehaviorSubject, Subject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { Params, Router, ActivatedRoute } from '@angular/router';
@@ -14,6 +14,8 @@ export abstract class PolledViewComponent implements OnInit, OnDestroy {
 
   private readonly refresh$ = new BehaviorSubject(undefined);
   httpLoading: Subject<boolean> = this.httpEventsService.loading;
+
+  devMode = isDevMode();
 
   constructor(
     protected razorApi: RazorapiService,

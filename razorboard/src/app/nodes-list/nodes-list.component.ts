@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { RazorapiService } from '../razorapi.service';
-
 import { Node } from '../models/node.model';
 
 import { TablePolledComponent } from '../table-polled/table-polled.component';
-import { NodeListItemComponent } from './node-list-item.component';
+import { NodeListItemComponent } from './node-list-item/node-list-item.component';
 
+@Component({
+  selector: 'app-nodes-list',
+  templateUrl: '../table-polled/table-polled.component.html',
+  styleUrls: [
+    '../table-polled/table-polled.component.css',
+    './nodes-list.component.css',
+  ]
+})
 export class NodesListComponent extends TablePolledComponent implements OnInit {
 
   name = 'nodes';
   rowComponent = NodeListItemComponent;
+  sortField = 'name';
   tableHeaders =  [
     { label: 'Name', name: 'name', sort: true },
     { label: 'MAC', name: 'dhcp_mac', sort: true },
@@ -32,15 +37,35 @@ export class NodesListComponent extends TablePolledComponent implements OnInit {
 
   getData = () => this.razorApi.getNodes();
 
-  compareItems(a: Node, b: Node): number {
-    const expr = /node(\d+)/;
-    const node1Number = a.name.match(/node(\d+)/);
-    const node2Number = b.name.match(/node(\d+)/);
-    return +node1Number[1] > +node2Number[1] ? 1 : -1;
+  compareItems(node1: Node, node2: Node, field: string, reverse: boolean): number {
+    if (field !== 'name') {
+      return super.compareItems(node1 as any, node2 as any, field, reverse);
+    } else {
+      const expr = /node(\d+)/;
+      const node1Number = node1.name.match(/node(\d+)/);
+      const node2Number = node2.name.match(/node(\d+)/);
+      return (+node1Number[1] > +node2Number[1] ? 1 : -1) * (reverse ? -1 : 1);
+    }
   }
 
-  filterItem(item: any, filter: string): boolean {
-
-    return true;
+  filterItem(node: any, filter: string): boolean {
+    if (node.name.includes(filter)) {
+      return true;
+    }
+    if (node.dhcp_mac.includes(filter) || node.dhcp_mac.replace(/-/g, ':').includes(filter)) {
+      return true;
+    }
+    if (node.facts.hostname && node.facts.hostname.includes(filter)) {
+      return true;
+    }
+    if (node.policy && node.policy.name.includes(filter)) {
+      return true;
+    }
+    for (const tag of node.tags) {
+      if (tag.name.includes(filter)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

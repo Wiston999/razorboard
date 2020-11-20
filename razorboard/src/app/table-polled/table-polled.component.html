@@ -26,9 +26,7 @@
         </th>
       </thead>
       <tbody class="text-monospace">
-        <tr appTableRow
-          *ngFor="let item of items"
-          (filter)="filterItems($event)">
+        <tr *ngFor="let item of items; trackBy: itemIdentity">
           <ng-template appTableRow></ng-template>
         </tr>
       </tbody>
