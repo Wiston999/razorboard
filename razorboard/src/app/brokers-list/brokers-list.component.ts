@@ -58,7 +58,7 @@ export class BrokersListComponent extends TablePolledComponent implements OnInit
     if (broker.name.toLowerCase().includes(filter.toLowerCase())) {
       return true;
     }
-    if (broker.type && broker.type.includes(filter)) {
+    if (broker.type && broker.type.toLowerCase().includes(filter.toLowerCase())) {
       return true;
     }
     for (const confKey of Object.keys(broker.configuration)) {

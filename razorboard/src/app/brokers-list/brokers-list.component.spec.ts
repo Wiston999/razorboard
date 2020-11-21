@@ -71,21 +71,26 @@ describe('BrokersListComponent', () => {
   });
 
   it('should not filter', () => {
-    expect(component.filterItem({name: 'test'}, 'notest')).toBeFalsy();
+    expect(component.filterItem({name: 'test', type: 'test', configuration: {}}, 'notest')).toBeFalsy();
   });
 
   it('should filter by name', () => {
-    expect(component.filterItem({name: 'test'}, 'test')).toBeTruthy();
-    expect(component.filterItem({name: 'test'}, 'TEST')).toBeTruthy();
-    expect(component.filterItem({name: 'TEST'}, 'TEST')).toBeTruthy();
-    expect(component.filterItem({name: 'test'}, 'Test')).toBeTruthy();
+    expect(component.filterItem({name: 'test', type: 'aaaa', configuration: {}}, 'test')).toBeTruthy();
+    expect(component.filterItem({name: 'test', type: 'aaaa', configuration: {}}, 'TEST')).toBeTruthy();
+    expect(component.filterItem({name: 'TEST', type: 'aaaa', configuration: {}}, 'TEST')).toBeTruthy();
+    expect(component.filterItem({name: 'test', type: 'aaaa', configuration: {}}, 'Test')).toBeTruthy();
   });
 
   it('should filter by type', () => {
-    expect(component.filterItem({type: 'test'}, 'test')).toBeTruthy();
-    expect(component.filterItem({type: 'test'}, 'TEST')).toBeTruthy();
-    expect(component.filterItem({type: 'TEST'}, 'TEST')).toBeTruthy();
-    expect(component.filterItem({type: 'test'}, 'Test')).toBeTruthy();
+    expect(component.filterItem({name: 'aaaa', type: 'test', configuration: {}}, 'test')).toBeTruthy();
+    expect(component.filterItem({name: 'aaaa', type: 'test', configuration: {}}, 'TEST')).toBeTruthy();
+    expect(component.filterItem({name: 'aaaa', type: 'TEST', configuration: {}}, 'TEST')).toBeTruthy();
+    expect(component.filterItem({name: 'aaaa', type: 'test', configuration: {}}, 'Test')).toBeTruthy();
+  });
+
+  it('should filter by configuration item', () => {
+    expect(component.filterItem({name: 'aaaa', type: 'aaa', configuration: {test: 'aaa'}}, 'test')).toBeTruthy();
+    expect(component.filterItem({name: 'aaaa', type: 'aaa', configuration: {aaa: 'test'}}, 'test')).toBeTruthy();
   });
 
 });
