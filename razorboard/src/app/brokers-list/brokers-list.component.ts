@@ -19,24 +19,24 @@ import { HttpEventsService } from '../http-events.service';
 })
 export class BrokersListComponent extends TablePolledComponent implements OnInit {
 
-  // constructor(
-  //   public razorApi: RazorapiService,
-  //   public route: ActivatedRoute,
-  //   public router: Router,
-  //   public title: Title,
-  //   public cfResolver: ComponentFactoryResolver,
-  //   public httpEventsService: HttpEventsService,
-  // ) {
-  //   super(
-  //     razorApi,
-  //     route,
-  //     router,
-  //     title,
-  //     cfResolver,
-  //     httpEventsService,
-  //   );
-  // }
-  //
+  constructor(
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public httpEventsService: HttpEventsService,
+    public cfResolver: ComponentFactoryResolver,
+  ) {
+    super(
+      razorApi,
+      route,
+      router,
+      title,
+      httpEventsService,
+      cfResolver,
+    );
+  }
+
   name = 'brokers';
   rowComponent = BrokerListItemComponent;
   sortField = 'name';

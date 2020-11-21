@@ -15,11 +15,6 @@ export interface RowComponent {
   filter: EventEmitter<string>;
 }
 
-@Component({
-  selector: 'app-table-polled',
-  templateUrl: './table-polled.component.html',
-  styleUrls: ['./table-polled.component.css'],
-})
 export abstract class TablePolledComponent extends PolledViewComponent implements OnInit, AfterViewInit {
 
   private responseItems = [];
@@ -42,27 +37,25 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
 
   abstract filterItem(item: any, filter: string): boolean;
 
-  // constructor(
-  //   public razorApi: RazorapiService,
-  //   public route: ActivatedRoute,
-  //   public router: Router,
-  //   public title: Title,
-  //   public cfResolver: ComponentFactoryResolver,
-  //   public httpEventsService: HttpEventsService,
-  // ) {
-  //   super(
-  //     razorApi,
-  //     route,
-  //     router,
-  //     title,
-  //     cfResolver,
-  //     httpEventsService,
-  //   );
-  // }
-  //
+  constructor(
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public httpEventsService: HttpEventsService,
+    public cfResolver: ComponentFactoryResolver,
+  ) {
+    super(
+      razorApi,
+      route,
+      router,
+      title,
+      httpEventsService,
+    );
+  }
+
   ngOnInit() {
     super.ngOnInit();
-    console.log('table-polled', this.route);
     this.filter = this.route.snapshot.queryParams.search;
     this.setTitle();
   }

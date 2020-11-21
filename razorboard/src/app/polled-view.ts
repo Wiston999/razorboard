@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Component, ComponentFactoryResolver, isDevMode } from '@angular/core';
+import { OnInit, OnDestroy, Directive, Component, isDevMode } from '@angular/core';
 import { EMPTY, BehaviorSubject, Subject, timer, interval, merge } from 'rxjs';
 import { catchError, startWith, switchMap } from 'rxjs/operators';
 import { Params, Router, ActivatedRoute } from '@angular/router';
@@ -8,10 +8,6 @@ import { ApiResponse } from './models/apiresponse.model';
 import { RazorapiService } from './razorapi.service';
 import { HttpEventsService } from './http-events.service';
 
-@Component({
-  selector: 'app-polled-view',
-  template: '',
-})
 export abstract class PolledViewComponent implements OnInit, OnDestroy {
   private itemsSubscription;
 
@@ -24,7 +20,6 @@ export abstract class PolledViewComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public title: Title,
-    public cfResolver: ComponentFactoryResolver,
     public httpEventsService: HttpEventsService,
   ) {
   }

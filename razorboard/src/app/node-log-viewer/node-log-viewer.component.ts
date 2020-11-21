@@ -1,78 +1,82 @@
-import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 
-import { PolledViewComponent } from '../polled-view';
+import { TablePolledComponent } from '../table-polled/table-polled.component';
+import { NodeLogEntryComponent } from './node-log-entry/node-log-entry.component';
+
+import { ComponentFactoryResolver } from '@angular/core';
 import { RazorapiService } from '../razorapi.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { HttpEventsService } from '../http-events.service';
 
 import { NodeLog } from '../models/node-log.model';
 
 @Component({
   selector: 'app-node-log-viewer',
-  templateUrl: './node-log-viewer.component.html',
-  styleUrls: ['./node-log-viewer.component.css']
+  templateUrl: '../table-polled/table-polled.component.html',
+  styleUrls: [
+    '../table-polled/table-polled.component.css',
+    './node-log-viewer.component.css',
+  ]
 })
-export class NodeLogViewerComponent extends PolledViewComponent implements OnInit {
-  private responseItems: any[];
-  private titlePrefix = 'Node Logs';
+export class NodeLogViewerComponent extends TablePolledComponent implements OnInit {
+
+  constructor(
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public httpEventsService: HttpEventsService,
+    public cfResolver: ComponentFactoryResolver,
+  ) {
+    super(
+      razorApi,
+      route,
+      router,
+      title,
+      httpEventsService,
+      cfResolver,
+    );
+  }
+
   nodeId: string;
-  entries: NodeLog[];
-  devMode = false;
+  name = 'nodes';
+  rowComponent = NodeLogEntryComponent;
   sortReverse = true;
-  sortField = 'timestamp';
-  filter = '';
-  total = 0;
-  filterTotal = 0;
-
-  httpLoading: Subject<boolean> = this.httpEventsService.loading;
-
-  headers = [ 'Time', 'Severity', 'Event', 'Message' ];
-  pluralMapping = {
-    '=1': '1 entry',
-    other: '# entries',
-  };
+  sortField = 'time';
+  pluralMapping: {};
+  tableHeaders =  [
+    { label: 'Time', name: 'time', sort: true },
+    { label: 'Severity', name: 'severity', sort: false },
+    { label: 'Event', name: 'event', sort: false },
+    { label: 'Message', name: 'message', sort: false },
+  ];
 
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
-    this.filter = this.route.snapshot.queryParams.search;
-    this.setTitle();
-
+    this.pluralMapping = {
+      '=1': `1 log entry for node ${this.nodeId}`,
+      other: `# log entries for node ${this.nodeId}`,
+    };
     super.ngOnInit();
-  }
-
-  setTitle() {
-    const title = [this.titlePrefix, this.nodeId];
-    if (this.filter) {
-      title.push(`Search: ${this.filter}`);
-    }
-    this.title.setTitle(title.join(' - '));
   }
 
   getData() {
     if (!this.nodeId) {
       throw new Error('Node ID is undefined');
     }
-
     return this.razorApi.getNodeLogs(this.nodeId);
   }
 
-  processData(response) {
-    this.total = response.items.length;
-    this.responseItems = response.items;
-    this.generateItemList();
-  }
-
-  generateItemList() {
-    this.entries = this.responseItems.filter(
-      item => !this.filter || this.filterItem(item, this.filter)
-    );
-    this.filterTotal = this.entries.length;
-    this.setUrlSearch(this.filter);
-    this.setTitle();
+  setTitle() {
+    const title = ['Node Logs', this.nodeId];
+    if (this.filter) {
+      title.push(`Search: ${this.filter}`);
+    }
+    this.title.setTitle(title.join(' - '));
   }
 
   filterItem(item, filter: string): boolean {

@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { TablePolledComponent } from '../table-polled/table-polled.component';
 import { TagListItemComponent } from './tag-list-item/tag-list-item.component';
 
+import { ComponentFactoryResolver } from '@angular/core';
+import { RazorapiService } from '../razorapi.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpEventsService } from '../http-events.service';
+
 @Component({
   selector: 'app-tags-list',
   templateUrl: '../table-polled/table-polled.component.html',
@@ -12,6 +18,24 @@ import { TagListItemComponent } from './tag-list-item/tag-list-item.component';
   ]
 })
 export class TagsListComponent extends TablePolledComponent implements OnInit {
+
+  constructor(
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public httpEventsService: HttpEventsService,
+    public cfResolver: ComponentFactoryResolver,
+  ) {
+    super(
+      razorApi,
+      route,
+      router,
+      title,
+      httpEventsService,
+      cfResolver,
+    );
+  }
 
   name = 'tags';
   rowComponent = TagListItemComponent;

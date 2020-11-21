@@ -41,6 +41,7 @@ import { HooksListComponent } from './hooks-list/hooks-list.component';
 import { HookListItemComponent } from './hooks-list/hook-list-item/hook-list-item.component';
 import { ConfigurationListComponent } from './configuration-list/configuration-list.component';
 import { ConfigurationListItemComponent } from './configuration-list/configuration-list-item/configuration-list-item.component';
+import { NodeLogEntryComponent } from './node-log-viewer/node-log-entry/node-log-entry.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ConfigurationListItemComponent } from './configuration-list/configurati
     HookListItemComponent,
     ConfigurationListComponent,
     ConfigurationListItemComponent,
+    NodeLogEntryComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +114,7 @@ import { ConfigurationListItemComponent } from './configuration-list/configurati
     TaskListItemComponent,
     PolicyListItemComponent,
     NodeReinstallModalComponent,
+    NodeLogEntryComponent,
     ConfigurationListItemComponent,
     SettingsModalComponent
   ],

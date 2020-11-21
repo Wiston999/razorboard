@@ -44,7 +44,6 @@ describe('BrokersListComponent', () => {
       ],
       providers: [
         BrokersListComponent,
-        PolledViewComponent,
         RazorapiService,
         { provide: HttpEventsService, useValue: httpEventsStub },
         { provide: ActivatedRoute, useValue: routeStub },

@@ -90,37 +90,15 @@ describe('NodeLogViewerComponent', () => {
     expect(content.length).toBe(nodeLogs.length);
   });
 
-  it('should render timestamp column', () => {
-    const content = fixture.nativeElement.querySelectorAll('tr > td:nth-of-type(1)');
-    content.forEach((v, i) => {
-      expect(v.textContent.trim()).toBe(date.transform(nodeLogs[i].timestamp, 'yyyy-MM-dd HH:mm:ss'));
-    });
-  });
-
-  it('should render severity column', () => {
-    const content = fixture.nativeElement.querySelectorAll('tr > td:nth-of-type(2)');
-    content.forEach((v, i) => {
-      expect(v.textContent.trim()).toBe(nodeLogs[i].severity.toUpperCase());
-    });
-  });
-
   it('should render default generate items', () => {
-    spyOn(component, 'setUrlSearch');
-    spyOn(component, 'setTitle');
-    component.generateItemList();
+    component.generateItemsList();
     expect(component.filterTotal).toEqual(nodeLogs.length);
-    expect(component.setUrlSearch).toHaveBeenCalled();
-    expect(component.setTitle).toHaveBeenCalled();
   });
 
   it('should render filtered items', () => {
     component.filter = 'error';
-    spyOn(component, 'setUrlSearch');
-    spyOn(component, 'setTitle');
-    component.generateItemList();
+    component.generateItemsList();
     expect(component.filterTotal).toEqual(1);
-    expect(component.setUrlSearch).toHaveBeenCalled();
-    expect(component.setTitle).toHaveBeenCalled();
   });
 
   it('should not filter', () => {

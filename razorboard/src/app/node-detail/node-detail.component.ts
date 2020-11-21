@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
@@ -38,14 +38,13 @@ export class NodeDetailComponent extends PolledViewComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public title: Title,
-    public cfResolver: ComponentFactoryResolver,
     public httpEventsService: HttpEventsService,
     private modalService: NgbModal,
     private titleService: Title,
     private toastr: ToastrService,
     public colorTag: ColorTagService,
   ) {
-    super(razorApi, route, router, titleService, cfResolver, httpEventsService);
+    super(razorApi, route, router, titleService, httpEventsService);
     this.devMode = isDevMode();
     this.node = new Node();
     this.editNode = new Node();

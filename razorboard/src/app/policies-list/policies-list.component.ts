@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { TablePolledComponent } from '../table-polled/table-polled.component';
 import { PolicyListItemComponent } from './policy-list-item/policy-list-item.component';
 
+import { ComponentFactoryResolver } from '@angular/core';
+import { RazorapiService } from '../razorapi.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpEventsService } from '../http-events.service';
+
 @Component({
   selector: 'app-policies-list',
   templateUrl: '../table-polled/table-polled.component.html',
@@ -12,6 +18,24 @@ import { PolicyListItemComponent } from './policy-list-item/policy-list-item.com
   ]
 })
 export class PoliciesListComponent extends TablePolledComponent implements OnInit {
+
+  constructor(
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public httpEventsService: HttpEventsService,
+    public cfResolver: ComponentFactoryResolver,
+  ) {
+    super(
+      razorApi,
+      route,
+      router,
+      title,
+      httpEventsService,
+      cfResolver,
+    );
+  }
 
   name = 'policies';
   rowComponent = PolicyListItemComponent;

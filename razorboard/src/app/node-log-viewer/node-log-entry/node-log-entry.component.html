@@ -1,0 +1,45 @@
+<span style="display: contents" [ngClass]="{'text-danger': data.severity == 'error'}">
+  <td class="time-header">{{ data.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+  <td>{{ data.severity | uppercase }}</td>
+  <td>{{ data.event }}</td>
+  <td>
+    <div class="row">
+      <div class="col-md-12">
+        {{ data.msg }}
+      </div>
+      <div *ngIf="data.stage" class="col-md-12">
+        Stage: {{ data.stage }}
+      </div>
+      <div *ngIf="data.action" class="col-md-12">
+        Action: {{ data.action }}
+      </div>
+      <div *ngIf="data.error" class="col-md-12">
+        Error: {{ data.error }}
+      </div>
+      <div *ngIf="data.installed" class="col-md-12">
+        Installed: {{ data.installed }}
+      </div>
+      <div *ngIf="data.repo" class="col-md-12">
+        Repo: {{ data.repo }}
+      </div>
+      <div *ngIf="data.script" class="col-md-12">
+        Script: {{ data.script }}
+      </div>
+      <div *ngIf="data.task" class="col-md-12">
+        Task: {{ data.task }}
+      </div>
+      <div *ngIf="data.template" class="col-md-12">
+        Template: {{ data.template }}
+      </div>
+      <div *ngIf="data.url" class="col-md-12">
+        URL: {{ data.url }}
+      </div>
+      <div *ngIf="data.policy || data.policyName" class="col-md-12">
+        Policy: {{ data.policy || data.policyName }}
+      </div>
+      <div *ngIf="data.vars" class="col-md-12">
+        Vars: <pre>{{ data.vars | json }}</pre>
+      </div>
+    </div>
+  </td>
+</span>
