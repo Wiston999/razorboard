@@ -122,7 +122,6 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
   }
 
   private loadRowViews(views) {
-    console.log('Rendering', this.items.length, 'on', views.length, 'containers');
     views.forEach((rowHost, i) => {
       const componentFactory = this.cfResolver.resolveComponentFactory(this.rowComponent);
       const viewContainerRef = rowHost.viewContainerRef;

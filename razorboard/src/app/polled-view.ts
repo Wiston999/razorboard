@@ -28,9 +28,6 @@ export abstract class PolledViewComponent implements OnInit, OnDestroy {
   abstract processData(response);
 
   ngOnInit() {
-    console.log('polled-view', this.route);
-    console.log('polled-view', this.router);
-    console.log('polled-view', this.httpEventsService);
     this.httpLoading = this.httpEventsService.loading;
     this.itemsSubscription = merge(
       this.razorApi.reload$,

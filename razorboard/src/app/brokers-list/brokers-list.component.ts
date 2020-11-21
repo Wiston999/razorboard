@@ -55,7 +55,7 @@ export class BrokersListComponent extends TablePolledComponent implements OnInit
   getData = () => this.razorApi.getBrokers();
 
   filterItem(broker: any, filter: string): boolean {
-    if (broker.name.includes(filter)) {
+    if (broker.name.toLowerCase().includes(filter.toLowerCase())) {
       return true;
     }
     if (broker.type && broker.type.includes(filter)) {
