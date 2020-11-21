@@ -62,31 +62,34 @@ export class NodesListComponent extends TablePolledComponent implements OnInit {
   getData = () => this.razorApi.getNodes();
 
   compareItems(node1: Node, node2: Node, field: string, reverse: boolean): number {
-    if (field !== 'name') {
-      return super.compareItems(node1 as any, node2 as any, field, reverse);
-    } else {
+    if (field === 'name') {
       const expr = /node(\d+)/;
       const node1Number = node1.name.match(/node(\d+)/);
       const node2Number = node2.name.match(/node(\d+)/);
       return (+node1Number[1] > +node2Number[1] ? 1 : -1) * (reverse ? -1 : 1);
+    } else if (field === 'facts.hostname' && node1.facts && node1.facts.hostname && node2.facts && node2.facts.hostname) {
+      return (node1.facts.hostname > node2.facts.hostname ? 1 : -1) * (reverse ? -1 : 1);
+    } else {
+      return super.compareItems(node1 as any, node2 as any, field, reverse);
     }
   }
 
   filterItem(node: any, filter: string): boolean {
-    if (node.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (node.name.toLowerCase().includes(filter)) {
       return true;
     }
     if (node.dhcp_mac.includes(filter) || node.dhcp_mac.replace(/-/g, ':').includes(filter)) {
       return true;
     }
-    if (node.facts.hostname && node.facts.hostname.includes(filter)) {
+    if (node.facts.hostname && node.facts.hostname.toLowerCase().includes(filter)) {
       return true;
     }
-    if (node.policy && node.policy.name.includes(filter)) {
+    if (node.policy && node.policy.name.toLowerCase().includes(filter)) {
       return true;
     }
     for (const tag of node.tags) {
-      if (tag.name.includes(filter)) {
+      if (tag.name.toLowerCase().includes(filter)) {
         return true;
       }
     }

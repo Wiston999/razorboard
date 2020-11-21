@@ -54,16 +54,17 @@ export class ReposListComponent extends TablePolledComponent implements OnInit {
   getData = () => this.razorApi.getRepos();
 
   filterItem(repo: any, filter: string): boolean {
-    if (repo.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (repo.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (repo.url && repo.url.includes(filter)) {
+    if (repo.url && repo.url.toLowerCase().includes(filter)) {
       return true;
     }
-    if (repo.iso_url && repo.iso_url.includes(filter)) {
+    if (repo.iso_url && repo.iso_url.toLowerCase().includes(filter)) {
       return true;
     }
-    if (repo.task && repo.task.name.includes(filter)) {
+    if (repo.task && repo.task.name.toLowerCase().includes(filter)) {
       return true;
     }
     return false;

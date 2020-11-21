@@ -55,10 +55,11 @@ export class TagsListComponent extends TablePolledComponent implements OnInit {
   getData = () => this.razorApi.getTags();
 
   filterItem(tag: any, filter: string): boolean {
-    if (tag.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (tag.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (JSON.stringify(tag.rule).includes(filter)) {
+    if (JSON.stringify(tag.rule).toLowerCase().includes(filter)) {
       return true;
     }
     return false;

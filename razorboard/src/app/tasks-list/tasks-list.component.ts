@@ -56,13 +56,14 @@ export class TasksListComponent extends TablePolledComponent implements OnInit {
   getData = () => this.razorApi.getTasks();
 
   filterItem(task: any, filter: string): boolean {
-    if (task.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (task.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (task.base && task.base.name.includes(filter)) {
+    if (task.base && task.base.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (task.description.includes(filter)) {
+    if (task.description.toLowerCase().includes(filter)) {
       return true;
     }
     return false;

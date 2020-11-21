@@ -54,10 +54,11 @@ export class HooksListComponent extends TablePolledComponent implements OnInit {
   getData = () => this.razorApi.getHooks();
 
   filterItem(hook: any, filter: string): boolean {
-    if (hook.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (hook.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (hook.hook_type && hook.hook_type.includes(filter)) {
+    if (hook.hook_type && hook.hook_type.toLowerCase().includes(filter)) {
       return true;
     }
     return false;

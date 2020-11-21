@@ -53,7 +53,8 @@ export class ConfigurationListComponent extends TablePolledComponent implements 
   getData = () => this.razorApi.getConfiguration();
 
   filterItem(config: any, filter: string): boolean {
-    if (config.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (config.name.toLowerCase().includes(filter)) {
       return true;
     }
     return false;

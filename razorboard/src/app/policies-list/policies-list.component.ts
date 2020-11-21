@@ -58,20 +58,21 @@ export class PoliciesListComponent extends TablePolledComponent implements OnIni
   getData = () => this.razorApi.getPolicies();
 
   filterItem(policy: any, filter: string): boolean {
-    if (policy.name.includes(filter)) {
+    filter = filter.toLowerCase();
+    if (policy.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (policy.repo && policy.repo.name.includes(filter)) {
+    if (policy.repo && policy.repo.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (policy.broker && policy.broker.name.includes(filter)) {
+    if (policy.broker && policy.broker.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (policy.task && policy.task.name.includes(filter)) {
+    if (policy.task && policy.task.name.toLowerCase().includes(filter)) {
       return true;
     }
     for (const tag of policy.tags) {
-      if (tag.name.includes(filter)) {
+      if (tag.name.toLowerCase().includes(filter)) {
         return true;
       }
     }

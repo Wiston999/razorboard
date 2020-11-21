@@ -19,13 +19,13 @@ export class Node {
   hw_info: HWInfo;
   state: { string: string };
   metadata: { string: string };
-  facts: { string: any };
+  facts: any;
 
   constructor() {
     this.tags = [];
     this.state = {} as { string: string };
     this.metadata = {} as { string: string };
-    this.facts = {} as { string: any };
+    this.facts = {};
     this.hw_info = new HWInfo();
     this.hw_info.mac = [];
   }
