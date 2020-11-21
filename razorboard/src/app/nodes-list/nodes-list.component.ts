@@ -85,6 +85,9 @@ export class NodesListComponent extends TablePolledComponent implements OnInit {
     if (node.facts.hostname && node.facts.hostname.toLowerCase().includes(filter)) {
       return true;
     }
+    if (node.state && node.state.installed && node.state.installed.toLowerCase().includes(filter)) {
+      return true;
+    }
     if (node.policy && node.policy.name.toLowerCase().includes(filter)) {
       return true;
     }

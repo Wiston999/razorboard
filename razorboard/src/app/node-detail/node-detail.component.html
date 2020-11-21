@@ -41,6 +41,15 @@
     </div>
     <div class="row">
       <div class="col-md-3">
+        <strong>Policy</strong>
+      </div>
+      <div class="col-md-9">
+        {{ node.policy ? node.policy.name : "no-policy" }}
+      </div>
+      <div class="col-md-12"><hr class="bg-light"/></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
         <strong>State</strong>
         <button
           id="reinstall-btn"

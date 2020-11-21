@@ -40,6 +40,7 @@ describe('NodesListComponent', () => {
       dhcp_mac: 'aa-aa-aa-aa-aa',
       facts: {hostname: 'aaaa'},
       policy: {name: 'aaaa'},
+      state: {installed: 'aaaa'},
       tags: [{name: 'aaaa'}],
     };
 
@@ -103,6 +104,15 @@ describe('NodesListComponent', () => {
     expect(component.filterItem(baseNode, 'test')).toBeTruthy();
     expect(component.filterItem(baseNode, 'TEST')).toBeTruthy();
     baseNode.policy.name = 'TEST';
+    expect(component.filterItem(baseNode, 'TEST')).toBeTruthy();
+    expect(component.filterItem(baseNode, 'Test')).toBeTruthy();
+  });
+
+  it('should filter by state.installed', () => {
+    baseNode.state.installed = 'test';
+    expect(component.filterItem(baseNode, 'test')).toBeTruthy();
+    expect(component.filterItem(baseNode, 'TEST')).toBeTruthy();
+    baseNode.state.installed = 'TEST';
     expect(component.filterItem(baseNode, 'TEST')).toBeTruthy();
     expect(component.filterItem(baseNode, 'Test')).toBeTruthy();
   });

@@ -3,7 +3,7 @@
 > Visualize and manage resources in a [Razor server](https://github.com/puppetlabs/razor-server)
 
 ![CI](https://github.com/Wiston999/razorboard/workflows/CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/Wiston999/razorboard/badge.svg)](https://coveralls.io/github/Wiston999/razorboard)
+[![Coverage Status](https://coveralls.io/repos/github/Wiston999/razorboard/badge.svg?branch=main)](https://coveralls.io/github/Wiston999/razorboard?branch=main)
 
 ## Why this project?
 

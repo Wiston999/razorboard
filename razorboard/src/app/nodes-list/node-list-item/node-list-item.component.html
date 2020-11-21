@@ -21,13 +21,25 @@
 <td>{{ (data.facts | keyvalue)?.length || 0 }}</td>
 <td>{{ (data.metadata | keyvalue)?.length || 0 }}</td>
 <td>
-  <code
-    class="cursor-pointer"
-    (click)="onFilter(data.state.installed)"
-    *ngIf="data.state.installed; else noPolicy">
-    {{ data.state.installed }}
-  </code>
-  <ng-template #noPolicy><p class="text-monospace">no-policy</p></ng-template>
+  <div>
+    Policy:
+    <code
+      class="cursor-pointer"
+      (click)="onFilter(data.policy.name)"
+      *ngIf="data.policy; else noPolicy">
+      {{ data.policy.name }}
+    </code>
+  </div>
+  <div>
+    Installed:
+    <code
+      class="cursor-pointer"
+      (click)="onFilter(data.state.installed)"
+      *ngIf="data.state.installed; else noPolicy">
+      {{ data.state.installed}}
+    </code>
+  </div>
+  <ng-template #noPolicy><span>no-policy</span></ng-template>
 </td>
 <td>{{ data.last_checkin | date: 'y-MM-dd hh:mm:ss' }}</td>
 <td>
