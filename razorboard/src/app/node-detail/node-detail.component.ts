@@ -34,12 +34,12 @@ export class NodeDetailComponent extends PolledViewComponent implements OnInit {
   filterFacts = '';
 
   constructor(
-    protected razorApi: RazorapiService,
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected title: Title,
-    protected cfResolver: ComponentFactoryResolver,
-    protected httpEventsService: HttpEventsService,
+    public razorApi: RazorapiService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public title: Title,
+    public cfResolver: ComponentFactoryResolver,
+    public httpEventsService: HttpEventsService,
     private modalService: NgbModal,
     private titleService: Title,
     private toastr: ToastrService,

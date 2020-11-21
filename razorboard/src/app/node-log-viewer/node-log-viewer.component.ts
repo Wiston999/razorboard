@@ -36,19 +36,6 @@ export class NodeLogViewerComponent extends PolledViewComponent implements OnIni
     other: '# entries',
   };
 
-  constructor(
-    protected razorApi: RazorapiService,
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected title: Title,
-    protected cfResolver: ComponentFactoryResolver,
-    protected httpEventsService: HttpEventsService,
-    private titleService: Title,
-  ) {
-    super(razorApi, route, router, titleService, cfResolver, httpEventsService);
-    this.devMode = isDevMode();
-  }
-
   ngOnInit() {
     this.nodeId = this.route.snapshot.paramMap.get('id');
     this.filter = this.route.snapshot.queryParams.search;
@@ -62,7 +49,7 @@ export class NodeLogViewerComponent extends PolledViewComponent implements OnIni
     if (this.filter) {
       title.push(`Search: ${this.filter}`);
     }
-    this.titleService.setTitle(title.join(' - '));
+    this.title.setTitle(title.join(' - '));
   }
 
   getData() {

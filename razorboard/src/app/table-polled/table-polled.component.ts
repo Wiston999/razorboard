@@ -1,10 +1,12 @@
 import { Component, OnInit, Type, AfterViewInit, ViewChildren, QueryList, EventEmitter } from '@angular/core';
 
+import { ComponentFactoryResolver } from '@angular/core';
+import { RazorapiService } from '../razorapi.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpEventsService } from '../http-events.service';
 
 import { TableRowDirective } from './table-row.directive';
-import { RazorapiService } from '../razorapi.service';
 import { PolledViewComponent } from '../polled-view';
 import { ApiResponse } from '../models/apiresponse.model';
 
@@ -13,7 +15,11 @@ export interface RowComponent {
   filter: EventEmitter<string>;
 }
 
-@Component({})
+@Component({
+  selector: 'app-table-polled',
+  templateUrl: './table-polled.component.html',
+  styleUrls: ['./table-polled.component.css'],
+})
 export abstract class TablePolledComponent extends PolledViewComponent implements OnInit, AfterViewInit {
 
   private responseItems = [];
@@ -36,10 +42,29 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
 
   abstract filterItem(item: any, filter: string): boolean;
 
+  // constructor(
+  //   public razorApi: RazorapiService,
+  //   public route: ActivatedRoute,
+  //   public router: Router,
+  //   public title: Title,
+  //   public cfResolver: ComponentFactoryResolver,
+  //   public httpEventsService: HttpEventsService,
+  // ) {
+  //   super(
+  //     razorApi,
+  //     route,
+  //     router,
+  //     title,
+  //     cfResolver,
+  //     httpEventsService,
+  //   );
+  // }
+  //
   ngOnInit() {
+    super.ngOnInit();
+    console.log('table-polled', this.route);
     this.filter = this.route.snapshot.queryParams.search;
     this.setTitle();
-    super.ngOnInit();
   }
 
   ngAfterViewInit() {

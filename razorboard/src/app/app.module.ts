@@ -22,6 +22,7 @@ import { NodeReinstallModalComponent } from './node-reinstall-modal/node-reinsta
 import { RainbowBracketsPipe } from './rainbow-brackets.pipe';
 import { FactsFilterPipe } from './node-detail/facts-filter.pipe';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
+import { PolledViewComponent } from './polled-view';
 import { TablePolledComponent } from './table-polled/table-polled.component';
 import { TableRowDirective } from './table-polled/table-row.directive';
 import { NodesListComponent } from './nodes-list/nodes-list.component';
@@ -48,25 +49,25 @@ import { ConfigurationListItemComponent } from './configuration-list/configurati
     NodeDetailComponent,
     NodeListItemComponent,
     MacAddrPipe,
-    HookListItemComponent,
-    TagListItemComponent,
-    TaskListItemComponent,
-    RepoListItemComponent,
     NodeLogViewerComponent,
     NodeReinstallModalComponent,
     RainbowBracketsPipe,
     FactsFilterPipe,
-    BrokerListItemComponent,
     SettingsModalComponent,
     NodesListComponent,
     TableRowDirective,
     BrokersListComponent,
+    BrokerListItemComponent,
     ReposListComponent,
+    RepoListItemComponent,
     TagsListComponent,
+    TagListItemComponent,
     PoliciesListComponent,
     PolicyListItemComponent,
     TasksListComponent,
+    TaskListItemComponent,
     HooksListComponent,
+    HookListItemComponent,
     ConfigurationListComponent,
     ConfigurationListItemComponent,
   ],

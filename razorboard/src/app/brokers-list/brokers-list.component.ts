@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { TablePolledComponent } from '../table-polled/table-polled.component';
 import { BrokerListItemComponent } from './broker-list-item/broker-list-item.component';
 
+import { ComponentFactoryResolver } from '@angular/core';
+import { RazorapiService } from '../razorapi.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpEventsService } from '../http-events.service';
+
 @Component({
   selector: 'app-brokers-list',
   templateUrl: '../table-polled/table-polled.component.html',
@@ -13,6 +19,24 @@ import { BrokerListItemComponent } from './broker-list-item/broker-list-item.com
 })
 export class BrokersListComponent extends TablePolledComponent implements OnInit {
 
+  // constructor(
+  //   public razorApi: RazorapiService,
+  //   public route: ActivatedRoute,
+  //   public router: Router,
+  //   public title: Title,
+  //   public cfResolver: ComponentFactoryResolver,
+  //   public httpEventsService: HttpEventsService,
+  // ) {
+  //   super(
+  //     razorApi,
+  //     route,
+  //     router,
+  //     title,
+  //     cfResolver,
+  //     httpEventsService,
+  //   );
+  // }
+  //
   name = 'brokers';
   rowComponent = BrokerListItemComponent;
   sortField = 'name';
