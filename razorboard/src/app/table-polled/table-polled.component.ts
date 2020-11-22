@@ -20,10 +20,12 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
   private responseItems = [];
   private rowViews = [];
   protected abstract rowComponent: Type<any>;
-  @ViewChildren(TableRowDirective) rowHosts: QueryList<TableRowDirective>;
   protected abstract name: string;
+
+  @ViewChildren(TableRowDirective) rowHosts: QueryList<TableRowDirective>;
+
   page = 1;
-  pageSize = 10000;
+  pageSize = 10;
   filter: string;
   sortField: string;
   sortReverse: boolean;
@@ -76,10 +78,11 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
       item => !this.filter || this.filterItem(item, this.filter)
     ).sort(
       (a, b) => this.compareItems(a, b, this.sortField, this.sortReverse)
-    ).slice(
-      (this.page - 1) * this.pageSize, this.page * this.pageSize
     );
     this.filterTotal = this.items.length;
+    this.items = this.items.slice(
+      (this.page - 1) * this.pageSize, this.page * this.pageSize
+    );
   }
 
   setTitle() {
@@ -98,45 +101,48 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
       this.sortField = field;
       this.sortReverse = false;
     }
+    this.page = 1;
     this.generateItemsList();
-    // Force rows render, as the number of them hasn't changed, and so the subscription
-    // to changes is not triggered
-    this.loadRowViews(this.rowViews);
   }
 
   processData(response: ApiResponse) {
     this.total = response.total || response.items.length;
     this.responseItems = response.items;
     this.generateItemsList();
+    this.loadRowViews(this.rowViews);
   }
 
   filterItems(filter: string) {
     this.filter = filter;
+    this.page = 1;
     this.generateItemsList();
     this.setTitle();
     this.setUrlSearch(filter);
   }
 
-  itemIdentity(item) {
-    return item.id;
+  updatePage(newPage) {
+    this.page = newPage;
+    this.generateItemsList();
   }
 
   private loadRowViews(views) {
-    views.forEach((rowHost, i) => {
-      const componentFactory = this.cfResolver.resolveComponentFactory(this.rowComponent);
-      const viewContainerRef = rowHost.viewContainerRef;
+    if (views.length === this.items.length) {
+      views.forEach((rowHost, i) => {
+        const componentFactory = this.cfResolver.resolveComponentFactory(this.rowComponent);
+        const viewContainerRef = rowHost.viewContainerRef;
 
-      viewContainerRef.clear();
+        viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(componentFactory);
+        const componentRef = viewContainerRef.createComponent(componentFactory);
 
-      componentRef.instance.data = this.items[i];
-      componentRef.instance.filter.subscribe(($event) => this.filterItems($event));
+        componentRef.instance.data = this.items[i];
+        componentRef.instance.filter.subscribe(($event) => this.filterItems($event));
 
-      // Hacky way to make rowHost directive look like a table row
-      viewContainerRef.element.nativeElement.nextSibling.style.display = 'contents';
+        // Hacky way to make rowHost directive look like a table row
+        viewContainerRef.element.nativeElement.nextSibling.style.display = 'contents';
 
-      componentRef.changeDetectorRef.detectChanges();
-    });
+        componentRef.changeDetectorRef.detectChanges();
+      });
+    }
   }
 }
