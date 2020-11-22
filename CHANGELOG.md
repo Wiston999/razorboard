@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Pagination (page number and size). Manage URL query params so views are easily shareable ([#6](i6)).
 
 ### Changed
 - Almost all filters are now case insensitive
@@ -88,6 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 <!-- External links -->
+
+[i6] https://github.com/Wiston999/razorboard/issues/6
 
 [i7] https://github.com/Wiston999/razorboard/issues/7
 
