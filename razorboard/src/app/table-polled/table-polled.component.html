@@ -33,15 +33,31 @@
     </table>
   </div>
 </div>
-<div *ngIf="filterTotal > pageSize" class="row">
-  <div class="col-md-12">
+<div class="row">
+  <div class="col-md-11">
     <ngb-pagination
     class="d-flex justify-content-end"
     [(page)]="page"
     [pageSize]="pageSize"
-    (pageChange)="updatePage($event)"
+    (pageChange)="generateItemsList()"
     [maxSize]="7" [rotate]="true" [boundaryLinks]="true"
     [collectionSize]="filterTotal"></ngb-pagination>
+  </div>
+  <div class="col-md-1">
+    <div class="row form-group">
+      <div class="col-md-4">
+        <label>Page size</label>
+      </div>
+      <div class="col-md-8">
+        <select
+          (change)="generateItemsList()"
+          [(ngModel)]="pageSize"
+          class="form-control form-control-sm"
+          name="page-size">
+          <option [value]="item" *ngFor="let item of pageSizes">{{item}}</option>
+        </select>
+      </div>
+    </div>
   </div>
 </div>
 <pre *ngIf="devMode">{{ items|json }}</pre>

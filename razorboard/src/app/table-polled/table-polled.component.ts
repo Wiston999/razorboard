@@ -26,6 +26,7 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
 
   page = 1;
   pageSize = 10;
+  pageSizes = [10, 25, 50, 100];
   filter: string;
   sortField: string;
   sortReverse: boolean;
@@ -118,11 +119,6 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
     this.generateItemsList();
     this.setTitle();
     this.setUrlSearch(filter);
-  }
-
-  updatePage(newPage) {
-    this.page = newPage;
-    this.generateItemsList();
   }
 
   private loadRowViews(views) {
