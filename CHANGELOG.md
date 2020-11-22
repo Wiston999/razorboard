@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+- Almost all filters are now case insensitive
+- Refactored all list views, now they all inherit from a common class
 
 ### Fixed
 
