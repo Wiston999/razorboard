@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ComponentFactoryResolver } from '@angular/core';
 import { RazorapiService } from '../razorapi.service';
@@ -35,6 +36,7 @@ describe('ConfigurationListComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
+        NgbModule,
       ],
       providers: [
         ConfigurationListComponent,

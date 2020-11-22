@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { RazorapiServiceStub } from '../../testing/razorapi.service.stub';
@@ -41,6 +42,7 @@ describe('NodeLogViewerComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
+        NgbModule,
       ],
       providers: [
         NodeLogViewerComponent,
