@@ -1,5 +1,4 @@
 <th scope="row">{{ data.name }}</th>
-a
 <td class="text-monospace">
   <a *ngIf="data.repo.name; else noNameElement" [routerLink]="['/repos']" [queryParams]="{search: data.repo.name}">
     {{ data.repo.name }}
