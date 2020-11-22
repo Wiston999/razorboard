@@ -24,8 +24,8 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
 
   @ViewChildren(TableRowDirective) rowHosts: QueryList<TableRowDirective>;
 
-  page = 1;
-  pageSize = 10;
+  page: number;
+  pageSize: number;
   pageSizes = [10, 25, 50, 100];
   filter: string;
   sortField: string;
@@ -60,6 +60,8 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
   ngOnInit() {
     super.ngOnInit();
     this.filter = this.route.snapshot.queryParams.search;
+    this.page = parseInt(this.route.snapshot.queryParams.page || '1', 10);
+    this.pageSize = parseInt(this.route.snapshot.queryParams.pagesize || '10', 10);
     this.setTitle();
   }
 
@@ -113,12 +115,22 @@ export abstract class TablePolledComponent extends PolledViewComponent implement
     this.loadRowViews(this.rowViews);
   }
 
+  updatePageSize() {
+    this.setUrlParam('pagesize', this.pageSize.toString());
+    this.generateItemsList();
+  }
+
+  updatePage() {
+    this.setUrlParam('page', this.page.toString());
+    this.generateItemsList();
+  }
+
   filterItems(filter: string) {
     this.filter = filter;
     this.page = 1;
     this.generateItemsList();
     this.setTitle();
-    this.setUrlSearch(filter);
+    this.setUrlParam('search', filter);
   }
 
   private loadRowViews(views) {

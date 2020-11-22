@@ -39,7 +39,7 @@
     class="d-flex justify-content-end"
     [(page)]="page"
     [pageSize]="pageSize"
-    (pageChange)="generateItemsList()"
+    (pageChange)="updatePage()"
     [maxSize]="7" [rotate]="true" [boundaryLinks]="true"
     [collectionSize]="filterTotal"></ngb-pagination>
   </div>
@@ -50,7 +50,7 @@
       </div>
       <div class="col-md-8">
         <select
-          (change)="generateItemsList()"
+          (change)="updatePageSize()"
           [(ngModel)]="pageSize"
           class="form-control form-control-sm"
           name="page-size">

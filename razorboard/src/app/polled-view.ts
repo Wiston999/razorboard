@@ -54,8 +54,9 @@ export abstract class PolledViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  setUrlSearch(search: string) {
-    const queryParams: Params = { search };
+  setUrlParam(name: string, value: string) {
+    const queryParams: Params = {};
+    queryParams[name] = value;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
