@@ -87,11 +87,6 @@ describe('NodeLogViewerComponent', () => {
     expect(title).toBe(`Node Logs - ${nodeObj.name} - Search: ${component.filter}`);
   }));
 
-  it('should render table rows', () => {
-    const content = fixture.nativeElement.querySelectorAll('tr');
-    expect(content.length).toBe(nodeLogs.length);
-  });
-
   it('should render default generate items', () => {
     component.generateItemsList();
     expect(component.filterTotal).toEqual(nodeLogs.length);
