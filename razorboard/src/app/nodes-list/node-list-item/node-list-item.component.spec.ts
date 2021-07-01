@@ -32,7 +32,7 @@ export class MockNgbModalOFFRef {
   componentInstance = {
     nodeId: undefined,
   };
-  result: Promise<any> = new Promise((resolve, reject) => resolve('off'));
+  result: Promise<any> = new Promise((resolve, reject) => resolve(false));
 }
 
 describe('NodeListItemComponent', () => {
@@ -221,16 +221,6 @@ describe('NodeListItemComponent', () => {
     buttons[0].click();
     tick();
     expect(component.openReinstallModal).toHaveBeenCalled();
-  }));
-
-  it('should disable reinstall button', fakeAsync(() => {
-    spyOn(component, 'openReinstallModal');
-    component.data.state.installed = false;
-    tick();
-    fixture.detectChanges();
-    const button = fixture.nativeElement.querySelector('td:nth-of-type(8) > div > button');
-
-    expect(button.disabled).toBeTruthy();
   }));
 
   it('should emit onFilter value', () => {

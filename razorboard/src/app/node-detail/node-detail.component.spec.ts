@@ -34,7 +34,7 @@ export class MockNgbModalOFFRef {
   componentInstance = {
     nodeId: undefined,
   };
-  result: Promise<any> = new Promise((resolve, reject) => resolve('off'));
+  result: Promise<any> = new Promise((resolve, reject) => resolve(false));
 }
 
 describe('NodeDetailComponent', () => {
@@ -230,18 +230,6 @@ describe('NodeDetailComponent', () => {
     component.filterFactsChanged();
     expect(component.showEmpty).toBeTruthy();
   });
-
-  it('should disable reinstall button', fakeAsync(() => {
-    spyOn(component, 'openReinstallModal');
-    const otherNodeObj = JSON.parse(JSON.stringify(nodeObj));
-    otherNodeObj.state.installed = false;
-    component.node = otherNodeObj;
-    tick();
-    fixture.detectChanges();
-    const button = fixture.nativeElement.querySelector('#reinstall-btn');
-
-    expect(button.disabled).toBeTruthy();
-  }));
 
   it('should reinstall node keepPolicy', fakeAsync(() => {
     spyOn(ngbModal, 'open').and.returnValue(mockModalOnRef as any);
