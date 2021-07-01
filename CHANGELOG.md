@@ -6,13 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.6.0] - 2021-07-01
+### Added
 - Pagination (page number and size). Manage URL query params so views are easily shareable ([#6](i6)).
 
 ### Changed
 - Almost all filters are now case insensitive
 - Refactored all list views, now they all inherit from a common class
+- Reinstall node button always enabled
 
 ### Fixed
+- Honor keep policy checkbox on reinstall node modal
 
 ## [0.5.0] - 2020-11-20
 ### Added
