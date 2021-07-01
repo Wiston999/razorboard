@@ -50,7 +50,7 @@
     <a class="btn btn-sm btn-outline-light" [routerLink]="[data.name, 'log']" ngbTooltip="Node logs">
       <fa-icon [icon]="faFileAlt"></fa-icon>
     </a>
-    <button class="btn btn-sm btn-outline-danger" (click)="openReinstallModal()" [disabled]="!data.state.installed" ngbTooltip="Reinstall Node">
+    <button class="btn btn-sm btn-outline-danger" (click)="openReinstallModal()" ngbTooltip="Reinstall Node">
       <fa-icon [icon]="faRedoAlt"></fa-icon>
     </button>
   </div>

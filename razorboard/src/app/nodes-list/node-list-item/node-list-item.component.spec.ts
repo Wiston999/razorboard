@@ -25,7 +25,7 @@ export class MockNgbModalONRef {
   componentInstance = {
     nodeId: undefined,
   };
-  result: Promise<any> = new Promise((resolve, reject) => resolve('on'));
+  result: Promise<any> = new Promise((resolve, reject) => resolve(true));
 }
 
 export class MockNgbModalOFFRef {

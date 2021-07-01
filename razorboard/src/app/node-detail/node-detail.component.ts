@@ -113,7 +113,7 @@ export class NodeDetailComponent extends PolledViewComponent implements OnInit {
     const modalRef = this.modalService.open(NodeReinstallModalComponent);
     modalRef.componentInstance.nodeId = this.node.name;
     modalRef.result.then((result) => {
-      this.razorApi.reinstallNode(this.node.name, result === 'on').subscribe(
+      this.razorApi.reinstallNode(this.node.name, result).subscribe(
         response => {
           this.toastr.success('Node will be reinstalled!', 'Success');
         },

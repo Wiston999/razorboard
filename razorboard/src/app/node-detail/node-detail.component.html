@@ -54,7 +54,6 @@
         <button
           id="reinstall-btn"
           class="btn btn-sm btn-block btn-outline-danger mt-3"
-          [disabled]="!node.state['installed']"
           (click)="openReinstallModal()"
           ngbTooltip="Edit node metadata">
           Reinstall node

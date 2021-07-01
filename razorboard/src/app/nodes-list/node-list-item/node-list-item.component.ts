@@ -38,7 +38,7 @@ export class NodeListItemComponent implements OnInit, RowComponent {
     const modalRef = this.modalService.open(NodeReinstallModalComponent);
     modalRef.componentInstance.nodeId = this.data.name;
     modalRef.result.then((result) => {
-      this.razorapiService.reinstallNode(this.data.name, result === 'on').subscribe(
+      this.razorapiService.reinstallNode(this.data.name, result).subscribe(
         response => {
           this.toastr.success('Node will be reinstalled!', 'Success');
         }
